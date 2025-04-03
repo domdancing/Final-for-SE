@@ -9,21 +9,23 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class GoogleDistanceAPI {
-    private static final String API_KEY = "YOUR_GOOGLE_API_KEY"; // Replace with your actual key
+public class OpenRouteServiceAPI {
+    private static final String API_KEY = "YOUR_API_KEY"; // Replace with your OpenRouteService API Key
 
     public static void main(String[] args) {
-        String origin = "New York,NY";
-        String destination = "Los Angeles,CA";
+        String origin = "40.712776,-74.005974"; // New York (latitude,longitude)
+        String destination = "34.052235,-118.243683"; // Los Angeles
+
         String jsonResponse = getDistance(origin, destination);
         System.out.println(jsonResponse);
     }
 
     public static String getDistance(String origin, String destination) {
-        String urlString = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" 
-                + origin + "&destinations=" + destination + "&key=" + API_KEY;
+        String urlString = "https://api.openrouteservice.org/v2/directions/driving-car?api_key=" 
+                + API_KEY + "&start=" + origin + "&end=" + destination;
+
         try {
-            URL url = new URL(urlString.replace(" ", "%20")); // Encode spaces in URL
+            URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
 
