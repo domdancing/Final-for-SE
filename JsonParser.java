@@ -6,21 +6,20 @@ package test1;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
-public class JsonParser {
+public class ORSParser {
     public static void parseResponse(String jsonResponse) {
         JSONObject json = new JSONObject(jsonResponse);
-        JSONArray rows = json.getJSONArray("rows");
-        JSONObject elements = rows.getJSONObject(0).getJSONArray("elements").getJSONObject(0);
+        JSONObject summary = json.getJSONArray("routes").getJSONObject(0).getJSONObject("summary");
         
-        String distance = elements.getJSONObject("distance").getString("text");
-        String duration = elements.getJSONObject("duration").getString("text");
+        double distanceKm = summary.getDouble("distance") / 1000; // Convert to km
+        double durationMin = summary.getDouble("duration") / 60; // Convert to minutes
 
-        System.out.println("Distance: " + distance);
-        System.out.println("Duration: " + duration);
+        System.out.println("Distance: " + distanceKm + " km");
+        System.out.println("Duration: " + durationMin + " min");
     }
 
     public static void main(String[] args) {
-        String jsonResponse = GoogleDistanceAPI.getDistance("New York, NY", "Los Angeles, CA");
+        String jsonResponse = OpenRouteServiceAPI.getDistance("40.712776,-74.005974", "34.052235,-118.243683");
         parseResponse(jsonResponse);
     }
 }
