@@ -8,20 +8,25 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
- * JavaFX App
- */
-public class App extends Application {
+public class App   {
 
     
 
     public static void main(String[] args) {
-        launch();
-    }
+        //launch();
+        
+        // Format: longitude,latitude (NOT latitude,longitude)
+        String start = "-74.005974,40.712776";  // New York
+        String end = "-73.935242,40.730610";    // Brooklyn
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        String response = OpenRouteServiceAPI.getDistance(start, end);
+        RouteParser.parseDistanceData(response);
+    
+        
+        
+        
+        
+        
+    } 
 
 }
