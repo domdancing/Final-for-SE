@@ -21,6 +21,19 @@ public class App   {
 
         String response = OpenRouteServiceAPI.getDistance(start, end);
         RouteParser.parseDistanceData(response);
+
+
+        try (Connection conn = conncnet_to_database.getConnection()) {
+            if (conn != null && !conn.isClosed()) {
+                System.out.println("✅ Connection to the database was successful!");
+            } else {
+                System.out.println("❌ Connection failed or was closed.");
+            }
+        } catch (SQLException e) {
+            System.out.println("❌ Error connecting to the database:");
+            e.printStackTrace();
+        }
+        
     
         
         
