@@ -10,4 +10,11 @@ package com.mycompany.CodeforSefinal;
  */
 public class conncnet_to_database {
     
+    private static final String URL = "sql12.freesqldatabase.com";
+    private static final String USER = "sql12771146";
+    private static final String PASSWORD = "XDSQkgzNe9";
+
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(URL, USER, PASSWORD);
+    }
 }
