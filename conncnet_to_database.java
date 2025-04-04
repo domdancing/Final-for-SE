@@ -9,8 +9,9 @@ package com.mycompany.CodeforSefinal;
  * @author dominick valentine
  */
 public class conncnet_to_database {
-    
-    private static final String URL = "sql12.freesqldatabase.com";
+  private static final String URL = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12771146";
+            
+            
     private static final String USER = "sql12771146";
     private static final String PASSWORD = "XDSQkgzNe9";
 
