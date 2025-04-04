@@ -14,6 +14,8 @@ import java.sql.SQLException;
 public class conncnet_to_database {
     
 // hi 
+    //Hey, this is Ernie!
+
     private static final String URL = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12771146";
             
             
