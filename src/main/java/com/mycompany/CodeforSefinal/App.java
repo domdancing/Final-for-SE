@@ -36,6 +36,7 @@ public class App extends Application{
     
     public static void main(String[] args) {
        //TestErnest
+       //Fruit Salad, Yummy Yummy
         // testinghk
         // Format: longitude,latitude (NOT latitude,longitude)
         String start = "-74.005974,40.712776";  // New York
