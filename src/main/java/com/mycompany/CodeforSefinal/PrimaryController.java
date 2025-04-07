@@ -35,12 +35,19 @@ import javafx.stage.Stage;
 
 
 public class PrimaryController implements Initializable{
+    
+    @FXML private Button testButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+    
+        
        // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    @FXML
+        private void handleButtonAction() {
+                System.out.println("The button was pressed!");
+        }
 }
     
     
