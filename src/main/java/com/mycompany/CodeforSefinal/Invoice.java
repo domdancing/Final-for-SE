@@ -7,8 +7,7 @@ package com.mycompany.CodeforSefinal;
 /**
  *
  * @author tangs
- */
-import java.util.List;
+ */import java.util.List;
 
 public class Invoice {
     private String clientName;
@@ -17,6 +16,9 @@ public class Invoice {
     private double longitude;
     private double shippingPrice;
     private double totalPrice;
+
+    private static final String START_LOCATION = "-72.7945,42.1315"; // Warehouse or origin (WSU)
+    private static final double COST_PER_KM = 0.75;
 
     public Invoice(String clientName, List<Item> items, double latitude, double longitude) {
         this.clientName = clientName;
@@ -28,9 +30,15 @@ public class Invoice {
     }
 
     private double calculateShippingPrice(double lat, double lon) {
-        // Simple placeholder for shipping price calculation
-        double distance = Math.sqrt(Math.pow(lat, 2) + Math.pow(lon, 2));
-        return distance * 0.5; // Cost per unit of distance
+        String destination = lon + "," + lat;
+        try {
+            String response = OpenRouteServiceAPI.getDistance(START_LOCATION, destination);
+            double distance = RouteParser.extractDistanceInKm(response); // assuming it returns distance in km
+            return distance * COST_PER_KM;
+        } catch (Exception e) {
+            System.out.println("Error calculating shipping price: " + e.getMessage());
+            return 0;
+        }
     }
 
     private double calculateTotalPrice() {
@@ -40,8 +48,6 @@ public class Invoice {
         }
         return itemTotal + shippingPrice;
     }
-
-    // Getters (optional setters if needed)
 
     public String getClientName() {
         return clientName;

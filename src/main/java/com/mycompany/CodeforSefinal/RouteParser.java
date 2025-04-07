@@ -7,10 +7,10 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 
 public class RouteParser {
-    public static void parseDistanceData(String json) {
+    public static double extractDistanceInKm(String json) {
         if (json == null) {
             System.out.println("No response from API");
-            return;
+            return 0;
         }
 
         JSONObject obj = new JSONObject(json);
@@ -19,11 +19,11 @@ public class RouteParser {
                                    .getJSONObject("properties")
                                    .getJSONObject("summary");
 
-        double distanceKm = summary.getDouble("distance") / 1000;
+        
         double durationMin = summary.getDouble("duration") / 60;
-
-        System.out.println("Distance: " + distanceKm + " km");
-        System.out.println("Duration: " + durationMin + " minutes");
+        return summary.getDouble("distance") / 1000; // Convert meters to kilometers
+       
     }
 }
+
 
