@@ -24,6 +24,9 @@ CREATE TABLE invoice_items(
 		ON UPDATE CASCADE
 );
 
+#We'll also need to make a customers table (a one-to-many relationship)
+
+
 #N - Okay, I'll be using this space here to add some test data. 
 # ---
 
@@ -31,11 +34,13 @@ INSERT INTO items(item_name, item_price)
 VALUES
     ('Water Bottle', 15)
     ('Light Jacket', 25)
-    ('Apple', 1)
+    ('Apple', 1);
+
+INSERT INTO invoices(delivery_miles, customer_id)
+    (30, 'Abigail"s Apples')
+    (500, 'The Dirt Man')
+    (773, 'Subset Industries');
 
 
 # ---
-
-#We'll also need to make a customers table (a one-to-many relationship)
-
 
