@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS items;
 CREATE TABLE items(
 	item_id int AUTO_INCREMENT PRIMARY KEY,
     item_name varchar(100) NOT NULL,
-    item_price int NOT NULL
+    item_price double NOT NULL
 );
 
 DROP TABLE IF EXISTS invoices;
@@ -30,8 +30,11 @@ CREATE TABLE invoice_items(
 #If the invoice id hasn't been added to the hashmap yet (simply see if the hasmap entry exists yet) then add it to the array of invoice objects
 #pass in the item information as an item object and increment the invoice object's total price
 
+DROP VIEW IF EXISTS formatted_invoices;
 CREATE VIEW formatted_invoices AS
-	SELECT iv.invoice_id, iv.invoice_date, iv.customer_name, i.item_name, i.item_price, iv.delivery_miles
+	SELECT iv.invoice_id AS id, iv.invoice_date AS date, 
+		iv.customer_name AS cust_name, i.item_name AS item_name, 
+        i.item_price AS item_price, iv.delivery_miles AS miles
     FROM invoices iv JOIN invoice_items ii
 		ON iv.invoice_id = ii.invoice_id
         JOIN items i
