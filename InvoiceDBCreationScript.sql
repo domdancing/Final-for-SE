@@ -32,13 +32,14 @@ CREATE TABLE invoice_items(
 
 INSERT INTO items(item_name, item_price)
 VALUES
-    ('Water Bottle', 15)
-    ('Light Jacket', 25)
+    ('Water Bottle', 15),
+    ('Light Jacket', 25),
     ('Apple', 1);
 
 INSERT INTO invoices(delivery_miles, customer_id)
-    (30, 'Abigail"s Apples')
-    (500, 'The Dirt Man')
+VALUES
+    (30, 'Abigail"s Apples'),
+    (500, 'The Dirt Man'),
     (773, 'Subset Industries');
 
 
