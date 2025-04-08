@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS invoices;
 CREATE TABLE invoices (
 	invoice_id int AUTO_INCREMENT PRIMARY KEY,
     delivery_miles int NOT NULL,
-    customer_id int 	#Will be the foreign key for the customers table
+    customer_name varchar(100) NOT NULL
 );
 
 #Joining the invoices and items table (many to many relationship)
@@ -23,7 +23,3 @@ CREATE TABLE invoice_items(
 	FOREIGN KEY (item_id) REFERENCES items (item_id)
 		ON UPDATE CASCADE
 );
-
-#We'll also need to make a customers table (a one-to-many relationship)
-
-
