@@ -8,9 +8,12 @@ package com.mycompany.CodeforSefinal;
  *
  * @author tangs
  */import java.util.List;
+import java.time.LocalDate;
 
 public class Invoice {
     private String clientName;
+    private String invoiceNumber;
+    private LocalDate date;
     private List<Item> items;
     private double latitude;
     private double longitude;
@@ -20,7 +23,9 @@ public class Invoice {
     private static final String START_LOCATION = "-72.7945,42.1315"; // Warehouse or origin (WSU)
     private static final double COST_PER_KM = 0.75;
 
-    public Invoice(String clientName, List<Item> items, double latitude, double longitude) {
+   public Invoice(String invoiceNumber, LocalDate date, String clientName, List<Item> items, double latitude, double longitude) {
+        this.invoiceNumber = invoiceNumber;
+        this.date = date;
         this.clientName = clientName;
         this.items = items;
         this.latitude = latitude;
@@ -47,6 +52,14 @@ public class Invoice {
             itemTotal += item.getPrice();
         }
         return itemTotal + shippingPrice;
+    }
+    
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public LocalDate getDate() {
+        return date;
     }
 
     public String getClientName() {
