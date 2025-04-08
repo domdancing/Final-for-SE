@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import javafx.scene.control.Label;
+import java.time.LocalDate;
 
 /**
  * JavaFX App
@@ -49,8 +50,9 @@ public class App extends Application{
         // Example client location (Brooklyn, NY)
         double clientLat = 40.730610;
         double clientLon = -73.935242;
+        LocalDate date1 = LocalDate.of(2001, 9, 11);
         // Create invoice
-        Invoice invoice = new Invoice("Tech Co.", itemList, clientLat, clientLon);
+        Invoice invoice = new Invoice("20", date1, "Tech Co.", itemList, clientLat, clientLon);
         // Display results
         System.out.println("Client: " + invoice.getClientName());
         System.out.println("Items:");
