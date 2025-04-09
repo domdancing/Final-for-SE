@@ -45,10 +45,30 @@ public class PrimaryController implements Initializable{
        // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     @FXML
-        private void handleButtonAction() {
-                System.out.println("The button was pressed!");
-        }
+    private void GotoInvoices (javafx.event.ActionEvent event) throws IOException {
+        // Load the new scene (InvoicePage.fxml)
+        Parent invoicePage = FXMLLoader.load(getClass().getResource("InvoicePage.fxml"));
+        
+        // Get the current stage (the window where the button was clicked)
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        
+        // Set the new scene to the stage
+        Scene scene = new Scene(invoicePage);
+        currentStage.setScene(scene);
+        
+        // Show the new scene (second screen)
+        currentStage.show();
+    }
 }
+        
+        
+        
+        
+        
+        
+        
+        
+
     
     
     
