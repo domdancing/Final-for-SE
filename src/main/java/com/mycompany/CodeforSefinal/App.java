@@ -73,7 +73,7 @@ public class App extends Application{
 
       
        // testing conntion 
-    try (Connection conn = conncnet_to_database.getConnection()) {
+    try (Connection conn = ConnectToDatabase.getConnection()) {
             if (conn != null && !conn.isClosed()) {
                 System.out.println(" Connection to the database was successful!");
             } else {

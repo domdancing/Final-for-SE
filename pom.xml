@@ -67,9 +67,9 @@
                     <mainClass>com.mycompany.CodeforSefinal.App</mainClass>
                     <jvmArgs>
                         <jvmArg>--module-path</jvmArg>
-                        <jvmArg>C:\Users\tangs\Downloads\openjfx-24_windows-x64_bin-sdk\javafx-sdk-24\lib</jvmArg> 
-                        //put you file file path here
-                            
+                        <jvmArg>C:/Users/dominick valentine/Downloads/openjfx-21.0.6_windows-x64_bin-sdk/javafx-sdk-21.0.6/lib</jvmArg> 
+                       
+                       
                         <!-- Your SDK path -->
                         <jvmArg>--add-modules</jvmArg>
                         <jvmArg>javafx.controls,javafx.fxml,javafx.media,javafx.web</jvmArg>
