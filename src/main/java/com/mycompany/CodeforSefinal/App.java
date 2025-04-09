@@ -55,6 +55,7 @@ public class App extends Application{
         Invoice invoice = new Invoice("20", date1, "Tech Co.", itemList, clientLat, clientLon);
         // Display results
         System.out.println("Client: " + invoice.getClientName());
+        System.out.println("Distnace: " + invoice.getDistance()+ "km");
         System.out.println("Items:");
         for (Item item : invoice.getItems()) {
             System.out.println(" - " + item.getName() + ": $" + item.getPrice());

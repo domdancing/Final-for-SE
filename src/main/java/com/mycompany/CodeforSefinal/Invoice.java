@@ -19,31 +19,40 @@ public class Invoice {
     private double longitude;
     private double shippingPrice;
     private double totalPrice;
+    
+    // Store the distance for reuse
+    private double distance;
 
     private static final String START_LOCATION = "-72.7945,42.1315"; // Warehouse or origin (WSU)
     private static final double COST_PER_KM = 0.75;
 
-   public Invoice(String invoiceNumber, LocalDate date, String clientName, List<Item> items, double latitude, double longitude) {
+    public Invoice(String invoiceNumber, LocalDate date, String clientName, List<Item> items, double latitude, double longitude) {
         this.invoiceNumber = invoiceNumber;
         this.date = date;
         this.clientName = clientName;
         this.items = items;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.shippingPrice = calculateShippingPrice(latitude, longitude);
+        
+        // Save the distance only once
+        this.distance = calculateDistance(latitude, longitude);
+        this.shippingPrice = calculateShippingPrice();
         this.totalPrice = calculateTotalPrice();
     }
-
-    private double calculateShippingPrice(double lat, double lon) {
+ 
+    private double calculateDistance(double lat, double lon) {
         String destination = lon + "," + lat;
         try {
             String response = OpenRouteServiceAPI.getDistance(START_LOCATION, destination);
-            double distance = RouteParser.extractDistanceInKm(response); // assuming it returns distance in km
-            return distance * COST_PER_KM;
+            return RouteParser.extractDistanceInKm(response); // assuming it returns distance in km
         } catch (Exception e) {
-            System.out.println("Error calculating shipping price: " + e.getMessage());
+            System.out.println("Error calculating distance: " + e.getMessage());
             return 0;
         }
+    }
+
+    private double calculateShippingPrice() {
+        return distance * COST_PER_KM;
     }
 
     private double calculateTotalPrice() {
@@ -88,5 +97,9 @@ public class Invoice {
 
     public double getTotalPrice() {
         return totalPrice;
+    }
+
+    public double getDistance() {
+        return distance;
     }
 }
