@@ -23,6 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 
 public class InvoicePageController {
@@ -35,6 +36,8 @@ public class InvoicePageController {
     @FXML private TextField itemPriceField;
     @FXML private ListView<String> itemsListView;
     @FXML private Button returnButton;
+    @FXML
+      private DatePicker datePicker;
     
     
     private Stage stage;
@@ -88,14 +91,28 @@ public class InvoicePageController {
             showError("Please fill in all fields.");
             return;
         }
+        LocalDate selectedDate = datePicker.getValue();
+        if (selectedDate == null) {
+            showError("Please select a date.");
+            return;
+                        }
 
         try {
             double latitude = Double.parseDouble(latitudeText);
             double longitude = Double.parseDouble(longitudeText);
 
+            
+            
+            
             // Create the invoice with the added items
-            Invoice invoice = new Invoice(invoiceNumber, LocalDate.now(), clientName, items, latitude, longitude);
+            Invoice invoice = new Invoice(invoiceNumber, selectedDate, clientName, items, latitude, longitude);
 
+          // Save to the database
+    ConnectToDatabase.saveInvoice(invoice);
+
+    // ✅ Show confirmation message this will be delted later
+    showInfo("Success", "Invoice has been saved to the database.");
+            
             // Show the invoice details
             showInvoiceDetails(invoice);
 
@@ -140,6 +157,7 @@ public class InvoicePageController {
                      "Total Price: $" + formattedTotalPrice + "\n" +
                      "Shipping Price: $" + formattedShippingPrice + "\n" +
                      "Distance: " + invoice.getDistance() + " km\n\n" +
+                     "Date: " + invoice.getDate().toString() + "\n" +  // <- Added date here
                      "Items:\n" + itemsList.toString();
     
     // Show the message in a pop-up or alert

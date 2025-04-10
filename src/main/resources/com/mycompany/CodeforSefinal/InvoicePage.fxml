@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.DatePicker?>
 
 <AnchorPane prefHeight="547.0" prefWidth="505.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.InvoicePageController">
     <children>
@@ -24,6 +25,9 @@
 
             <!-- Add Item Button -->
             <Button onAction="#handleAddItem" text="Add Item" />
+            
+            <DatePicker fx:id="datePicker" promptText="Select Date" />
+        
 
             <!-- List of Added Items -->
             <Label text="Added Items:" />

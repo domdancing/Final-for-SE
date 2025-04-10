@@ -17,7 +17,7 @@
             <Font size="40.0" />
          </font>
       </Text>
-      <Button fx:id="testButton" layoutX="113.0" layoutY="225.0" mnemonicParsing="false" onAction="#GotoInvoices" prefHeight="27.0" prefWidth="136.0" text="Create New" />
+      <Button fx:id="testButton" layoutX="113.0" layoutY="225.0" mnemonicParsing="false" onAction="#GotoInvoices" prefHeight="27.0" prefWidth="136.0" text="Create New Invoice" />
       <Button fx:id="viewInvoices" layoutX="401.0" layoutY="225.0" mnemonicParsing="false" onAction="#ViewInvoices" prefHeight="27.0" prefWidth="136.0" text="View Invoices" />
    </children>
 </AnchorPane>

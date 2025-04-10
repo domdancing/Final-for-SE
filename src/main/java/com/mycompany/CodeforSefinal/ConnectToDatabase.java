@@ -27,6 +27,27 @@ public class ConnectToDatabase {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
     
+   public static void saveInvoice(Invoice invoice) {
+    try (Connection conn = getConnection()) {
+        String sql = "INSERT INTO formatted_invoices (invoice_number, invoice_id, client_name, date, distance) " +
+                     "VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        
+        // Setting the values from the invoice object
+        pstmt.setString(1, invoice.getInvoiceNumber()); // invoice_number
+        pstmt.setInt(2, Integer.parseInt(invoice.getInvoiceNumber())); // Assuming invoice_id is integer
+        pstmt.setString(3, invoice.getClientName()); // client_name
+        pstmt.setDate(4, Date.valueOf(invoice.getDate())); // date
+        pstmt.setDouble(5, invoice.getDistance()); // distance
+        
+        pstmt.executeUpdate();
+        
+        System.out.println("Saved invoice to DB.");
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
     public static ArrayList<Invoice> getAllInvoices() {
         try {
             //Make query and place the results in resulSet
