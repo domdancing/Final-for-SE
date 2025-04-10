@@ -5,6 +5,7 @@
 package com.mycompany.CodeforSefinal;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
@@ -44,7 +45,7 @@ public class InvoicePageController {
     private Scene scene;
     private Parent root;
 
-    private List<Item> items = new ArrayList<>();
+    private ArrayList<Item> items = new ArrayList<>();
 
     // This method handles adding items to the invoice
     @FXML
@@ -82,16 +83,17 @@ public class InvoicePageController {
     @FXML
     private void handleCreateInvoice() {
         String clientName = clientNameField.getText();
-        String invoiceNumber = invoiceNumberField.getText();
+        String invoiceName = invoiceNumberField.getText();
         String latitudeText = latitudeField.getText();
         String longitudeText = longitudeField.getText();
 
         // Validate input
-        if (clientName.isEmpty() || invoiceNumber.isEmpty() || latitudeText.isEmpty() || longitudeText.isEmpty()) {
+        if (clientName.isEmpty() || invoiceName.isEmpty() || latitudeText.isEmpty() || longitudeText.isEmpty()) {
             showError("Please fill in all fields.");
             return;
         }
-        LocalDate selectedDate = datePicker.getValue();
+        LocalDate localDate = datePicker.getValue();
+        Timestamp selectedDate = Timestamp.valueOf(localDate.atStartOfDay());
         if (selectedDate == null) {
             showError("Please select a date.");
             return;
@@ -105,7 +107,7 @@ public class InvoicePageController {
             
             
             // Create the invoice with the added items
-            Invoice invoice = new Invoice(invoiceNumber, selectedDate, clientName, items, latitude, longitude);
+            Invoice invoice = new Invoice(invoiceName, selectedDate, clientName, items, latitude, longitude);
 
           // Save to the database
     ConnectToDatabase.saveInvoice(invoice);
@@ -152,7 +154,7 @@ public class InvoicePageController {
     }
 
     // Create the message string with invoice details
-    String message = "Invoice Number: " + invoice.getInvoiceNumber() + "\n" +
+    String message = "Invoice Name: " + invoice.getInvoiceName() + "\n" +
                      "Client: " + invoice.getClientName() + "\n" +
                      "Total Price: $" + formattedTotalPrice + "\n" +
                      "Shipping Price: $" + formattedShippingPrice + "\n" +
@@ -162,6 +164,7 @@ public class InvoicePageController {
     
     // Show the message in a pop-up or alert
     showInfo("Invoice Created", message);
+    
 }
 
 

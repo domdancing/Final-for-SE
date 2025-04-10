@@ -4,37 +4,37 @@
  */
 package com.mycompany.CodeforSefinal;
 
+import java.sql.Timestamp;
 /**
  *
  * @author tangs
  */import java.util.List;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Invoice {
     private String clientName;
-    private String invoiceNumber;
-    private LocalDate date;
-    private List<Item> items;
+    private String invoiceName;
+    private Timestamp date; //Change local date to timestamp
+    private ArrayList<Item> items;
     private double latitude;
     private double longitude;
     private double shippingPrice;
     private double totalPrice;
-    
-    // Store the distance for reuse
     private double distance;
 
     private static final String START_LOCATION = "-72.7945,42.1315"; // Warehouse or origin (WSU)
     private static final double COST_PER_KM = 0.75;
 
-    public Invoice(String invoiceNumber, LocalDate date, String clientName, List<Item> items, double latitude, double longitude) {
-        this.invoiceNumber = invoiceNumber;
+    public Invoice(String invoiceName, Timestamp date, String clientName, ArrayList<Item> items, double latitude, double longitude) {
+        this.invoiceName = invoiceName;
         this.date = date;
         this.clientName = clientName;
         this.items = items;
         this.latitude = latitude;
         this.longitude = longitude;
         
-        // Save the distance only once
+        
         this.distance = calculateDistance(latitude, longitude);
         this.shippingPrice = calculateShippingPrice();
         this.totalPrice = calculateTotalPrice();
@@ -63,11 +63,11 @@ public class Invoice {
         return itemTotal + shippingPrice;
     }
     
-    public String getInvoiceNumber() {
-        return invoiceNumber;
+    public String getInvoiceName() {
+        return invoiceName;
     }
 
-    public LocalDate getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
@@ -75,7 +75,7 @@ public class Invoice {
         return clientName;
     }
 
-    public List<Item> getItems() {
+    public ArrayList<Item> getItems() {
         return items;
     }
     
