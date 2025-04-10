@@ -4,6 +4,7 @@
  */
 package com.mycompany.CodeforSefinal;
 
+import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
@@ -16,6 +17,13 @@ import javafx.util.Callback;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 public class InvoicePageController {
 
@@ -26,6 +34,12 @@ public class InvoicePageController {
     @FXML private TextField itemNameField;
     @FXML private TextField itemPriceField;
     @FXML private ListView<String> itemsListView;
+    @FXML private Button returnButton;
+    
+    
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
 
     private List<Item> items = new ArrayList<>();
 
@@ -39,6 +53,8 @@ public class InvoicePageController {
             showError("Please fill in both item name and item price.");
             return;
         }
+        
+    
 
         try {
             double itemPrice = Double.parseDouble(itemPriceText);
@@ -86,6 +102,18 @@ public class InvoicePageController {
         } catch (NumberFormatException e) {
             showError("Invalid latitude or longitude.");
         }
+    }
+    
+    @FXML
+    private void handleReturnToPrimary(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
+        root = loader.load();
+        PrimaryController primaryController = loader.getController();
+        
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow(); 
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show(); 
     }
 
    private void showInvoiceDetails(Invoice invoice) {

@@ -37,7 +37,13 @@ import javafx.stage.Stage;
 public class PrimaryController implements Initializable{
     
     @FXML private Button testButton;
+    @FXML private Button viewInvoices;
 
+    
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     
@@ -46,6 +52,7 @@ public class PrimaryController implements Initializable{
     }
     @FXML
     private void GotoInvoices (javafx.event.ActionEvent event) throws IOException {
+        System.out.println("Button Clicked");
         // Load the new scene (InvoicePage.fxml)
         Parent invoicePage = FXMLLoader.load(getClass().getResource("InvoicePage.fxml"));
         
@@ -55,10 +62,19 @@ public class PrimaryController implements Initializable{
         // Set the new scene to the stage
         Scene scene = new Scene(invoicePage);
         currentStage.setScene(scene);
-        
         // Show the new scene (second screen)
         currentStage.show();
     }
+    
+    @FXML
+    private void ViewInvoices (javafx.event.ActionEvent event) throws IOException {
+        Parent invoicePage = FXMLLoader.load(getClass().getResource("secondary.fxml"));
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(invoicePage);
+        currentStage.setScene(scene);
+        currentStage.show();
+    }
+    
 }
         
         
