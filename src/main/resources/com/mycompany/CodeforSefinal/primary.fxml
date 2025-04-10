@@ -5,23 +5,19 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.PrimaryController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.PrimaryController">
    <children>
-      <Text layoutX="174.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="We ship what you give us ">
+      <Text layoutX="181.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="We ship what you give us ">
          <font>
             <Font size="25.0" />
          </font>
       </Text>
-      <Text layoutX="40.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Sapphire Shipping  ">
+      <Text layoutX="40.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Sapphire Shipping  ">
          <font>
             <Font size="40.0" />
          </font>
       </Text>
-      <Button layoutX="436.0" layoutY="281.0" mnemonicParsing="false" onAction="#GotoInvoices" text="Invoices " />
-      <Text layoutX="208.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="where you like to go " wrappingWidth="233.13671875">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Text>
+      <Button fx:id="testButton" layoutX="113.0" layoutY="225.0" mnemonicParsing="false" onAction="#GotoInvoices" prefHeight="27.0" prefWidth="136.0" text="Create New" />
+      <Button fx:id="viewInvoices" layoutX="401.0" layoutY="225.0" mnemonicParsing="false" onAction="#ViewInvoices" prefHeight="27.0" prefWidth="136.0" text="View Invoices" />
    </children>
 </AnchorPane>
