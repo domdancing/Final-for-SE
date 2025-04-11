@@ -76,6 +76,8 @@ public class SecondaryController implements Initializable{
         
         //Fake back-end filler data
         ArrayList<Item> testItemArray = new ArrayList<Item>();
+        
+        // Creates a sample time test object for test data 
         Timestamp timestampTest = Timestamp.from(Instant.now());
         
         var invoice1 = new Invoice("New Tools", timestampTest, "Ryan", testItemArray, 99.9, 99.9);
