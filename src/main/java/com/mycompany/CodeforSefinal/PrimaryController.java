@@ -69,15 +69,23 @@ public class PrimaryController implements Initializable{
     
     @FXML
     private void ViewInvoices (javafx.event.ActionEvent event) throws IOException {
-        Parent invoicePage = FXMLLoader.load(getClass().getResource("secondary.fxml"));
+        System.out.println("Button Clicked");
+        
+        Parent viewInvoicePage = FXMLLoader.load(getClass().getResource("secondary.fxml"));
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(invoicePage);
+        Scene scene = new Scene(viewInvoicePage);
         currentStage.setScene(scene);
         currentStage.show();
     }
     @FXML
     private void DeleteInvoice (javafx.event.ActionEvent event) throws IOException {
         System.out.println("Button Clicked");
+        
+        Parent deleteInvoicePage = FXMLLoader.load(getClass().getResource("DeleteInvoicePage.fxml"));
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(deleteInvoicePage);
+        currentStage.setScene(scene);
+        currentStage.show();
     }
 }
         
