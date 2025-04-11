@@ -41,33 +41,6 @@ public class App extends Application{
     
     
     public static void main(String[] args) {
-        //I am just testing the Invoices View Functionality Here:
-        
-//         try {
-//            // Load the Secondary.fxml and get the controller
-//            FXMLLoader loader = new FXMLLoader(App.class.getResource("secondary.fxml"));
-//            Parent root = loader.load();
-//
-//            // Get the controller from the loader
-//            SecondaryController sc = loader.getController();
-//
-//            // Fetch data (for testing purposes)
-//            ArrayList<Invoice> testArray = ConnectToDatabase.getAllInvoices();
-//
-//            // Pass data to the controller
-//            sc.getList(testArray); // Change 'getList' to 'setInvoices'
-//
-//            // Launch a new window for testing (if you want to display this)
-//            Stage testStage = new Stage();
-//            testStage.setScene(new Scene(root));
-//            testStage.show();
-//        } catch (IOException e) {
-//            e.printStackTrace(); // Handle loading issues
-//        }
-        
-//        SecondaryController sc = new SecondaryController();
-//        ArrayList<Invoice> testArray = ConnectToDatabase.getAllInvoices();
-//        sc.getList(testArray);
         
        //TestErnest
        //Fruit Salad, Yummy Yummy

@@ -104,7 +104,7 @@ public class ConnectToDatabase {
             ArrayList<Invoice> invoiceList = new ArrayList<Invoice>();
             
             //Iterate through resultSet 
-            while (resultSet.next()) {
+            while (resultSet.next()) { 
              
                 //Get invoiceID
                 int invoiceId = resultSet.getInt("id");
