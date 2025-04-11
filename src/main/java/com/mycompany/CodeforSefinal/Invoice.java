@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Invoice {
+    private int invoiceID;
     private String clientName;
     private String invoiceName;
     private Timestamp date; //Change local date to timestamp
@@ -62,13 +63,21 @@ public class Invoice {
         }
         return itemTotal + shippingPrice;
     }
+
+    public int getInvoiceID() {
+        return invoiceID;
+    }
+
+    public void setInvoiceID(int invoiceID) {
+        this.invoiceID = invoiceID;
+    }
     
     public String getInvoiceName() {
         return invoiceName;
     }
 
     public Timestamp getDate() {
-        return date;
+        return null;
     }
 
     public String getClientName() {
