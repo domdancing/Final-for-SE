@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mycompany</groupId>
     <artifactId>CodeforSefinal</artifactId>
@@ -15,36 +15,36 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>17.0.2</version> <!-- Ensure consistent version -->
+            <version>24</version> <!-- Ensure consistent version -->
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>17.0.2</version> <!-- Ensure consistent version -->
+            <version>24</version> <!-- Ensure consistent version -->
         </dependency>
-        <dependency>
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
-    <version>8.0.33</version> <!-- Use the latest version if available -->
-</dependency>
-
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
-            <version>17</version> <!-- Ensure consistent version -->
+            <version>24</version> <!-- Ensure consistent version -->
             <type>jar</type>
         </dependency>
         <dependency>
-    <groupId>org.json</groupId>
-    <artifactId>json</artifactId>
-    <version>20210307</version> <!-- or the latest version -->
-</dependency>
-
-        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
-            <version>17</version> <!-- Ensure consistent version -->
+            <version>24</version> <!-- Ensure consistent version -->
             <type>jar</type>
+        </dependency>
+        
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version> <!-- Use the latest version if available -->
+        </dependency>
+        
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20210307</version> <!-- or the latest version -->
         </dependency>
     </dependencies>
 
@@ -67,9 +67,7 @@
                     <mainClass>com.mycompany.CodeforSefinal.App</mainClass>
                     <jvmArgs>
                         <jvmArg>--module-path</jvmArg>
-                        <jvmArg>C:/Users/dominick valentine/Downloads/openjfx-21.0.6_windows-x64_bin-sdk/javafx-sdk-21.0.6/lib</jvmArg> 
-                       
-                       
+                        <jvmArg>//Handle This Elsewhere</jvmArg> 
                         <!-- Your SDK path -->
                         <jvmArg>--add-modules</jvmArg>
                         <jvmArg>javafx.controls,javafx.fxml,javafx.media,javafx.web</jvmArg>
