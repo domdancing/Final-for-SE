@@ -77,7 +77,7 @@ public class Invoice {
     }
 
     public Timestamp getDate() {
-        return null;
+        return date;
     }
 
     public String getClientName() {
