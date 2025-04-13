@@ -1,12 +1,18 @@
 package com.mycompany.CodeforSefinal;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,165 +20,87 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-public class DeleteInvoiceController {
+public class DeleteInvoiceController implements Initializable{
 
-    @FXML
-    private TextField clientNameField;
-    @FXML
-    private TextField invoiceNumberField;
-    @FXML
-    private TextField latitudeField;
-    @FXML
-    private TextField longitudeField;
-    @FXML
-    private TextField itemNameField;
-    @FXML
-    private TextField itemPriceField;
-    @FXML
-    private ListView<String> itemsListView;
-    @FXML
-    private Button returnButton;
-    @FXML
-    private DatePicker datePicker;
+    // Implementing all JavaFX ids so that they can be utilized in the code 
+    @FXML private Button returnButton;
+    @FXML private Button deleteButton;
+    @FXML private TableView<Invoice> invoiceViewTable;
+    @FXML private TableColumn<Invoice, Integer> IDFX;
+    @FXML private TableColumn<Invoice, String> INameFX;
+    @FXML private TableColumn<Invoice, String> CNameFX;
+    @FXML private TableColumn<Invoice, Double> LatFX;
+    @FXML private TableColumn<Invoice, Double> LongFX;
+    @FXML private TableColumn<Invoice, Timestamp> DDateFX;
 
+    // Needed imports for JavaFX
     private Stage stage;
     private Scene scene;
     private Parent root;
 
-    private ArrayList<Item> items = new ArrayList<>();
-
-    // This method handles adding items to the invoice
-    @FXML
-    private void handleAddItem() {
-        String itemName = itemNameField.getText();
-        String itemPriceText = itemPriceField.getText();
-
-        if (itemName.isEmpty() || itemPriceText.isEmpty()) {
-            showError("Please fill in both item name and item price.");
-            return;
-        }
-
-        try {
-            double itemPrice = Double.parseDouble(itemPriceText);
-
-            // Create an item object and add it to the list
-            Item item = new Item(itemName, itemPrice);
-            items.add(item);
-
-            // Display the added item in the ListView
-            itemsListView.getItems().add(itemName + " - $" + itemPrice);
-
-            // Clear the item fields
-            itemNameField.clear();
-            itemPriceField.clear();
-
-        } catch (NumberFormatException e) {
-            showError("Invalid item price.");
-        }
-    }
-
-    // This method handles creating the invoice
-    @FXML
-    private void handleDeleteInvoice() {
-        String clientName = clientNameField.getText();
-        String invoiceName = invoiceNumberField.getText();
-        String latitudeText = latitudeField.getText();
-        String longitudeText = longitudeField.getText();
-
-        // Validate input
-        if (clientName.isEmpty() || invoiceName.isEmpty() || latitudeText.isEmpty() || longitudeText.isEmpty()) {
-            showError("Please fill in all fields.");
-            return;
-        }
-        LocalDate localDate = datePicker.getValue();
-        Timestamp selectedDate = Timestamp.valueOf(localDate.atStartOfDay());
-        if (selectedDate == null) {
-            showError("Please select a date.");
-            return;
-        }
-
-        try {
-            double latitude = Double.parseDouble(latitudeText);
-            double longitude = Double.parseDouble(longitudeText);
-
-            // Create the invoice with the added items
-            Invoice invoice = new Invoice(invoiceName, selectedDate, clientName, items, latitude, longitude);
-
-            // Save to the database
-            ConnectToDatabase.saveInvoice(invoice);
-
-            // ✅ Show confirmation message this will be delted later
-            showInfo("Success", "Invoice has been saved to the database.");
-
-            // Show the invoice details
-            showInvoiceDetails(invoice);
-
-        } catch (NumberFormatException e) {
-            showError("Invalid latitude or longitude.");
-        }
-    }
-
+    // FXML Connected method, uses ActionEvent to detect when the button "return" is pressed, when it is pressed it will call the method. 
     @FXML
     private void handleReturnToPrimary(ActionEvent event) throws IOException {
+
+        // Code that will load up the "primary.fxml"
         FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
         root = loader.load();
         PrimaryController primaryController = loader.getController();
 
+        // Code that loads up the "primary.fxml"
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
-    private void showInvoiceDetails(Invoice invoice) {
-        // Round prices to 2 decimal places
-        double shippingPrice = invoice.getShippingPrice();
-        double totalPrice = invoice.getTotalPrice();
+    //Creates a temporary initialization to test delete function
+    @FXML
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
 
-        // Format the shipping and total prices to 2 decimal places
-        String formattedShippingPrice = String.format("%.2f", shippingPrice);
-        String formattedTotalPrice = String.format("%.2f", totalPrice);
+        ArrayList<Item> testItemArray = new ArrayList<Item>();
 
-        // Create a string to display the list of items
-        StringBuilder itemsList = new StringBuilder();
-        for (Item item : invoice.getItems()) {
-            itemsList.append(item.getName())
-                    .append(" - $")
-                    .append(String.format("%.2f", item.getPrice()))
-                    .append("\n");
+        Timestamp timestampTest = Timestamp.from(Instant.now());
+
+        var invoice1 = new Invoice("New Tools", timestampTest, "Ryan", testItemArray, 99.9, 99.9);
+        var invoice2 = new Invoice("New Printer", timestampTest, "Ryan", testItemArray, 99.9, 99.9);
+        var invoice3 = new Invoice("New RJ-45 Ports", timestampTest, "Ryan", testItemArray, 99.9, 99.9);
+        ArrayList<Invoice> testArray = new ArrayList<Invoice>();
+        testArray.add(invoice1);
+        testArray.add(invoice2);
+        testArray.add(invoice3);
+
+        ObservableList<Invoice> observableInvoices = FXCollections.observableArrayList(testArray);
+
+        IDFX.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("invoiceID"));
+        INameFX.setCellValueFactory(new PropertyValueFactory<Invoice, String>("invoiceName"));
+        CNameFX.setCellValueFactory(new PropertyValueFactory<Invoice, String>("clientName"));
+        LatFX.setCellValueFactory(new PropertyValueFactory<Invoice, Double>("latitude"));
+        LongFX.setCellValueFactory(new PropertyValueFactory<Invoice, Double>("longitude"));
+        DDateFX.setCellValueFactory(new PropertyValueFactory<Invoice, Timestamp>("date"));
+
+        invoiceViewTable.setItems(observableInvoices);
+    }
+    
+    @FXML
+    private void handleDeleteInvoice(ActionEvent event) throws IOException {
+        Invoice selectedInvoice = invoiceViewTable.getSelectionModel().getSelectedItem();
+        
+        if(selectedInvoice == null){
+            System.out.println("Please select an invoice to delete");
+            return;
         }
+        else {
+            //ConnectToDatabase.deleteInvoiceById(selectedInvoice.getInvoiceID());
 
-        // Create the message string with invoice details
-        String message = "Invoice Name: " + invoice.getInvoiceName() + "\n"
-                + "Client: " + invoice.getClientName() + "\n"
-                + "Total Price: $" + formattedTotalPrice + "\n"
-                + "Shipping Price: $" + formattedShippingPrice + "\n"
-                + "Distance: " + invoice.getDistance() + " km\n\n"
-                + "Date: " + invoice.getDate().toString() + "\n"
-                + // <- Added date here
-                "Items:\n" + itemsList.toString();
-
-        // Show the message in a pop-up or alert
-        showInfo("Invoice Created", message);
-
-    }
-
-    private void showError(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-    private void showInfo(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+            invoiceViewTable.getItems().remove(selectedInvoice);
+        }
     }
 }
