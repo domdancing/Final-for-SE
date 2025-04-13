@@ -1,10 +1,10 @@
 package com.mycompany.CodeforSefinal;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -16,21 +16,27 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class DeleteInvoiceController implements Initializable{
 
+    
+
+public class InvoiceViewController implements Initializable{
+    
     // Implementing all JavaFX ids so that they can be utilized in the code 
     @FXML private Button returnButton;
-    @FXML private Button deleteButton;
     @FXML private TableView<Invoice> invoiceViewTable;
     @FXML private TableColumn<Invoice, Integer> IDFX;
     @FXML private TableColumn<Invoice, String> INameFX;
@@ -38,52 +44,42 @@ public class DeleteInvoiceController implements Initializable{
     @FXML private TableColumn<Invoice, Double> LatFX;
     @FXML private TableColumn<Invoice, Double> LongFX;
     @FXML private TableColumn<Invoice, Timestamp> DDateFX;
-
+    
+    // Test ArrayList - does nothing for now 
+    private ArrayList<Invoice> invoices = new ArrayList<>();
+    
     // Needed imports for JavaFX
     private Stage stage;
     private Scene scene;
     private Parent root;
-
+    
     // FXML Connected method, uses ActionEvent to detect when the button "return" is pressed, when it is pressed it will call the method. 
     @FXML
-    private void handleReturnToPrimary(ActionEvent event) throws IOException {
-
+    private void handleReturnToPrimaryFromInvoicesView(ActionEvent event) throws IOException {
+        
         // Code that will load up the "primary.fxml"
         FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
         root = loader.load();
         PrimaryController primaryController = loader.getController();
-
+        
         // Code that loads up the "primary.fxml"
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow(); 
         scene = new Scene(root);
         stage.setScene(scene);
-        stage.show();
+        stage.show(); 
     }
     
-    @FXML
-    private void handleDeleteInvoice(ActionEvent event) throws IOException {
-        Invoice selectedInvoice = invoiceViewTable.getSelectionModel().getSelectedItem();
-        
-        if(selectedInvoice == null){
-            System.out.println("Please select an invoice to delete");
-            return;
-        }
-        else {
-            //ConnectToDatabase.deleteInvoiceById(selectedInvoice.getInvoiceID());
-
-            invoiceViewTable.getItems().remove(selectedInvoice);
-        }
-    }
-
-    //Creates a temporary initialization to test delete function
+    // FXML file that runs when the "secondary.fxml" loads
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
+        //Fake back-end filler data
         ArrayList<Item> testItemArray = new ArrayList<Item>();
-
+        
+        // Creates a sample time test object for test data 
         Timestamp timestampTest = Timestamp.from(Instant.now());
-
+        
         var invoice1 = new Invoice("New Tools", timestampTest, "Ryan", testItemArray, 99.9, 99.9);
         var invoice2 = new Invoice("New Printer", timestampTest, "Ryan", testItemArray, 99.9, 99.9);
         var invoice3 = new Invoice("New RJ-45 Ports", timestampTest, "Ryan", testItemArray, 99.9, 99.9);
@@ -91,9 +87,12 @@ public class DeleteInvoiceController implements Initializable{
         testArray.add(invoice1);
         testArray.add(invoice2);
         testArray.add(invoice3);
-
+        
+        // The arraylist must be turned into a obervablelist to be observed by the viewTable
         ObservableList<Invoice> observableInvoices = FXCollections.observableArrayList(testArray);
-
+        
+        // Checks all the getter methods inside of the Invoice and searches for the attribute in the quotes
+        // If it finds it, it will call its getter method found inside the invoice class, if there is no getter then the program will fail
         IDFX.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("invoiceID"));
         INameFX.setCellValueFactory(new PropertyValueFactory<Invoice, String>("invoiceName"));
         CNameFX.setCellValueFactory(new PropertyValueFactory<Invoice, String>("clientName"));
@@ -101,6 +100,17 @@ public class DeleteInvoiceController implements Initializable{
         LongFX.setCellValueFactory(new PropertyValueFactory<Invoice, Double>("longitude"));
         DDateFX.setCellValueFactory(new PropertyValueFactory<Invoice, Timestamp>("date"));
 
+        // Set the tableView to display these attributes
         invoiceViewTable.setItems(observableInvoices);
+        
     }
-}
+    
+   
+    }
+    
+    
+    
+    
+    
+
+                
