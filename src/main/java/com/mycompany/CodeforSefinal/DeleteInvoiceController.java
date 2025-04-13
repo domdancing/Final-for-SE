@@ -59,6 +59,21 @@ public class DeleteInvoiceController implements Initializable{
         stage.setScene(scene);
         stage.show();
     }
+    
+    @FXML
+    private void handleDeleteInvoice(ActionEvent event) throws IOException {
+        Invoice selectedInvoice = invoiceViewTable.getSelectionModel().getSelectedItem();
+        
+        if(selectedInvoice == null){
+            System.out.println("Please select an invoice to delete");
+            return;
+        }
+        else {
+            //ConnectToDatabase.deleteInvoiceById(selectedInvoice.getInvoiceID());
+
+            invoiceViewTable.getItems().remove(selectedInvoice);
+        }
+    }
 
     //Creates a temporary initialization to test delete function
     @FXML
@@ -87,20 +102,5 @@ public class DeleteInvoiceController implements Initializable{
         DDateFX.setCellValueFactory(new PropertyValueFactory<Invoice, Timestamp>("date"));
 
         invoiceViewTable.setItems(observableInvoices);
-    }
-    
-    @FXML
-    private void handleDeleteInvoice(ActionEvent event) throws IOException {
-        Invoice selectedInvoice = invoiceViewTable.getSelectionModel().getSelectedItem();
-        
-        if(selectedInvoice == null){
-            System.out.println("Please select an invoice to delete");
-            return;
-        }
-        else {
-            //ConnectToDatabase.deleteInvoiceById(selectedInvoice.getInvoiceID());
-
-            invoiceViewTable.getItems().remove(selectedInvoice);
-        }
     }
 }
