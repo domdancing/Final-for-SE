@@ -91,7 +91,8 @@ public class ConnectToDatabase {
         e.printStackTrace();
     }
 }
-
+    
+    
     public static ArrayList<Invoice> getAllInvoices() {
         try {
             //Make query and place the results in resulSet
@@ -145,6 +146,10 @@ public class ConnectToDatabase {
         
         //Should never reach here
         return null;
+    }
+    
+    public static void deleteInvoicebyID(int invoiceID){
+        //Add delete invoice by ID method
     }
 }
 
