@@ -2,6 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
@@ -13,11 +15,30 @@
 <AnchorPane prefHeight="547.0" prefWidth="505.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.DeleteInvoiceController">
     <children>
         <VBox layoutX="50" layoutY="50" spacing="10">
+            <!--Added Table Start-->
+            <HBox alignment="CENTER" prefHeight="246.0" prefWidth="600.0">
+               <padding>
+                  <Insets top="15.0" />
+               </padding>
+               <children>
+                   <TableView fx:id="invoiceViewTable" prefHeight="231.0" prefWidth="587.0">
+                       <columns>
+                           <TableColumn fx:id="IDFX" prefWidth="75.0" text="ID #" />
+                           <TableColumn fx:id="INameFX" prefWidth="150.0" text="Invoice Name" />
+                           <TableColumn fx:id="CNameFX" prefWidth="100.0" text="Customer Name" />
+                           <TableColumn fx:id="LatFX" prefWidth="75.0" text="Latitude" />
+                           <TableColumn fx:id="LongFX" prefWidth="75.0" text="Longitude" />
+                           <TableColumn fx:id="DDateFX" prefWidth="110.0" text="Delivery Date" />
+                       </columns>
+                   </TableView>
+               </children>
+            </HBox>
+            <!--Added Table End-->
             <HBox prefHeight="34.0" prefWidth="342.0">
                 <children>
                     <VBox alignment="CENTER" prefHeight="34.0" prefWidth="118.0">
                         <children>
-                            <Button alignment="TOP_CENTER" onAction="#handleDeleteInvoice" prefHeight="25.0" prefWidth="98.0" text="Delete Invoice">
+                            <Button fx:id="deleteButton" alignment="TOP_CENTER" onAction="#handleDeleteInvoice" prefHeight="25.0" prefWidth="98.0" text="Delete Invoice">
                                 <opaqueInsets>
                                     <Insets />
                                 </opaqueInsets>
