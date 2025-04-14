@@ -10,13 +10,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.InvoiceViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.ItemViewController">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0">
          <children>
             <HBox alignment="CENTER" prefHeight="40.0" prefWidth="600.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Created Invoices:">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Items:">
                      <font>
                         <Font size="27.0" />
                      </font>
@@ -28,22 +28,18 @@
                   <Insets top="15.0" />
                </padding>
                <children>
-                  <TableView fx:id="invoiceViewTable" prefHeight="231.0" prefWidth="587.0">
+                  <TableView fx:id="itemViewTable" prefHeight="231.0" prefWidth="587.0">
                     <columns>
                       <TableColumn fx:id="IDFX" prefWidth="75.0" text="ID #" />
-                      <TableColumn fx:id="INameFX" prefWidth="150.0" text="Invoice Name" />
-                        <TableColumn fx:id="CNameFX" prefWidth="100.0" text="Customer Name" />
-                        <TableColumn fx:id="LatFX" prefWidth="75.0" text="Latitude" />
-                        <TableColumn fx:id="LongFX" prefWidth="75.0" text="Longitude" />
-                        <TableColumn fx:id="DDateFX" prefWidth="110.0" text="Delivery Date" />
+                      <TableColumn fx:id="NameFX" prefWidth="150.0" text="Item Name" />
+                        <TableColumn fx:id="ItemPriceFX" prefWidth="100.0" text="Item Price" />
                     </columns>
                   </TableView>
                </children>
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="600.0">
                <children>
-                  <Button fx:id="viewItems" layoutX="495.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleSwitchToItemView" prefHeight="17.0" prefWidth="100.0" text="View Items" translateX="-10.0" />
-                  <Button fx:id="returnToMainScreen" mnemonicParsing="false" onAction="#handleReturnToPrimaryFromInvoicesView" prefHeight="17.0" prefWidth="100.0" text="Return">
+                  <Button fx:id="returnToMainScreen" mnemonicParsing="false" onAction="#handleReturnToInvoiceView" prefHeight="17.0" prefWidth="100.0" text="Return">
                      <HBox.margin>
                         <Insets right="15.0" />
                      </HBox.margin>

@@ -113,7 +113,7 @@ public class ConnectToDatabase {
                 //Create item from this result
                 String itemName = resultSet.getString("item_name");
                 double itemPrice = resultSet.getDouble("item_price");
-                Item item = new Item(itemName, itemPrice);
+                Item item = new Item(0, itemName, itemPrice);
                 
                 if (invoiceMap.containsKey(invoiceId)) {
                     //Just add item to the existing invoices
