@@ -64,7 +64,7 @@ public class InvoicePageController {
             double itemPrice = Double.parseDouble(itemPriceText);
 
             // Create an item object and add it to the list
-            Item item = new Item(itemName, itemPrice);
+            Item item = new Item(0, itemName, itemPrice);
             items.add(item);
 
             // Display the added item in the ListView

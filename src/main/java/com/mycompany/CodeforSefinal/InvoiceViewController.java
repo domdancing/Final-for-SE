@@ -37,6 +37,7 @@ public class InvoiceViewController implements Initializable{
     
     // Implementing all JavaFX ids so that they can be utilized in the code 
     @FXML private Button returnButton;
+    @FXML private Button viewItemsButton;
     @FXML private TableView<Invoice> invoiceViewTable;
     @FXML private TableColumn<Invoice, Integer> IDFX;
     @FXML private TableColumn<Invoice, String> INameFX;
@@ -63,6 +64,21 @@ public class InvoiceViewController implements Initializable{
         PrimaryController primaryController = loader.getController();
         
         // Code that loads up the "primary.fxml"
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow(); 
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show(); 
+    }
+    
+    @FXML
+    private void handleSwitchToItemView(ActionEvent event) throws IOException {
+        
+        //Load
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ItemViewPage.fxml"));
+        root = loader.load();
+        ItemViewController controller = loader.getController();
+        
+        //Set Scene
         stage = (Stage)((Node)event.getSource()).getScene().getWindow(); 
         scene = new Scene(root);
         stage.setScene(scene);
