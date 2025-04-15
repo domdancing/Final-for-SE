@@ -1,15 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.CodeforSefinal;
 
-public class Item {
+public abstract class Item {
     private long itemId;
     private String name;
     private double price;
 
     public Item(long itemId, String name, double price) {
+        this.itemId = itemId;
         this.name = name;
         this.price = price;
     }
@@ -39,4 +36,5 @@ public class Item {
     public void setItemId(long itemId) {
         this.itemId = itemId;
     }
+
 }

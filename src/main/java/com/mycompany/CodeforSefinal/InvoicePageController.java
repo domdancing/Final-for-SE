@@ -5,6 +5,7 @@
 package com.mycompany.CodeforSefinal;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Timestamp;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -14,10 +15,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ListCell;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
+import javafx.fxml.Initializable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -25,16 +28,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
-public class InvoicePageController {
+public class InvoicePageController implements Initializable {
 
     @FXML private TextField clientNameField;
     @FXML private TextField invoiceNumberField;
     @FXML private TextField latitudeField;
     @FXML private TextField longitudeField;
-    @FXML private TextField itemNameField;
-    @FXML private TextField itemPriceField;
+    @FXML private TextField itemQuantityField;
+    @FXML private MenuButton itemMenu;
     @FXML private ListView<String> itemsListView;
     @FXML private Button returnButton;
     @FXML
@@ -45,37 +50,62 @@ public class InvoicePageController {
     private Scene scene;
     private Parent root;
 
-    private ArrayList<Item> items = new ArrayList<>();
+    private ArrayList<QuantityItem> items = new ArrayList<>();
+    
+    private void setItemMenuList(ArrayList<ReferenceItem> items) {
+        //Remove current options
+        itemMenu.getItems().clear();
+        
+        for (int i = 0; i < items.size(); i++) {
+            //Get each item...
+            ReferenceItem item = items.get(i);
+            
+            //Create a menu option for each reference item...
+            MenuItem menuItem = new MenuItem(item.getName());
+            itemMenu.getItems().add(menuItem);
+            
+            //Have each menu option call handleAddItem when selected!
+            menuItem.setOnAction(event -> {
+                handleAddItem(item);
+            });
+            
+        }
+    }
 
     // This method handles adding items to the invoice
     @FXML
-    private void handleAddItem() {
-        String itemName = itemNameField.getText();
-        String itemPriceText = itemPriceField.getText();
-
-        if (itemName.isEmpty() || itemPriceText.isEmpty()) {
-            showError("Please fill in both item name and item price.");
-            return;
+    private void handleAddItem(ReferenceItem rItem) {
+        //Setup
+        Long itemId = rItem.getItemId();
+        String itemName = rItem.getName();
+        Double itemPrice = rItem.getPrice();
+        String itemPriceText = ""+rItem.getPrice();
+        int itemQuantity = Integer.parseInt(itemQuantityField.getText());
+        if (itemQuantity <= 0)
+            itemQuantity = 1;
+        
+        //Create QuantityItem using ReferenceItem's data and the itemQuantity
+        QuantityItem qItem = new QuantityItem(itemId, itemName, itemPrice, itemQuantity);
+                
+        //Check if item has already been added
+        for (int i = 0; i < items.size(); i++) {
+            QuantityItem checkItem = items.get(i);
+            if (qItem.getItemId() == checkItem.getItemId()) {
+                showError("Item has already been added.");
+                return;
+            }
         }
         
-    
-
         try {
-            double itemPrice = Double.parseDouble(itemPriceText);
+            // Add the new item to item list
+            items.add(qItem);
 
-            // Create an item object and add it to the list
-            Item item = new Item(0, itemName, itemPrice);
-            items.add(item);
+            // Display the new item in the ListView
+            itemsListView.getItems().add(itemName + " - $" + itemPrice + " - QTY: " + itemQuantity);
 
-            // Display the added item in the ListView
-            itemsListView.getItems().add(itemName + " - $" + itemPrice);
-
-            // Clear the item fields
-            itemNameField.clear();
-            itemPriceField.clear();
 
         } catch (NumberFormatException e) {
-            showError("Invalid item price.");
+            showError("Invalid field values.");
         }
     }
 
@@ -165,9 +195,10 @@ public class InvoicePageController {
     // Show the message in a pop-up or alert
     showInfo("Invoice Created", message);
     
-}
-
-
+    
+    
+    }
+   
     private void showError(String message) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Error");
@@ -182,5 +213,19 @@ public class InvoicePageController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        
+        ReferenceItem item1 = new ReferenceItem(1, "Washing Machine", 200.0);
+        ReferenceItem item2 = new ReferenceItem(2, "Toaster Oven", 100.0);
+        ReferenceItem item3 = new ReferenceItem(3, "Microwave", 150.0);
+        ArrayList<ReferenceItem> testArray = new ArrayList<ReferenceItem>();
+        testArray.add(item1);
+        testArray.add(item2);
+        testArray.add(item3);
+        
+        setItemMenuList(testArray);
     }
 }
