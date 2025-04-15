@@ -75,7 +75,7 @@ public class SecondaryController implements Initializable{
     public void initialize(URL url, ResourceBundle rb) {
         
         //Fake back-end filler data
-        ArrayList<Item> testItemArray = new ArrayList<Item>();
+        ArrayList<QuantityItem> testItemArray = new ArrayList<QuantityItem>();
         
         // Creates a sample time test object for test data 
         Timestamp timestampTest = Timestamp.from(Instant.now());

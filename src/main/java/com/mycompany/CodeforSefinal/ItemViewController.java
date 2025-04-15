@@ -37,10 +37,11 @@ public class ItemViewController implements Initializable{
     
     // Implementing all JavaFX ids so that they can be utilized in the code 
     @FXML private Button returnButton;
-    @FXML private TableView<Item> itemViewTable;
-    @FXML private TableColumn<Item, Long> IDFX;
-    @FXML private TableColumn<Item, String> NameFX;
-    @FXML private TableColumn<Item, Double> ItemPriceFX;
+    @FXML private TableView<QuantityItem> itemViewTable;
+    @FXML private TableColumn<QuantityItem, Long> IDFX;
+    @FXML private TableColumn<QuantityItem, String> NameFX;
+    @FXML private TableColumn<QuantityItem, Double> ItemPriceFX;
+    @FXML private TableColumn<QuantityItem, Integer> ItemQuantityFX;
     
     // Test ArrayList - does nothing for now 
     private ArrayList<Invoice> invoiceItems = new ArrayList<>();
@@ -73,22 +74,23 @@ public class ItemViewController implements Initializable{
         
         //Fake back-end filler data
               
-        Item item1 = new Item(1, "Washing Machine", 200.0);
-        Item item2 = new Item(2, "Toaster Oven", 100.0);
-        Item item3 = new Item(3, "Microwave", 150.0);
-        ArrayList<Item> testArray = new ArrayList<Item>();
+        QuantityItem item1 = new QuantityItem(1, "Washing Machine", 200.0, 2);
+        QuantityItem item2 = new QuantityItem(2, "Toaster Oven", 100.0, 1);
+        QuantityItem item3 = new QuantityItem(3, "Microwave", 150.0, 4);
+        ArrayList<QuantityItem> testArray = new ArrayList<QuantityItem>();
         testArray.add(item1);
         testArray.add(item2);
         testArray.add(item3);
         
         // The arraylist must be turned into a obervablelist to be observed by the viewTable
-        ObservableList<Item> observableItems = FXCollections.observableArrayList(testArray);
+        ObservableList<QuantityItem> observableItems = FXCollections.observableArrayList(testArray);
         
         // Checks all the getter methods inside of the Invoice and searches for the attribute in the quotes
         // If it finds it, it will call its getter method found inside the invoice class, if there is no getter then the program will fail
-        IDFX.setCellValueFactory(new PropertyValueFactory<Item, Long>("itemId"));
-        NameFX.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
-        ItemPriceFX.setCellValueFactory(new PropertyValueFactory<Item, Double>("price"));
+        IDFX.setCellValueFactory(new PropertyValueFactory<QuantityItem, Long>("itemId"));
+        NameFX.setCellValueFactory(new PropertyValueFactory<QuantityItem, String>("name"));
+        ItemPriceFX.setCellValueFactory(new PropertyValueFactory<QuantityItem, Double>("price"));
+        ItemQuantityFX.setCellValueFactory(new PropertyValueFactory<QuantityItem, Integer>("quantity"));
 
         // Set the tableView to display these attributes
         itemViewTable.setItems(observableItems);

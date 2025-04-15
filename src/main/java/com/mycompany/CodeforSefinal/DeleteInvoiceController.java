@@ -80,7 +80,7 @@ public class DeleteInvoiceController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        ArrayList<Item> testItemArray = new ArrayList<Item>();
+        ArrayList<QuantityItem> testItemArray = new ArrayList<QuantityItem>();
 
         Timestamp timestampTest = Timestamp.from(Instant.now());
 

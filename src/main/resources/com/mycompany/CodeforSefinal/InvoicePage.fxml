@@ -2,29 +2,35 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.DatePicker?>
 
 <AnchorPane prefHeight="547.0" prefWidth="505.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.InvoicePageController">
     <children>
         <VBox layoutX="50" layoutY="50" spacing="10">
+            <TextField fx:id="invoiceNumberField" promptText="Invoice Number" />
             <!-- Invoice Details -->
             <TextField fx:id="clientNameField" promptText="Client Name" />
-            <TextField fx:id="invoiceNumberField" promptText="Invoice Number" />
             <TextField fx:id="latitudeField" promptText="Latitude" />
             <TextField fx:id="longitudeField" promptText="Longitude" />
-
-            <!-- Item Inputs -->
-            <TextField fx:id="itemNameField" promptText="Item Name" />
-            <TextField fx:id="itemPriceField" promptText="Item Price" />
-
-            <!-- Add Item Button -->
-            <Button onAction="#handleAddItem" text="Add Item" />
+         <HBox prefHeight="0.0" prefWidth="342.0">
+            <children>
+               <MenuButton fx:id="itemMenu" mnemonicParsing="false" text="Add Item">
+                 <items>
+                   <MenuItem mnemonicParsing="false" text="Action 1" />
+                   <MenuItem mnemonicParsing="false" text="Action 2" />
+                 </items>
+               </MenuButton>
+               <TextField fx:id="itemQuantityField" prefHeight="25.0" prefWidth="132.0" promptText="Quantity" translateX="10.0" />
+            </children>
+         </HBox>
             
             <DatePicker fx:id="datePicker" promptText="Select Date" />
         

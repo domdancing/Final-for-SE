@@ -92,7 +92,7 @@ public class ConnectToDatabase {
     }
 }
     
-    
+    //WORK IN PROGRESS
     public static ArrayList<Invoice> getAllInvoices() {
         try {
             //Make query and place the results in resulSet
@@ -113,7 +113,7 @@ public class ConnectToDatabase {
                 //Create item from this result
                 String itemName = resultSet.getString("item_name");
                 double itemPrice = resultSet.getDouble("item_price");
-                Item item = new Item(0, itemName, itemPrice);
+                QuantityItem item = null;
                 
                 if (invoiceMap.containsKey(invoiceId)) {
                     //Just add item to the existing invoices

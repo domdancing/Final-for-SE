@@ -17,7 +17,7 @@ public class Invoice {
     private String clientName;
     private String invoiceName;
     private Timestamp date; //Change local date to timestamp
-    private ArrayList<Item> items;
+    private ArrayList<QuantityItem> items;
     private double latitude;
     private double longitude;
     private double shippingPrice;
@@ -27,7 +27,7 @@ public class Invoice {
     private static final String START_LOCATION = "-72.7945,42.1315"; // Warehouse or origin (WSU)
     private static final double COST_PER_KM = 0.75;
 
-    public Invoice(String invoiceName, Timestamp date, String clientName, ArrayList<Item> items, double latitude, double longitude) {
+    public Invoice(String invoiceName, Timestamp date, String clientName, ArrayList<QuantityItem> items, double latitude, double longitude) {
         this.invoiceName = invoiceName;
         this.date = date;
         this.clientName = clientName;
@@ -84,11 +84,11 @@ public class Invoice {
         return clientName;
     }
 
-    public ArrayList<Item> getItems() {
+    public ArrayList<QuantityItem> getItems() {
         return items;
     }
     
-    public void addItem(Item item) {
+    public void addItem(QuantityItem item) {
         items.add(item);
     }
 
