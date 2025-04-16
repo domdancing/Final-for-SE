@@ -98,7 +98,7 @@ public class InvoiceViewController implements Initializable{
             return;
         }
         else {
-            //ConnectToDatabase.deleteInvoiceById(selectedInvoice.getInvoiceID());
+            ConnectToDatabase.deleteInvoiceById(selectedInvoice.getInvoiceID());
 
             invoiceViewTable.getItems().remove(selectedInvoice);
         }
