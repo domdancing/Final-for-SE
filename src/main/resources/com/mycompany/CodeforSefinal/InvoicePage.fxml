@@ -43,36 +43,7 @@
                 <Button fx:id="returnButton" alignment="TOP_LEFT" onAction="#handleReturnToPrimary" prefHeight="25.0" prefWidth="120.0" text="Return" />
             </HBox>
 
-            <!-- Table for Viewing Invoices -->
-            <Label text="Existing Invoices:" />
-            <TableView fx:id="invoiceViewTable" editable="true" prefHeight="231.0" prefWidth="550.0">
-                <columns>
-                    <TableColumn fx:id="IDFX" prefWidth="75.0" text="ID #" />
-                    <TableColumn fx:id="INameFX" prefWidth="150.0" text="Invoice Name" />
-                </columns>
-            </TableView>
-
-            <!-- Buttons for View/Delete/Return -->
-            <HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="550.0">
-                <padding>
-                    <Insets top="15.0" />
-                </padding>
-                <children>
-                    <Button fx:id="deleteButton" onAction="#handleDeleteInvoice" prefHeight="25.0" prefWidth="124.0" text="Delete Invoice">
-                        <HBox.margin>
-                            <Insets right="250.0" />
-                        </HBox.margin>
-                    </Button>
-                    
-                    <Button fx:id="viewItems" onAction="#handleSwitchToItemView" prefHeight="25.0" prefWidth="100.0" text="View Items" />
-
-                    <Button fx:id="returnToMainScreen" onAction="#handleReturnToPrimaryFromInvoicesView" prefHeight="25.0" prefWidth="100.0" text="Return">
-                        <HBox.margin>
-                            <Insets right="15.0" />
-                        </HBox.margin>
-                    </Button>
-                </children>
-            </HBox>
+           
 
         </VBox>
     </children>
