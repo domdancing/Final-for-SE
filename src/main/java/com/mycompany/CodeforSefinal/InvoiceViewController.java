@@ -20,13 +20,14 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-
+import javafx.util.converter.DoubleStringConverter;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -36,8 +37,11 @@ import javafx.stage.Stage;
 public class InvoiceViewController implements Initializable{
     
     // Implementing all JavaFX ids so that they can be utilized in the code 
+    // buttons
     @FXML private Button returnButton;
     @FXML private Button viewItemsButton;
+    @FXML private Button deleteButton;
+    // for the tables 
     @FXML private TableView<Invoice> invoiceViewTable;
     @FXML private TableColumn<Invoice, Integer> IDFX;
     @FXML private TableColumn<Invoice, String> INameFX;
@@ -84,6 +88,28 @@ public class InvoiceViewController implements Initializable{
         stage.setScene(scene);
         stage.show(); 
     }
+
+@FXML
+    private void handleDeleteInvoice(ActionEvent event) throws IOException {
+        Invoice selectedInvoice = invoiceViewTable.getSelectionModel().getSelectedItem();
+
+        if(selectedInvoice == null){
+            System.out.println("Please select an invoice to delete");
+            return;
+        }
+        else {
+            //ConnectToDatabase.deleteInvoiceById(selectedInvoice.getInvoiceID());
+
+            invoiceViewTable.getItems().remove(selectedInvoice);
+        }
+    }
+
+
+
+
+
+
+
     
     // FXML file that runs when the "secondary.fxml" loads
     @FXML
@@ -115,6 +141,13 @@ public class InvoiceViewController implements Initializable{
         LatFX.setCellValueFactory(new PropertyValueFactory<Invoice, Double>("latitude"));
         LongFX.setCellValueFactory(new PropertyValueFactory<Invoice, Double>("longitude"));
         DDateFX.setCellValueFactory(new PropertyValueFactory<Invoice, Timestamp>("date"));
+
+         // Set table to be editable
+        invoiceViewTable.isEditable();
+        INameFX.setCellFactory(TextFieldTableCell.forTableColumn());
+        CNameFX.setCellFactory(TextFieldTableCell.forTableColumn());
+        LatFX.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        LongFX.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
 
         // Set the tableView to display these attributes
         invoiceViewTable.setItems(observableInvoices);
