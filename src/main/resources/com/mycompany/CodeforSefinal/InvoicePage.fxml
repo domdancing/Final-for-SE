@@ -7,64 +7,73 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="547.0" prefWidth="505.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.InvoicePageController">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.InvoicePageController">
     <children>
-        <VBox layoutX="50" layoutY="50" spacing="10">
+        <VBox layoutX="30" layoutY="30" spacing="10" prefWidth="550">
+            
             <TextField fx:id="invoiceNumberField" promptText="Invoice Number" />
-            <!-- Invoice Details -->
             <TextField fx:id="clientNameField" promptText="Client Name" />
             <TextField fx:id="latitudeField" promptText="Latitude" />
             <TextField fx:id="longitudeField" promptText="Longitude" />
-         <HBox prefHeight="0.0" prefWidth="342.0">
-            <children>
-               <MenuButton fx:id="itemMenu" mnemonicParsing="false" text="Add Item">
-                 <items>
-                   <MenuItem mnemonicParsing="false" text="Action 1" />
-                   <MenuItem mnemonicParsing="false" text="Action 2" />
-                 </items>
-               </MenuButton>
-               <TextField fx:id="itemQuantityField" prefHeight="25.0" prefWidth="132.0" promptText="Quantity" translateX="10.0" />
-            </children>
-         </HBox>
-            
-            <DatePicker fx:id="datePicker" promptText="Select Date" />
-        
 
-            <!-- List of Added Items -->
+            <HBox spacing="10">
+                <MenuButton fx:id="itemMenu" mnemonicParsing="false" text="Add Item">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                    </items>
+                </MenuButton>
+                <TextField fx:id="itemQuantityField" prefHeight="25.0" prefWidth="132.0" promptText="Quantity" />
+            </HBox>
+
+            <DatePicker fx:id="datePicker" promptText="Select Date" />
+
             <Label text="Added Items:" />
             <ListView fx:id="itemsListView" prefHeight="150.0" prefWidth="342.0" />
-         <HBox prefHeight="34.0" prefWidth="342.0">
-            <children>
-               <VBox alignment="CENTER" prefHeight="34.0" prefWidth="118.0">
-                  <children>
-            
-                        <!-- Create Invoice Button -->
-                        <Button alignment="TOP_CENTER" onAction="#handleCreateInvoice" prefHeight="25.0" prefWidth="98.0" text="Create Invoice">
-                        <opaqueInsets>
-                           <Insets />
-                        </opaqueInsets>
-                     </Button>
-                  </children>
-               </VBox>
-               <VBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="113.0">
-                  <children>
-                     <Button fx:id="returnButton" alignment="TOP_LEFT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleReturnToPrimary" text="Return ">
-                        <opaqueInsets>
-                           <Insets />
-                        </opaqueInsets>
-                     </Button>
-                  </children>
-                  <HBox.margin>
-                     <Insets left="150.0" />
-                  </HBox.margin>
-               </VBox>
-            </children>
-         </HBox>
+
+            <HBox spacing="10">
+                <Button alignment="TOP_CENTER" onAction="#handleCreateInvoice" prefHeight="25.0" prefWidth="120.0" text="Create Invoice" />
+                <Button fx:id="returnButton" alignment="TOP_LEFT" onAction="#handleReturnToPrimary" prefHeight="25.0" prefWidth="120.0" text="Return" />
+            </HBox>
+
+            <!-- Table for Viewing Invoices -->
+            <Label text="Existing Invoices:" />
+            <TableView fx:id="invoiceViewTable" editable="true" prefHeight="231.0" prefWidth="550.0">
+                <columns>
+                    <TableColumn fx:id="IDFX" prefWidth="75.0" text="ID #" />
+                    <TableColumn fx:id="INameFX" prefWidth="150.0" text="Invoice Name" />
+                </columns>
+            </TableView>
+
+            <!-- Buttons for View/Delete/Return -->
+            <HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="550.0">
+                <padding>
+                    <Insets top="15.0" />
+                </padding>
+                <children>
+                    <Button fx:id="deleteButton" onAction="#handleDeleteInvoice" prefHeight="25.0" prefWidth="124.0" text="Delete Invoice">
+                        <HBox.margin>
+                            <Insets right="250.0" />
+                        </HBox.margin>
+                    </Button>
+                    
+                    <Button fx:id="viewItems" onAction="#handleSwitchToItemView" prefHeight="25.0" prefWidth="100.0" text="View Items" />
+
+                    <Button fx:id="returnToMainScreen" onAction="#handleReturnToPrimaryFromInvoicesView" prefHeight="25.0" prefWidth="100.0" text="Return">
+                        <HBox.margin>
+                            <Insets right="15.0" />
+                        </HBox.margin>
+                    </Button>
+                </children>
+            </HBox>
+
         </VBox>
     </children>
 </AnchorPane>
