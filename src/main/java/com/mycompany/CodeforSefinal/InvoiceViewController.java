@@ -1,5 +1,7 @@
 package com.mycompany.CodeforSefinal;
 
+import com.mycompany.CodeforSefinal.DAO.InvoiceDAO;
+import com.mycompany.CodeforSefinal.DAO.InvoiceDAOImpl;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -98,7 +100,16 @@ public class InvoiceViewController implements Initializable{
             return;
         }
         else {
-            ConnectToDatabase.deleteInvoicebyID(selectedInvoice.getInvoiceID());
+             // ✅ Correct: create DAO instance and call the method
+    InvoiceDAO invoiceDAO = new InvoiceDAOImpl();
+    try {
+        invoiceDAO.deleteInvoicebyID(selectedInvoice.getInvoiceID());
+        invoiceViewTable.getItems().remove(selectedInvoice);
+    } catch (Exception e) {
+        System.out.println("Failed to delete invoice: " + e.getMessage());
+        e.printStackTrace();
+    }
+            //ConnectToDatabase.deleteInvoicebyID(selectedInvoice.getInvoiceID());
 
             invoiceViewTable.getItems().remove(selectedInvoice);
         }
