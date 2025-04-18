@@ -38,7 +38,7 @@ public class PrimaryController implements Initializable{
     
     @FXML private Button testButton;
     @FXML private Button viewInvoices;
-    @FXML private Button deleteInvoice;
+   
 
     
     private Stage stage;
@@ -77,16 +77,7 @@ public class PrimaryController implements Initializable{
         currentStage.setScene(scene);
         currentStage.show();
     }
-    @FXML
-    private void DeleteInvoice (javafx.event.ActionEvent event) throws IOException {
-        System.out.println("Button Clicked");
-        
-        Parent deleteInvoicePage = FXMLLoader.load(getClass().getResource("DeleteInvoicePage.fxml"));
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(deleteInvoicePage);
-        currentStage.setScene(scene);
-        currentStage.show();
-    }
+   
 }
         
         

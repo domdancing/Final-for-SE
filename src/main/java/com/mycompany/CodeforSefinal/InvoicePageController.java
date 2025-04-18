@@ -4,6 +4,8 @@
  */
 package com.mycompany.CodeforSefinal;
 
+import com.mycompany.CodeforSefinal.DAO.InvoiceDAO;
+import com.mycompany.CodeforSefinal.DAO.InvoiceDAOImpl;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
@@ -30,6 +32,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 public class InvoicePageController implements Initializable {
@@ -44,7 +48,6 @@ public class InvoicePageController implements Initializable {
     @FXML private Button returnButton;
     @FXML
       private DatePicker datePicker;
-    
     
     private Stage stage;
     private Scene scene;
@@ -140,7 +143,17 @@ public class InvoicePageController implements Initializable {
             Invoice invoice = new Invoice(invoiceName, selectedDate, clientName, items, latitude, longitude);
 
           // Save to the database
-    ConnectToDatabase.saveInvoice(invoice);
+          
+          InvoiceDAO invoiceDAO = new InvoiceDAOImpl();
+try {
+    invoiceDAO.saveInvoice(invoice);
+    showInfo("Success", "Invoice has been saved to the database.");
+} catch (Exception e) {
+    showError("Error saving invoice: " + e.getMessage());
+}
+    
+    
+    
 
     // ✅ Show confirmation message this will be delted later
     showInfo("Success", "Invoice has been saved to the database.");
@@ -198,6 +211,9 @@ public class InvoicePageController implements Initializable {
     
     
     }
+   
+   
+   
    
     private void showError(String message) {
         Alert alert = new Alert(AlertType.ERROR);
