@@ -38,9 +38,9 @@ public class PrimaryController implements Initializable{
     
     @FXML private Button testButton;
     @FXML private Button viewInvoices;
+    @FXML private Button viewItemCreation;
    
 
-    
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -74,6 +74,18 @@ public class PrimaryController implements Initializable{
         Parent viewInvoicePage = FXMLLoader.load(getClass().getResource("InvoiceViewPage.fxml"));
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(viewInvoicePage);
+        currentStage.setScene(scene);
+        currentStage.show();
+    }
+    
+    @FXML
+    private void gotoItemCreation(javafx.event.ActionEvent event) throws IOException
+    {
+        System.out.println("Button Clicked");
+        
+        Parent viewItemCreation = FXMLLoader.load(getClass().getResource("CreateItemPage.fxml"));
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(viewItemCreation);
         currentStage.setScene(scene);
         currentStage.show();
     }

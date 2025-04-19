@@ -5,7 +5,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.PrimaryController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.PrimaryController">
    <children>
       <Text layoutX="181.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="We ship what you give us ">
          <font>
@@ -19,5 +19,6 @@
       </Text>
        <Button fx:id="testButton" layoutX="143.0" layoutY="225.0" mnemonicParsing="false" onAction="#GotoInvoices" prefHeight="27.0" prefWidth="136.0" text="Create New Invoice" />
       <Button fx:id="viewInvoices" layoutX="367.0" layoutY="225.0" mnemonicParsing="false" onAction="#ViewInvoices" prefHeight="27.0" prefWidth="156.0" text="Edit and Look at Invoices" />
+      <Button fx:id="viewItemCreation" layoutX="257.0" layoutY="285.0" mnemonicParsing="false" onAction="#gotoItemCreation" prefHeight="27.0" prefWidth="136.0" text="Create New Item" />
    </children>
 </AnchorPane>
