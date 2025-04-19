@@ -1,5 +1,6 @@
 package com.mycompany.CodeforSefinal;
 
+import com.mycompany.CodeforSefinal.DAO.DAOFactory;
 import com.mycompany.CodeforSefinal.DAO.InvoiceDAO;
 import com.mycompany.CodeforSefinal.DAO.InvoiceDAOImpl;
 import java.io.IOException;
@@ -101,10 +102,14 @@ public class InvoiceViewController implements Initializable{
         }
         else {
              // ✅ Correct: create DAO instance and call the method
-    InvoiceDAO invoiceDAO = new InvoiceDAOImpl();
+             
+    // ✅ Use the DAO Factory
+    InvoiceDAO invoiceDAO = DAOFactory.getInvoiceDAO();
+
     try {
         invoiceDAO.deleteInvoicebyID(selectedInvoice.getInvoiceID());
         invoiceViewTable.getItems().remove(selectedInvoice);
+        System.out.println("Invoice deleted successfully.");
     } catch (Exception e) {
         System.out.println("Failed to delete invoice: " + e.getMessage());
         e.printStackTrace();
@@ -168,7 +173,44 @@ public class InvoiceViewController implements Initializable{
    
     }
     
-    
+    /*
+
+private void handleUpdateInvoice(ActionEvent event) {
+    Invoice selectedInvoice = invoiceViewTable.getSelectionModel().getSelectedItem();
+
+    if (selectedInvoice == null) {
+        showError("Please select an invoice to update.");
+        return;
+    }
+
+    try {
+        // Update fields on the selectedInvoice object based on user inputs
+        selectedInvoice.setInvoiceName(invoiceNumberField.getText());
+        selectedInvoice.setClientName(clientNameField.getText());
+        selectedInvoice.setLatitude(Double.parseDouble(latitudeField.getText()));
+        selectedInvoice.setLongitude(Double.parseDouble(longitudeField.getText()));
+
+        // Optional: update items list, date, etc.
+        Timestamp selectedDate = Timestamp.valueOf(datePicker.getValue().atStartOfDay());
+        selectedInvoice.setDate(selectedDate);
+
+        // Recalculate values
+        // You can add logic to call a recalculate method or recreate total, shipping, etc.
+
+        // Get DAO and update
+        InvoiceDAO invoiceDAO = DAOFactory.getInvoiceDAO();
+        invoiceDAO.updateInvoice(selectedInvoice);
+
+        showInfo("Success", "Invoice updated successfully.");
+        invoiceViewTable.refresh();
+
+    } catch (Exception e) {
+        showError("Failed to update invoice: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
+
+*/
     
     
     

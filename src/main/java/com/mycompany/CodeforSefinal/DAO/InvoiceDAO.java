@@ -10,6 +10,7 @@ package com.mycompany.CodeforSefinal.DAO;
  */
 
 import com.mycompany.CodeforSefinal.Invoice;
+import java.sql.SQLException;
 
 
 import java.util.List;
@@ -18,4 +19,5 @@ public interface InvoiceDAO {
     void saveInvoice(Invoice invoice);
     List<Invoice> getAllInvoices();
     void deleteInvoicebyID(int invoiceID)throws Exception ;
+    void updateInvoice(Invoice invoice) throws SQLException;
 }

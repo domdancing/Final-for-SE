@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.CodeforSefinal.DAO;
+import com.mycompany.CodeforSefinal.ConnectToDatabase;
 import static com.mycompany.CodeforSefinal.ConnectToDatabase.getConnection;
 import com.mycompany.CodeforSefinal.Invoice;
 import com.mycompany.CodeforSefinal.QuantityItem;
@@ -135,6 +136,26 @@ public class InvoiceDAOImpl implements InvoiceDAO{
     @Override
     public void deleteInvoicebyID(int invoiceID)throws SQLException {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void updateInvoice(Invoice invoice) throws SQLException {
+         String sql = "UPDATE invoices SET invoice_name = ?, client_name = ?, date = ?, latitude = ?, longitude = ?, shipping_price = ?, total_price = ?, distance = ? WHERE invoice_id = ?";
+
+    try (Connection conn = ConnectToDatabase.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+        stmt.setString(1, invoice.getInvoiceName());
+        stmt.setString(2, invoice.getClientName());
+        stmt.setTimestamp(3, invoice.getDate());
+        stmt.setDouble(4, invoice.getLatitude());
+        stmt.setDouble(5, invoice.getLongitude());
+        stmt.setDouble(6, invoice.getShippingPrice());
+        stmt.setDouble(7, invoice.getTotalPrice());
+        stmt.setDouble(8, invoice.getDistance());
+        stmt.setInt(9, invoice.getInvoiceID());
+
+        stmt.executeUpdate();
+    }
     }
 
 

@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.CodeforSefinal;
+import com.mycompany.CodeforSefinal.DAO.DAOFactory;
 
 import com.mycompany.CodeforSefinal.DAO.InvoiceDAO;
 import com.mycompany.CodeforSefinal.DAO.InvoiceDAOImpl;
@@ -144,19 +145,15 @@ public class InvoicePageController implements Initializable {
 
           // Save to the database
           
-          InvoiceDAO invoiceDAO = new InvoiceDAOImpl();
+         
 try {
+    InvoiceDAO invoiceDAO = DAOFactory.getInvoiceDAO();
     invoiceDAO.saveInvoice(invoice);
     showInfo("Success", "Invoice has been saved to the database.");
 } catch (Exception e) {
     showError("Error saving invoice: " + e.getMessage());
 }
     
-    
-    
-
-    // ✅ Show confirmation message this will be delted later
-    showInfo("Success", "Invoice has been saved to the database.");
             
             // Show the invoice details
             showInvoiceDetails(invoice);

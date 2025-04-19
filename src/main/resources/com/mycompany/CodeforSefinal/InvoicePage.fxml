@@ -18,7 +18,7 @@
     <children>
         <VBox layoutX="30" layoutY="30" spacing="10" prefWidth="550">
             
-            <TextField fx:id="invoiceNumberField" promptText="Invoice Number" />
+            <TextField fx:id="invoiceNumberField" promptText="Invoice Name" />
             <TextField fx:id="clientNameField" promptText="Client Name" />
             <TextField fx:id="latitudeField" promptText="Latitude" />
             <TextField fx:id="longitudeField" promptText="Longitude" />
