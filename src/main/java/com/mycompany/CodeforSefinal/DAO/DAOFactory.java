@@ -11,7 +11,7 @@ package com.mycompany.CodeforSefinal.DAO;
 public class DAOFactory {
 
     private static final InvoiceDAO invoiceDAO = new InvoiceDAOImpl();
-    private static final ItemDAO itemDAO = new ItemDAOImpl();
+    private static final ReferenceItemDAO itemDAO = new ReferenceItemDAOImpl();
 
     // Factory method for InvoiceDAO
     public static InvoiceDAO getInvoiceDAO() {
@@ -19,7 +19,7 @@ public class DAOFactory {
     }
 
     // Factory method for ItemDAO
-    public static ItemDAO getItemDAO() {
+    public static ReferenceItemDAO getItemDAO() {
         return itemDAO;
     }
 }

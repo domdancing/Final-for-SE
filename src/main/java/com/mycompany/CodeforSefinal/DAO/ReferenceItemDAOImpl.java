@@ -14,7 +14,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemDAOImpl implements ItemDAO {
+public class ReferenceItemDAOImpl implements ReferenceItemDAO {
 
     @Override
     public void saveItem(Item item) throws SQLException {

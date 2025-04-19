@@ -12,10 +12,11 @@ import com.mycompany.CodeforSefinal.Item;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface ItemDAO {
+public interface ReferenceItemDAO {
     void saveItem(Item item) throws SQLException;
-    //void updateItem(Item item) throws SQLException;
-    //void deleteItemById(Long itemId) throws SQLException;
-    //Item getItemById(Long itemId) throws SQLException;
+    
     List<Item> getAllItems() throws SQLException;
 }
+// make a DAO for each item type 
+
+// make a DAO for QItem
