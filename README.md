@@ -1,23 +1,19 @@
 Final-for-SE
-this will be all the code of the final
+A JavaFX application for creating, updating, and managing shipping invoices with calculated distances using the OpenRouteService API and persistent data storage in a MySQL database.
 
-This is a practice commit message by Ryan
+Features
+Create invoices with client info, location, and item list
+Auto-calculate shipping cost based on geographic distance
+View, update, and delete existing invoices
+Store and retrieve data using a MySQL database
+Implements DAO design pattern with Factory Method
+Clean JavaFX UI
 
-test by dom
-
-test by Teddy
-
-This project is a Java application built with JavaFX and connected to a remote MySQL database using JDBC. It was developed using NetBeans and Maven.
-
-🧰 Tech Stack
-Java 11+
-JavaFX 17
-MySQL (remote database via phpMyAdmin)
+⚙Technologies Used
+Java 17+
+JavaFX 21+
 Maven
-NetBeans IDE
-⚙️ Features
-GUI built with JavaFX
-Connects to a remote MySQL database
-Parses JSON (using org.json)
-Maven-based dependency management
-📦 Project Structure
+MySQL
+OpenRouteService API
+DAO Design Pattern + Factory Method
+FXML for UI layout
