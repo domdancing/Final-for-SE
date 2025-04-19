@@ -18,5 +18,5 @@ public interface ReferenceItemDAO {
     List<Item> getAllItems() throws SQLException;
 }
 // make a DAO for each item type 
-
+//
 // make a DAO for QItem
