@@ -146,13 +146,13 @@ public class InvoicePageController implements Initializable {
           // Save to the database
           
          
-try {
-    InvoiceDAO invoiceDAO = DAOFactory.getInvoiceDAO();
-    invoiceDAO.saveInvoice(invoice);
-    showInfo("Success", "Invoice has been saved to the database.");
-} catch (Exception e) {
-    showError("Error saving invoice: " + e.getMessage());
-}
+        try {
+            InvoiceDAO invoiceDAO = DAOFactory.getInvoiceDAO();
+         invoiceDAO.saveInvoice(invoice);
+         showInfo("Success", "Invoice has been saved to the database.");
+        } catch (Exception e) {
+            showError("Error saving invoice: " + e.getMessage());
+        }
     
             
             // Show the invoice details
