@@ -9,7 +9,7 @@ package com.mycompany.CodeforSefinal.DAO;
  * @author tangs
  */
 
-import com.mycompany.CodeforSefinal.Invoice;
+import com.mycompany.CodeforSefinal.Objects.Invoice;
 import java.sql.SQLException;
 
 

@@ -1,4 +1,4 @@
-package com.mycompany.CodeforSefinal;
+package com.mycompany.CodeforSefinal.Objects;
 
 public abstract class Item {
     private long itemId;

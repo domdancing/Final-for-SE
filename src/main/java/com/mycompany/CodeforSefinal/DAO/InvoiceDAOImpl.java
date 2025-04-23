@@ -3,10 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.CodeforSefinal.DAO;
-import com.mycompany.CodeforSefinal.ConnectToDatabase;
-import static com.mycompany.CodeforSefinal.ConnectToDatabase.getConnection;
-import com.mycompany.CodeforSefinal.Invoice;
-import com.mycompany.CodeforSefinal.QuantityItem;
+import com.mycompany.CodeforSefinal.backend.ConnectToDatabase;
+import static com.mycompany.CodeforSefinal.backend.ConnectToDatabase.getConnection;
+import com.mycompany.CodeforSefinal.Objects.Invoice;
+import com.mycompany.CodeforSefinal.Objects.QuantityItem;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

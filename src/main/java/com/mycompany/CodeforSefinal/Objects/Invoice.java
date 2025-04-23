@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.CodeforSefinal;
+package com.mycompany.CodeforSefinal.Objects;
 
+import com.mycompany.CodeforSefinal.backend.OpenRouteServiceAPI;
+import com.mycompany.CodeforSefinal.backend.RouteParser;
 import java.sql.Timestamp;
 /**
  *

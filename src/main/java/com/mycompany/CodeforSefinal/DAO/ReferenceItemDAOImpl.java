@@ -8,8 +8,8 @@ package com.mycompany.CodeforSefinal.DAO;
  *
  * @author dominick valentine
  */
-import com.mycompany.CodeforSefinal.ConnectToDatabase;
-import com.mycompany.CodeforSefinal.Item;
+import com.mycompany.CodeforSefinal.backend.ConnectToDatabase;
+import com.mycompany.CodeforSefinal.Objects.Item;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

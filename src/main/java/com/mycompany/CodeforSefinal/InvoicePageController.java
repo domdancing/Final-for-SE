@@ -3,6 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.CodeforSefinal;
+import com.mycompany.CodeforSefinal.Objects.ReferenceItem;
+import com.mycompany.CodeforSefinal.Objects.QuantityItem;
+import com.mycompany.CodeforSefinal.Objects.Item;
+import com.mycompany.CodeforSefinal.Objects.Invoice;
 import com.mycompany.CodeforSefinal.DAO.DAOFactory;
 
 import com.mycompany.CodeforSefinal.DAO.InvoiceDAO;

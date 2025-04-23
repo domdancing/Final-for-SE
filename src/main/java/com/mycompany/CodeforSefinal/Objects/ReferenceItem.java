@@ -1,4 +1,6 @@
-package com.mycompany.CodeforSefinal;
+package com.mycompany.CodeforSefinal.Objects;
+
+import com.mycompany.CodeforSefinal.Objects.Item;
 
 public class ReferenceItem extends Item {
     

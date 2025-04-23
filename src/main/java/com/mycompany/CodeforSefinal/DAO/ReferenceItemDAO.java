@@ -8,7 +8,7 @@ package com.mycompany.CodeforSefinal.DAO;
  *
  * @author dominick valentine
  */
-import com.mycompany.CodeforSefinal.Item;
+import com.mycompany.CodeforSefinal.Objects.Item;
 import java.sql.SQLException;
 import java.util.List;
 

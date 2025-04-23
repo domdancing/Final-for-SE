@@ -1,5 +1,7 @@
 package com.mycompany.CodeforSefinal;
 
+import com.mycompany.CodeforSefinal.Objects.QuantityItem;
+import com.mycompany.CodeforSefinal.Objects.Invoice;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
