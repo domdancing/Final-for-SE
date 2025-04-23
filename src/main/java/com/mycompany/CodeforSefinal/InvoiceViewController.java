@@ -140,9 +140,9 @@ public class InvoiceViewController implements Initializable{
         // Creates a sample time test object for test data 
         Timestamp timestampTest = Timestamp.from(Instant.now());
         
-        var invoice1 = new Invoice("New Tools", timestampTest, "Ryan", testItemArray, 99.9, 99.9);
-        var invoice2 = new Invoice("New Printer", timestampTest, "Ryan", testItemArray, 99.9, 99.9);
-        var invoice3 = new Invoice("New RJ-45 Ports", timestampTest, "Ryan", testItemArray, 99.9, 99.9);
+        var invoice1 = new Invoice("New Tools", timestampTest, "Ryan", testItemArray,"01075");
+        var invoice2 = new Invoice("New Printer", timestampTest, "Ryan", testItemArray, "01040");
+        var invoice3 = new Invoice("New RJ-45 Ports", timestampTest, "Ryan", testItemArray, "01260");
         ArrayList<Invoice> testArray = new ArrayList<Invoice>();
         testArray.add(invoice1);
         testArray.add(invoice2);

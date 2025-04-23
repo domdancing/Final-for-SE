@@ -86,9 +86,9 @@ public class DeleteInvoiceController implements Initializable{
 
         Timestamp timestampTest = Timestamp.from(Instant.now());
 
-        var invoice1 = new Invoice("New Tools", timestampTest, "Ryan", testItemArray, 99.9, 99.9);
-        var invoice2 = new Invoice("New Printer", timestampTest, "Ryan", testItemArray, 99.9, 99.9);
-        var invoice3 = new Invoice("New RJ-45 Ports", timestampTest, "Ryan", testItemArray, 99.9, 99.9);
+        var invoice1 = new Invoice("New Tools", timestampTest, "Ryan", testItemArray,"01075A");
+        var invoice2 = new Invoice("New Printer", timestampTest, "Ryan", testItemArray, "N01945");
+        var invoice3 = new Invoice("New RJ-45 Ports", timestampTest, "Ryan", testItemArray, "I0185");
         ArrayList<Invoice> testArray = new ArrayList<Invoice>();
         testArray.add(invoice1);
         testArray.add(invoice2);

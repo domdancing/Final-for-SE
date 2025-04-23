@@ -46,6 +46,8 @@ public class InvoicePageController implements Initializable {
     @FXML private TextField clientNameField;
     @FXML private TextField invoiceNumberField;
     @FXML private TextField latitudeField;
+    
+    
     @FXML private TextField longitudeField;
     @FXML private TextField itemQuantityField;
     @FXML private MenuButton itemMenu;
@@ -145,7 +147,7 @@ public class InvoicePageController implements Initializable {
             
             
             // Create the invoice with the added items
-            Invoice invoice = new Invoice(invoiceName, selectedDate, clientName, items, latitude, longitude);
+            Invoice invoice = new Invoice(invoiceName, selectedDate, clientName, items, zipCode);
 
           // Save to the database
           
