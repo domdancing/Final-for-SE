@@ -20,9 +20,7 @@
             
             <TextField fx:id="invoiceNumberField" promptText="Invoice Name" />
             <TextField fx:id="clientNameField" promptText="Client Name" />
-            <TextField fx:id="latitudeField" promptText="Latitude" />
-            <TextField fx:id="longitudeField" promptText="Longitude" />
-
+             <TextField fx:id="zipCodeField" promptText="ZIP Code" />
             <HBox spacing="10">
                 <MenuButton fx:id="itemMenu" mnemonicParsing="false" text="Add Item">
                     <items>

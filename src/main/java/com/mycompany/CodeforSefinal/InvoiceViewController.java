@@ -2,7 +2,7 @@ package com.mycompany.CodeforSefinal;
 
 import com.mycompany.CodeforSefinal.Objects.QuantityItem;
 import com.mycompany.CodeforSefinal.Objects.Invoice;
-import com.mycompany.CodeforSefinal.DAO.DAOFactory;
+import com.mycompany.CodeforSefinal.factor.DAOFactory;
 import com.mycompany.CodeforSefinal.DAO.InvoiceDAO;
 import com.mycompany.CodeforSefinal.DAO.InvoiceDAOImpl;
 import java.io.IOException;

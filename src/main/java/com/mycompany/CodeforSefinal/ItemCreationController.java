@@ -1,7 +1,7 @@
 
 package com.mycompany.CodeforSefinal;
 import com.mycompany.CodeforSefinal.Objects.ReferenceItem;
-import com.mycompany.CodeforSefinal.DAO.DAOFactory;
+import com.mycompany.CodeforSefinal.factor.DAOFactory;
 
 import com.mycompany.CodeforSefinal.DAO.InvoiceDAO;
 import com.mycompany.CodeforSefinal.DAO.InvoiceDAOImpl;

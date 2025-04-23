@@ -7,7 +7,7 @@ import com.mycompany.CodeforSefinal.Objects.ReferenceItem;
 import com.mycompany.CodeforSefinal.Objects.QuantityItem;
 import com.mycompany.CodeforSefinal.Objects.Item;
 import com.mycompany.CodeforSefinal.Objects.Invoice;
-import com.mycompany.CodeforSefinal.DAO.DAOFactory;
+import com.mycompany.CodeforSefinal.factor.DAOFactory;
 
 import com.mycompany.CodeforSefinal.DAO.InvoiceDAO;
 import com.mycompany.CodeforSefinal.DAO.InvoiceDAOImpl;
@@ -45,10 +45,9 @@ public class InvoicePageController implements Initializable {
 
     @FXML private TextField clientNameField;
     @FXML private TextField invoiceNumberField;
-    @FXML private TextField latitudeField;
+  
+    @FXML private TextField zipCodeField; 
     
-    
-    @FXML private TextField longitudeField;
     @FXML private TextField itemQuantityField;
     @FXML private MenuButton itemMenu;
     @FXML private ListView<String> itemsListView;
@@ -122,52 +121,46 @@ public class InvoicePageController implements Initializable {
     // This method handles creating the invoice
     @FXML
     private void handleCreateInvoice() {
-        String clientName = clientNameField.getText();
-        String invoiceName = invoiceNumberField.getText();
-        String latitudeText = latitudeField.getText();
-        String longitudeText = longitudeField.getText();
+      
+    String clientName = clientNameField.getText();
+    String invoiceName = invoiceNumberField.getText();
+    String zipCode = zipCodeField.getText();  // <-- Now using ZIP
 
-        // Validate input
-        if (clientName.isEmpty() || invoiceName.isEmpty() || latitudeText.isEmpty() || longitudeText.isEmpty()) {
-            showError("Please fill in all fields.");
-            return;
-        }
-        LocalDate localDate = datePicker.getValue();
-        Timestamp selectedDate = Timestamp.valueOf(localDate.atStartOfDay());
-        if (selectedDate == null) {
-            showError("Please select a date.");
-            return;
-                        }
+    // Validate input
+    if (clientName.isEmpty() || invoiceName.isEmpty() || zipCode.isEmpty()) {
+        showError("Please fill in all fields.");
+        return;
+    }
 
-        try {
-            double latitude = Double.parseDouble(latitudeText);
-            double longitude = Double.parseDouble(longitudeText);
+    LocalDate localDate = datePicker.getValue();
+    if (localDate == null) {
+        showError("Please select a date.");
+        return;
+    }
 
-            
-            
-            
-            // Create the invoice with the added items
-            Invoice invoice = new Invoice(invoiceName, selectedDate, clientName, items, zipCode);
+    Timestamp selectedDate = Timestamp.valueOf(localDate.atStartOfDay());
 
-          // Save to the database
-          
-         
+    try {
+        // Create invoice using ZIP-based constructor
+        Invoice invoice = new Invoice(invoiceName, selectedDate, clientName, items, zipCode);
+
+        // Save to database
         try {
             InvoiceDAO invoiceDAO = DAOFactory.getInvoiceDAO();
-         invoiceDAO.saveInvoice(invoice);
-         showInfo("Success", "Invoice has been saved to the database.");
+            invoiceDAO.saveInvoice(invoice);
+            showInfo("Success", "Invoice has been saved to the database.");
         } catch (Exception e) {
             showError("Error saving invoice: " + e.getMessage());
         }
-    
-            
-            // Show the invoice details
-            showInvoiceDetails(invoice);
 
-        } catch (NumberFormatException e) {
-            showError("Invalid latitude or longitude.");
-        }
+        showInvoiceDetails(invoice);
+
+    } catch (Exception e) {
+        showError("Error creating invoice: " + e.getMessage());
     }
+}
+
+    
     
     @FXML
     private void handleReturnToPrimary(ActionEvent event) throws IOException {

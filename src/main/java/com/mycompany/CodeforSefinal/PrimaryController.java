@@ -28,10 +28,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-// take all the needed classes from HW2 and put them in the floder for project
-// make the array list of monster ojcets that is going to be in the controller
-// make a GUI with all the needed things 
-// Now do 2 new features for java fx
+// all the methods for the primary fxml buttons
 
 
 public class PrimaryController implements Initializable{
@@ -53,7 +50,7 @@ public class PrimaryController implements Initializable{
     }
     @FXML
     private void GotoInvoices (javafx.event.ActionEvent event) throws IOException {
-        System.out.println("Button Clicked");
+       
         // Load the new scene (InvoicePage.fxml)
         Parent invoicePage = FXMLLoader.load(getClass().getResource("InvoicePage.fxml"));
         
@@ -69,7 +66,7 @@ public class PrimaryController implements Initializable{
     
     @FXML
     private void ViewInvoices (javafx.event.ActionEvent event) throws IOException {
-        System.out.println("Button Clicked");
+        
         
         Parent viewInvoicePage = FXMLLoader.load(getClass().getResource("InvoiceViewPage.fxml"));
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -81,7 +78,7 @@ public class PrimaryController implements Initializable{
     @FXML
     private void gotoItemCreation(javafx.event.ActionEvent event) throws IOException
     {
-        System.out.println("Button Clicked");
+       
         
         Parent viewItemCreation = FXMLLoader.load(getClass().getResource("CreateItemPage.fxml"));
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();

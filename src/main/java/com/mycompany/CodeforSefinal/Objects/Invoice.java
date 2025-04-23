@@ -54,7 +54,11 @@ public class Invoice {
         String destination = lon + "," + lat;
         try {
             String response = OpenRouteServiceAPI.getDistance(START_LOCATION, destination);
-            return RouteParser.extractDistanceInKm(response);
+        double rawDistance = RouteParser.extractDistanceInKm(response);
+
+        // Round to 2 decimal places
+        double roundedDistance = Math.round(rawDistance * 100.0) / 100.0;
+        return roundedDistance;
         } catch (Exception e) {
             System.out.println("Error calculating distance: " + e.getMessage());
             return 0;

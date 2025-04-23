@@ -25,19 +25,24 @@ public class InvoiceDAOImpl implements InvoiceDAO{
 
     @Override
     public void saveInvoice(Invoice invoice) {
-        try (Connection conn = getConnection()) {
-        String sql = "INSERT INTO invoices (invoice_name, delivery_latitude, delivery_longitude, customer_name, delivery_date) " +
-                     "VALUES (?, ?, ?, ?, ?)";
+    try (Connection conn = getConnection()) {
+        String sql = "INSERT INTO invoices (invoice_name, delivery_zipcode, customer_name, delivery_date) " +
+                     "VALUES (?, ?, ?, ?)";
         PreparedStatement pstmt = conn.prepareStatement(sql);
-        
+
         // Setting the values from the invoice object
         pstmt.setString(1, invoice.getInvoiceName()); // invoice_name
-        pstmt.setDouble(2, invoice.getLatitude()); // delivery_latitude
-        pstmt.setDouble(3, invoice.getLongitude()); // delivery_latitude
-        pstmt.setString(4, invoice.getClientName()); // customer_name
-        pstmt.setTimestamp(5, invoice.getDate()); // delivery_date
-        
+        pstmt.setString(2, invoice.getZipCode());     // delivery_zipcode
+        pstmt.setString(3, invoice.getClientName());  // customer_name
+        pstmt.setTimestamp(4, invoice.getDate());     // delivery_date
+
         pstmt.executeUpdate();
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
         
         //This didn't work, but I'm going to leave it here commented out for now
         /*
@@ -69,11 +74,6 @@ public class InvoiceDAOImpl implements InvoiceDAO{
         }
         */
         
-        System.out.println("Saved invoice to DB.");
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-}
     
 
     @Override
@@ -147,12 +147,11 @@ public class InvoiceDAOImpl implements InvoiceDAO{
         stmt.setString(1, invoice.getInvoiceName());
         stmt.setString(2, invoice.getClientName());
         stmt.setTimestamp(3, invoice.getDate());
-        stmt.setDouble(4, invoice.getLatitude());
-        stmt.setDouble(5, invoice.getLongitude());
-        stmt.setDouble(6, invoice.getShippingPrice());
-        stmt.setDouble(7, invoice.getTotalPrice());
-        stmt.setDouble(8, invoice.getDistance());
-        stmt.setInt(9, invoice.getInvoiceID());
+        stmt.setString(4, invoice.getZipCode());      // delivery_zipcode
+        stmt.setDouble(5, invoice.getShippingPrice());
+        stmt.setDouble(6, invoice.getTotalPrice());
+        stmt.setDouble(7, invoice.getDistance());
+        stmt.setInt(8, invoice.getInvoiceID());
 
         stmt.executeUpdate();
     }
