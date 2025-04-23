@@ -42,33 +42,6 @@ public class App extends Application{
     
     public static void main(String[] args) {
         
-       //TestErnest
-       //Fruit Salad, Yummy Yummy
-        // testinghk
-        // Format: longitude,latitude (NOT latitude,longitude)
-        
-        // Sample items
-        //Item item1 = new Item("Laptop", 999.99);
-       // Item item2 = new Item("Mouse", 25.50);
-        //List<Item> itemList = Arrays.asList(item1, item2);
-        // Example client location (Brooklyn, NY)
-       // double clientLat = 40.730610;
-        //double clientLon = -73.935242;
-       // LocalDate date1 = LocalDate.of(2001, 9, 11);
-        // Create invoice
-        //Invoice invoice = new Invoice("20", date1, "Tech Co.", itemList, clientLat, clientLon);
-        // Display results
-       // System.out.println("Client: " + invoice.getClientName());
-        //System.out.println("Distnace: " + invoice.getDistance()+ "km");
-        //System.out.println("Items:");
-        //for (Item item : invoice.getItems()) {
-          //  System.out.println(" - " + item.getName() + ": $" + item.getPrice());
-        //}
-        //System.out.printf("Shipping Price: $%.2f%n", invoice.getShippingPrice());
-       // System.out.printf("Total Price: $%.2f%n", invoice.getTotalPrice());
-   
-        
-        
         launch();
         
         

@@ -20,4 +20,5 @@ public interface InvoiceDAO {
     List<Invoice> getAllInvoices();
     void deleteInvoicebyID(int invoiceID)throws Exception ;
     void updateInvoice(Invoice invoice) throws SQLException;
+    List<Invoice> searchInvoices(String keyword) throws SQLException;
 }

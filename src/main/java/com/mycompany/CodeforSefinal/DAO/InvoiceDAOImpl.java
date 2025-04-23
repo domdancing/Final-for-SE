@@ -139,6 +139,7 @@ public class InvoiceDAOImpl implements InvoiceDAO{
     }
 
     @Override
+    // a sample not working yet
     public void updateInvoice(Invoice invoice) throws SQLException {
          String sql = "UPDATE invoices SET invoice_name = ?, client_name = ?, date = ?, latitude = ?, longitude = ?, shipping_price = ?, total_price = ?, distance = ? WHERE invoice_id = ?";
 
@@ -155,6 +156,11 @@ public class InvoiceDAOImpl implements InvoiceDAO{
 
         stmt.executeUpdate();
     }
+    }
+
+    @Override
+    public List<Invoice> searchInvoices(String keyword) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 
