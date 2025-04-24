@@ -23,6 +23,8 @@ import java.util.List;
  */
 public class InvoiceDAOImpl implements InvoiceDAO{
 
+    
+    
     @Override
     public void saveInvoice(Invoice invoice) {
     try (Connection conn = getConnection()) {
@@ -37,6 +39,8 @@ public class InvoiceDAOImpl implements InvoiceDAO{
         pstmt.setTimestamp(4, invoice.getDate());     // delivery_date
 
         pstmt.executeUpdate();
+        
+        
 
     } catch (SQLException e) {
         e.printStackTrace();

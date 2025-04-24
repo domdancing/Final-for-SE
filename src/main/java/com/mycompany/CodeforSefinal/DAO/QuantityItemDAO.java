@@ -6,6 +6,7 @@ package com.mycompany.CodeforSefinal.DAO;
 
 import com.mycompany.CodeforSefinal.Objects.QuantityItem;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,8 +14,7 @@ import java.util.List;
  * @author dominick valentine
  */
 public interface QuantityItemDAO {
-    void saveQuantityItem(QuantityItem quantityItem) throws SQLException;
-    void updateQuantityItem(QuantityItem quantityItem) throws SQLException;
-    void deleteQuantityItem(long itemId) throws SQLException;
+    ArrayList<QuantityItem> getQuantityItemsFromInvoiceId(int invoiceId) throws SQLException;
+    void saveQuantityItemWithInvoiceId(QuantityItem quantityItem, int invoiceId) throws SQLException;
     
 }

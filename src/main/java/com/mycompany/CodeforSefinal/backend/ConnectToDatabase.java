@@ -27,6 +27,25 @@ public class ConnectToDatabase {
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
+    
+    //To be called after making an insert to the database in order to retreive
+    //the id that the database genereated for the object we just inserted.
+    public static int getLastInsertId() {
+        try (Connection conn = getConnection()) {
+            String sql = "SELECT LAST_INSERT_ID() AS last_id";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            ResultSet result = pstmt.executeQuery();
+            result.next();
+
+            return result.getInt("last_id");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return -1;
+    }
    
     public static void checkAddItem(Item item, String invoiceName) {
         //Check the items table to see if an item with this name has already been added (item names are unique)

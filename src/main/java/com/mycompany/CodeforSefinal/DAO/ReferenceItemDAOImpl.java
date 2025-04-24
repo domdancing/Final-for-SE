@@ -42,7 +42,7 @@ public class ReferenceItemDAOImpl implements ReferenceItemDAO {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                Long id = rs.getLong("item_id");
+                int id = rs.getInt("item_id");
                 String name = rs.getString("name");
                 double price = rs.getDouble("price");
                 itemList.add(new Item(id, name, price) {});
