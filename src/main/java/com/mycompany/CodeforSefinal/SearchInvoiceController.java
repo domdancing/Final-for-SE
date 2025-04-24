@@ -41,6 +41,7 @@ public class SearchInvoiceController implements Initializable {
     @FXML
     private void handleSearchInvoices() {
         // your DAO search call and population logic here
+        
     }
 
     @FXML
