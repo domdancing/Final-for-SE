@@ -49,7 +49,7 @@ public class ItemCreationController implements Initializable
     @FXML private Button returnFromCIButton;
     
     @FXML private TableView<ReferenceItem> createItemTable;
-    @FXML private TableColumn<ReferenceItem, Long> IDFX;
+    @FXML private TableColumn<ReferenceItem, Integer> IDFX;
     @FXML private TableColumn<ReferenceItem, String> NameFX;
     @FXML private TableColumn<ReferenceItem, Double> PriceFX;
 
@@ -98,7 +98,7 @@ public class ItemCreationController implements Initializable
     {
         ObservableList<ReferenceItem> observableItems = FXCollections.observableArrayList(listofItems);
         
-        IDFX.setCellValueFactory(new PropertyValueFactory<ReferenceItem, Long>("itemId"));
+        IDFX.setCellValueFactory(new PropertyValueFactory<ReferenceItem, Integer>("itemId"));
         NameFX.setCellValueFactory(new PropertyValueFactory<ReferenceItem, String>("name"));
         PriceFX.setCellValueFactory(new PropertyValueFactory<ReferenceItem, Double>("price"));
         
@@ -115,7 +115,7 @@ public class ItemCreationController implements Initializable
         String strItemPrice = createItemPriceField.getText();
         Double itemPrice = Double.parseDouble(strItemPrice);
         
-        long itemID = (1 + listofItems.size());
+        int itemID = (1 + listofItems.size());
         
        // This implementation is not meant to be a permanent measure. This is only until a proper method
         // of locating the next ItemID from the database can be ascertained and sent to this class.

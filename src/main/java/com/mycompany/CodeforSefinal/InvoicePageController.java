@@ -85,7 +85,7 @@ public class InvoicePageController implements Initializable {
     @FXML
     private void handleAddItem(ReferenceItem rItem) {
         //Setup
-        Long itemId = rItem.getItemId();
+        int itemId = rItem.getItemId();
         String itemName = rItem.getName();
         Double itemPrice = rItem.getPrice();
         String itemPriceText = ""+rItem.getPrice();

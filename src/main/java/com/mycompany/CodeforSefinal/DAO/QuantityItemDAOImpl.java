@@ -10,51 +10,47 @@ package com.mycompany.CodeforSefinal.DAO;
  */
 import com.mycompany.CodeforSefinal.Objects.QuantityItem;
 import com.mycompany.CodeforSefinal.backend.ConnectToDatabase;
+import com.mycompany.CodeforSefinal.factor.ItemFactory;
+import com.mycompany.CodeforSefinal.factor.QuantityItemFactory;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class QuantityItemDAOImpl implements QuantityItemDAO {
 
-    private static final String INSERT_ITEM_SQL = "INSERT INTO quantity_items (item_id, name, price, quantity) VALUES (?, ?, ?, ?)";
-    private static final String UPDATE_ITEM_SQL = "UPDATE quantity_items SET name = ?, price = ?, quantity = ? WHERE item_id = ?";
-    private static final String DELETE_ITEM_SQL = "DELETE FROM quantity_items WHERE item_id = ?";
-   
+    private static final String SELECT_BY_INVOICE_SQL = "SELECT * FROM invoice_items ivi JOIN items i ON ivi.item_id = i.item_id WHERE i.invoice_id = ?";
+    private static final String INSERT_ITEM_SQL = "INSERT INTO invoice_items (invoice_id, item_id, quantity) VALUES (?, ?, ?)";
+    
+    public ArrayList<QuantityItem> getQuantityItemsFromInvoiceId(int invoiceId) throws SQLException {
+        ArrayList<QuantityItem> items = new ArrayList<QuantityItem>();
+        
+        try (Connection conn = ConnectToDatabase.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(SELECT_BY_INVOICE_SQL);
+            stmt.setInt(1, invoiceId);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                int itemId = resultSet.getInt("i.item_id");
+                double itemPrice = resultSet.getDouble("i.item_price");
+                String itemName = resultSet.getString("i.item_name");
+                int itemQuantity = resultSet.getInt("ivi.quantity");
+                QuantityItemFactory itemFactory = new QuantityItemFactory(itemQuantity);
+                QuantityItem item = (QuantityItem) itemFactory.createItem(itemId, itemName, itemPrice);
+                items.add(item);
+            }
+            return items;
+        }
+
+    }
 
     @Override
-    public void saveQuantityItem(QuantityItem quantityItem) throws SQLException {
+    public void saveQuantityItemWithInvoiceId(QuantityItem quantityItem, int invoiceId) throws SQLException {
         try (Connection conn = ConnectToDatabase.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(INSERT_ITEM_SQL)) {
-            stmt.setLong(1, quantityItem.getItemId());
+            PreparedStatement stmt = conn.prepareStatement(INSERT_ITEM_SQL)) {
+            stmt.setInt(1, quantityItem.getItemId());
             stmt.setString(2, quantityItem.getName());
             stmt.setDouble(3, quantityItem.getPrice());
-            stmt.setInt(4, quantityItem.getQuantity());
             stmt.executeUpdate();
         }
     }
 
-    @Override
-    public void updateQuantityItem(QuantityItem quantityItem) throws SQLException {
-        try (Connection conn = ConnectToDatabase.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(UPDATE_ITEM_SQL)) {
-            stmt.setString(1, quantityItem.getName());
-            stmt.setDouble(2, quantityItem.getPrice());
-            stmt.setInt(3, quantityItem.getQuantity());
-            stmt.setLong(4, quantityItem.getItemId());
-            stmt.executeUpdate();
-        }
-    }
-
-    @Override
-    public void deleteQuantityItem(long itemId) throws SQLException {
-        try (Connection conn = ConnectToDatabase.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(DELETE_ITEM_SQL)) {
-            stmt.setLong(1, itemId);
-            stmt.executeUpdate();
-        }
-    }
-
-
-  
-      
 }

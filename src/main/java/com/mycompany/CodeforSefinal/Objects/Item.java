@@ -1,11 +1,11 @@
 package com.mycompany.CodeforSefinal.Objects;
 
 public abstract class Item {
-    private long itemId;
+    private int itemId;
     private String name;
     private double price;
 
-    public Item(long itemId, String name, double price) {
+    public Item(int itemId, String name, double price) {
         this.itemId = itemId;
         this.name = name;
         this.price = price;
@@ -28,12 +28,12 @@ public abstract class Item {
     }
 
 
-    public long getItemId() {
+    public int getItemId() {
         return itemId;
     }
 
 
-    public void setItemId(long itemId) {
+    public void setItemId(int itemId) {
         this.itemId = itemId;
     }
 
