@@ -8,10 +8,12 @@ import static com.mycompany.CodeforSefinal.backend.ConnectToDatabase.getConnecti
 import com.mycompany.CodeforSefinal.Objects.Invoice;
 import com.mycompany.CodeforSefinal.Objects.QuantityItem;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -162,10 +164,56 @@ public class InvoiceDAOImpl implements InvoiceDAO{
     }
     }
 
-    @Override
-    public List<Invoice> searchInvoices(String keyword) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+public List<Invoice> searchInvoices(String zipCode, String clientName, String invoiceName, LocalDate date) throws SQLException {
+    List<Invoice> results = new ArrayList<>();
+
+    StringBuilder sql = new StringBuilder("SELECT * FROM invoices WHERE 1=1");
+    List<Object> parameters = new ArrayList<>();
+
+    if (zipCode != null && !zipCode.isEmpty()) {
+        sql.append(" AND zip_code LIKE ?");
+        parameters.add("%" + zipCode + "%");
     }
+    if (clientName != null && !clientName.isEmpty()) {
+        sql.append(" AND client_name LIKE ?");
+        parameters.add("%" + clientName + "%");
+    }
+    if (invoiceName != null && !invoiceName.isEmpty()) {
+        sql.append(" AND invoice_name LIKE ?");
+        parameters.add("%" + invoiceName + "%");
+    }
+    if (date != null) {
+        sql.append(" AND DATE(delivery_date) = ?");
+        parameters.add(Date.valueOf(date));
+    }
+
+    try (Connection conn = ConnectToDatabase.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+
+        for (int i = 0; i < parameters.size(); i++) {
+            stmt.setObject(i + 1, parameters.get(i));
+        }
+
+        ResultSet rs = stmt.executeQuery();
+
+       while (rs.next()) {
+    Invoice invoice = new Invoice(
+        rs.getString("invoice_name"),
+        rs.getTimestamp("delivery_date"),
+        rs.getString("client_name"),
+        new ArrayList<>(), // No item details yet
+        rs.getString("zip_code")
+    );
+    results.add(invoice);
+}
+
+    }
+
+    return results;
+}
+
+   
+
 
 
    

@@ -15,7 +15,7 @@ public class ReferenceItemFactory implements ItemFactory {
     
     @Override
     public Item createItem(long itemId, String name, double price) {
-        return new ReferenceItem(itemId, name, price);
+        return new ReferenceItem((int) itemId, name, price);
     }
 
    

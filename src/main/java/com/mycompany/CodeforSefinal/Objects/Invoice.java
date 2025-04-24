@@ -90,6 +90,45 @@ public class Invoice {
         return invoiceName;
     }
 
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+
+    public void setInvoiceName(String invoiceName) {
+        this.invoiceName = invoiceName;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
+    }
+
+    public void setItems(ArrayList<QuantityItem> items) {
+        this.items = items;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setShippingPrice(double shippingPrice) {
+        this.shippingPrice = shippingPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+    
+    
+    
+
     public Timestamp getDate() {
         return date;
     }

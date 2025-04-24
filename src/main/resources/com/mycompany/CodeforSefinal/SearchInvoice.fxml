@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefWidth="600.0" prefHeight="600.0"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mycompany.CodeforSefinal.SearchInvoiceController">
+    
+    <children>
+        <VBox layoutX="30" layoutY="30" spacing="10" prefWidth="550">
+            <Label text="Search Invoices" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
+            <TextField fx:id="invoiceNameField" promptText="Invoice Name" />
+            <TextField fx:id="clientNameField" promptText="Client Name" />
+            <TextField fx:id="zipCodeField" promptText="ZIP Code" />
+            <DatePicker fx:id="datePicker" promptText="Delivery Date" />
+
+            <HBox spacing="10">
+                <Button text="Search" onAction="#handleSearchInvoices" prefWidth="100" />
+                <Button text="Return" onAction="#handleReturnToPrimary" prefWidth="100" />
+            </HBox>
+
+            <TableView fx:id="resultsTable" prefHeight="300.0">
+                <columns>
+                    <TableColumn fx:id="colInvoiceName" text="Invoice Name" />
+                    <TableColumn fx:id="colClientName" text="Client Name" />
+                    <TableColumn fx:id="colZipCode" text="ZIP Code" />
+                    <TableColumn fx:id="colDate" text="Date" />
+                   
+                </columns>
+            </TableView>
+        </VBox>
+    </children>
+</AnchorPane>

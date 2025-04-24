@@ -11,6 +11,7 @@ package com.mycompany.CodeforSefinal.DAO;
 
 import com.mycompany.CodeforSefinal.Objects.Invoice;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 
 import java.util.List;
@@ -20,5 +21,6 @@ public interface InvoiceDAO {
     List<Invoice> getAllInvoices();
     void deleteInvoicebyID(int invoiceID)throws Exception ;
     void updateInvoice(Invoice invoice) throws SQLException;
-    List<Invoice> searchInvoices(String keyword) throws SQLException;
+   List<Invoice> searchInvoices(String zipCode, String clientName, String invoiceName, LocalDate date) throws SQLException;
+
 }

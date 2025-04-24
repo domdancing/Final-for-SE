@@ -20,5 +20,8 @@
        <Button fx:id="testButton" layoutX="143.0" layoutY="225.0" mnemonicParsing="false" onAction="#GotoInvoices" prefHeight="27.0" prefWidth="136.0" text="Create New Invoice" />
       <Button fx:id="viewInvoices" layoutX="367.0" layoutY="225.0" mnemonicParsing="false" onAction="#ViewInvoices" prefHeight="27.0" prefWidth="156.0" text="Edit and Look at Invoices" />
       <Button fx:id="viewItemCreation" layoutX="257.0" layoutY="285.0" mnemonicParsing="false" onAction="#gotoItemCreation" prefHeight="27.0" prefWidth="136.0" text="Create New Item" />
+      <Button fx:id="SearchInvoices" layoutX="367.0" layoutY="275.0" mnemonicParsing="false"
+                onAction="#gotoSearchInvoices" prefHeight="27.0" prefWidth="156.0" text="Search Invoices" />
+
    </children>
 </AnchorPane>

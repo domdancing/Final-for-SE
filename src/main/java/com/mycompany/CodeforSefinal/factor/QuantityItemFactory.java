@@ -20,6 +20,6 @@ public class QuantityItemFactory implements ItemFactory {
 
     @Override
     public Item createItem(long itemId, String name, double price) {
-        return new QuantityItem(itemId, name, price, quantity);
+        return new QuantityItem((int) itemId, name, price, quantity);
     }
 }
