@@ -29,17 +29,18 @@ public class InvoiceDAOImpl implements InvoiceDAO{
     @Override
     public void saveInvoice(Invoice invoice) {
         try (Connection conn = getConnection()) {
-            String sql = "INSERT INTO invoices (invoice_name, delivery_zipcode, customer_name, delivery_date) " +
+            String sql = "INSERT INTO invoices (invoice_name, zip_code, customer_name, delivery_date) " +
                          "VALUES (?, ?, ?, ?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             // Setting the values from the invoice object
             pstmt.setString(1, invoice.getInvoiceName()); // invoice_name
-            pstmt.setString(2, invoice.getZipCode());     // delivery_zipcode
+            pstmt.setString(2, invoice.getZipCode());     // zipcode
             pstmt.setString(3, invoice.getClientName());  // customer_name
             pstmt.setTimestamp(4, invoice.getDate());     // delivery_date
 
             pstmt.executeUpdate();
+            System.out.println("Invoice saved!");
 
             int invoiceId = ConnectToDatabase.getLastInsertId();
             invoice.setInvoiceID(invoiceId);
@@ -71,7 +72,7 @@ public class InvoiceDAOImpl implements InvoiceDAO{
             while (resultSet.next()) { 
                 int invoiceId = resultSet.getInt("invoice_id");
                 String invoiceName = resultSet.getString("invoice_name");
-                String zipcode = resultSet.getString("delivery_zipcode");
+                String zipcode = resultSet.getString("zip_code");
                 String customerName = resultSet.getString("customer_name");
                 Timestamp deliveryDate = resultSet.getTimestamp("delivery_date");
                 
@@ -125,65 +126,44 @@ public class InvoiceDAOImpl implements InvoiceDAO{
    
 public ArrayList<Invoice> searchInvoices(String invoiceName, String clientName, String zipCode, LocalDate date) {
     ArrayList<Invoice> invoiceList = new ArrayList<>();
-    
+
     try {
-        Connection connection = getConnection();
-        
-        // Build dynamic query
-        StringBuilder query = new StringBuilder("SELECT * FROM invoices WHERE 1=1");
-        List<Object> params = new ArrayList<>();
+        // First, get all invoices
+        ArrayList<Invoice> allInvoices = getAllInvoices();  // Calls the existing method to fetch all invoices
 
-        if (invoiceName != null && !invoiceName.isEmpty()) {
-            query.append(" AND invoice_name LIKE ?");
-            params.add("%" + invoiceName + "%");
-        }
-        if (clientName != null && !clientName.isEmpty()) {
-            query.append(" AND customer_name LIKE ?");
-            params.add("%" + clientName + "%");
-        }
-        if (zipCode != null && !zipCode.isEmpty()) {
-            query.append(" AND delivery_zipcode = ?");
-            params.add(zipCode);
-        }
-        if (date != null) {
-            query.append(" AND DATE(delivery_date) = ?");
-            params.add(Date.valueOf(date));  // convert LocalDate to SQL Date
-        }
+        // Now filter invoices based on the search criteria
+        for (Invoice invoice : allInvoices) {
+            boolean matches = true;
 
-        PreparedStatement stmt = connection.prepareStatement(query.toString());
+            if (invoiceName != null && !invoiceName.isEmpty() && !invoice.getInvoiceName().contains(invoiceName)) {
+                matches = false;
+            }
+            if (clientName != null && !clientName.isEmpty() && !invoice.getClientName().contains(clientName)) {
+                matches = false;
+            }
+            if (zipCode != null && !zipCode.isEmpty() && !invoice.getZipCode().equals(zipCode)) {
+                matches = false;
+            }
+            if (date != null && !invoice.getDate().toLocalDateTime().equals(date)) {
+                matches = false;
+            }
 
-        // Fill in parameters
-        for (int i = 0; i < params.size(); i++) {
-            stmt.setObject(i + 1, params.get(i));
+            // If it matches all the criteria, add to the result list
+            if (matches) {
+                invoiceList.add(invoice);
+            }
         }
 
-        ResultSet resultSet = stmt.executeQuery();
-
-        while (resultSet.next()) {
-            int invoiceId = resultSet.getInt("invoice_id");
-            String resultInvoiceName = resultSet.getString("invoice_name");
-            String resultZip = resultSet.getString("delivery_zipcode");
-            String resultClientName = resultSet.getString("customer_name");
-            Timestamp deliveryDate = resultSet.getTimestamp("delivery_date");
-
-            QuantityItemDAOImpl qidao = new QuantityItemDAOImpl();
-            ArrayList<QuantityItem> itemList = qidao.getQuantityItemsFromInvoiceId(invoiceId);
-
-            Invoice invoice = new Invoice(resultInvoiceName, deliveryDate, resultClientName, itemList, resultZip);
-            invoice.setInvoiceID(invoiceId);
-
-            invoiceList.add(invoice);
-        }
-
-        return invoiceList;
-
-    } catch (SQLException e) {
+    } catch (Exception e) {
         e.printStackTrace();
     }
 
-    return new ArrayList<>();
+    return invoiceList;
 }
+
+}
+
 
     
     
-}
+

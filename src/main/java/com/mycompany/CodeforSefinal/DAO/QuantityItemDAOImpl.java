@@ -18,7 +18,7 @@ import java.util.List;
 
 public class QuantityItemDAOImpl implements QuantityItemDAO {
 
-    private static final String SELECT_BY_INVOICE_SQL = "SELECT * FROM invoice_items ivi JOIN items i ON ivi.item_id = i.item_id WHERE i.invoice_id = ?";
+    private static final String SELECT_BY_INVOICE_SQL = "SELECT * FROM invoice_items ivi JOIN items i ON ivi.item_id = i.item_id WHERE ivi.invoice_id = ?";
     private static final String INSERT_ITEM_SQL = "INSERT INTO invoice_items (invoice_id, item_id, quantity) VALUES (?, ?, ?)";
     
     public ArrayList<QuantityItem> getQuantityItemsFromInvoiceId(int invoiceId) throws SQLException {
