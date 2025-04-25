@@ -52,7 +52,7 @@ public class PrimaryController implements Initializable{
     private void GotoInvoices (javafx.event.ActionEvent event) throws IOException {
        
         // Load the new scene (InvoicePage.fxml)
-        Parent invoicePage = FXMLLoader.load(getClass().getResource("InvoicePage.fxml"));
+        Parent invoicePage = FXMLLoader.load(getClass().getResource("InvoiceCreate.fxml"));
         
         // Get the current stage (the window where the button was clicked)
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();

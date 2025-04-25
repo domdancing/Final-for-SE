@@ -30,7 +30,7 @@ public class Invoice {
     private double distance;
 
     private static final String START_LOCATION = "-72.7945,42.1315"; // Warehouse (WSU)
-    private static final double COST_PER_KM = 0.75;
+    private static final double COST_PER_KM = 0.25;
 
     // Updated constructor using ZIP
     public Invoice(String invoiceName, Timestamp date, String clientName, ArrayList<QuantityItem> items, String zipCode) {
