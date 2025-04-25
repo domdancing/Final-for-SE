@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,116 +25,72 @@ import java.util.List;
  * @author tangs
  */
 public class InvoiceDAOImpl implements InvoiceDAO{
-
-    
     
     @Override
     public void saveInvoice(Invoice invoice) {
-    try (Connection conn = getConnection()) {
-        String sql = "INSERT INTO invoices (invoice_name, delivery_zipcode, customer_name, delivery_date) " +
-                     "VALUES (?, ?, ?, ?)";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
+        try (Connection conn = getConnection()) {
+            String sql = "INSERT INTO invoices (invoice_name, delivery_zipcode, customer_name, delivery_date) " +
+                         "VALUES (?, ?, ?, ?)";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
 
-        // Setting the values from the invoice object
-        pstmt.setString(1, invoice.getInvoiceName()); // invoice_name
-        pstmt.setString(2, invoice.getZipCode());     // delivery_zipcode
-        pstmt.setString(3, invoice.getClientName());  // customer_name
-        pstmt.setTimestamp(4, invoice.getDate());     // delivery_date
+            // Setting the values from the invoice object
+            pstmt.setString(1, invoice.getInvoiceName()); // invoice_name
+            pstmt.setString(2, invoice.getZipCode());     // delivery_zipcode
+            pstmt.setString(3, invoice.getClientName());  // customer_name
+            pstmt.setTimestamp(4, invoice.getDate());     // delivery_date
 
-        pstmt.executeUpdate();
-        
-        
+            pstmt.executeUpdate();
 
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-}
+            int invoiceId = ConnectToDatabase.getLastInsertId();
+            invoice.setInvoiceID(invoiceId);
 
-        
-        //This didn't work, but I'm going to leave it here commented out for now
-        /*
-        //Get the generated id of the invoice we just inserted
-        PreparedStatement lidStmnt = conn.prepareStatement("SELECT LAST_INSERT_ID()");
-        ResultSet lidrs = lidStmnt.executeQuery();
-        long insertId = lidrs.getLong(1);
-        
-        //Add items if any; we should also have a separate function to attach items to existing invoices
-        ArrayList<Item> items = invoice.getItems();
-        for (int i = 0; i < items.size(); i++) {
-            Item item = items.get(i);
-            
-            //Get Item Id; once we make item creation, we should save the item_id so we don't have to search this every time
-            String itemQuery = "SELECT item_id FROM items WHERE name = " + item.getName();
-            PreparedStatement itemStmnt = conn.prepareStatement(itemQuery);
-            ResultSet itemrs = itemStmnt.executeQuery();
-            long itemId = itemrs.getLong(1);
-            
-            //Match this invoice's id with this item's id.
-            String itemInvoiceSql = "INSERT INTO invoice_items (invoice_id, item_id) " +
-                     "VALUES (?, ?)";
-            PreparedStatement itemInvoicePstmt = conn.prepareStatement(itemInvoiceSql);
-            
-            itemInvoicePstmt.setLong(1, insertId);
-            itemInvoicePstmt.setLong(2, itemId);
-            
-            itemInvoicePstmt.executeUpdate();
+            for (int i = 0; i < invoice.getItems().size(); i++) {
+                QuantityItem item = invoice.getItems().get(i);
+                QuantityItemDAOImpl qidao = new QuantityItemDAOImpl();
+                qidao.saveQuantityItemWithInvoiceId(item, invoiceId);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        */
-        
-    
+    }
+
 
     @Override
-        public ArrayList<Invoice> getAllInvoices() {
+    public ArrayList<Invoice> getAllInvoices() {
+        
+        ArrayList<Invoice> invoiceList = new ArrayList<Invoice>();
+        
         try {
             //Make query and place the results in resulSet
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
-            String queryString = "SELECT * FROM formatted_invoices";
+            String queryString = "SELECT * FROM invoices";
             ResultSet resultSet = statement.executeQuery(queryString);
-            
-            HashMap<Integer, Invoice> invoiceMap = new HashMap<Integer, Invoice>();
-            ArrayList<Invoice> invoiceList = new ArrayList<Invoice>();
-            
-            //Iterate through resultSet 
+
             while (resultSet.next()) { 
-             
-                //Get invoiceID
-                int invoiceId = resultSet.getInt("id");
+                int invoiceId = resultSet.getInt("invoice_id");
+                String invoiceName = resultSet.getString("invoice_name");
+                String zipcode = resultSet.getString("delivery_zipcode");
+                String customerName = resultSet.getString("customer_name");
+                Timestamp deliveryDate = resultSet.getTimestamp("delivery_date");
                 
-                //Create item from this result
-                String itemName = resultSet.getString("item_name");
-                double itemPrice = resultSet.getDouble("item_price");
-                QuantityItem item = null;
+                QuantityItemDAOImpl qidao = new QuantityItemDAOImpl();
+                ArrayList<QuantityItem> itemList = qidao.getQuantityItemsFromInvoiceId(invoiceId);
+                        
+                //public Invoice(String invoiceName, Timestamp date, String clientName, ArrayList<QuantityItem> items, String zipCode) {
+                Invoice invoice = new Invoice(invoiceName, deliveryDate, customerName, itemList, zipcode);  
+                invoice.setInvoiceID(invoiceId);
                 
-                if (invoiceMap.containsKey(invoiceId)) {
-                    //Just add item to the existing invoices
-                    Invoice addItemInvoice = invoiceMap.get(invoiceId);
-                    addItemInvoice.addItem(item);
-                } else {
-                    //Create new invoice, add the item to it, and add the new invoice to the Array and the Hashmap
-                    
-                    //Create invoice object
-                    //TO DO
-                     String invoiceName = "" + invoiceId;
-                    
-                    Invoice invoice = null; //new Invoice(invoice_number, )
-                    invoice.addItem(item);
-                    //END OF TO DO
-                    
-                    //Add to Array List and Hash Map
-                    invoiceList.add(invoice);
-                    invoiceMap.put(invoiceId, invoice);
-                }
-                
-            }
+                invoiceList.add(invoice);
+            } 
             
-            //Return list of all invoices
             return invoiceList;
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         //Should never reach here
         return null;
     }
@@ -164,60 +121,53 @@ public class InvoiceDAOImpl implements InvoiceDAO{
     }
     }
 
-public List<Invoice> searchInvoices(String zipCode, String clientName, String invoiceName, LocalDate date) throws SQLException {
-    List<Invoice> results = new ArrayList<>();
+    public List<Invoice> searchInvoices(String zipCode, String clientName, String invoiceName, LocalDate date) throws SQLException {
+        List<Invoice> results = new ArrayList<>();
 
-    StringBuilder sql = new StringBuilder("SELECT * FROM invoices WHERE 1=1");
-    List<Object> parameters = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT * FROM invoices WHERE 1=1");
+        List<Object> parameters = new ArrayList<>();
 
-    if (zipCode != null && !zipCode.isEmpty()) {
-        sql.append(" AND zip_code LIKE ?");
-        parameters.add("%" + zipCode + "%");
-    }
-    if (clientName != null && !clientName.isEmpty()) {
-        sql.append(" AND client_name LIKE ?");
-        parameters.add("%" + clientName + "%");
-    }
-    if (invoiceName != null && !invoiceName.isEmpty()) {
-        sql.append(" AND invoice_name LIKE ?");
-        parameters.add("%" + invoiceName + "%");
-    }
-    if (date != null) {
-        sql.append(" AND DATE(delivery_date) = ?");
-        parameters.add(Date.valueOf(date));
-    }
-
-    try (Connection conn = ConnectToDatabase.getConnection();
-         PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
-
-        for (int i = 0; i < parameters.size(); i++) {
-            stmt.setObject(i + 1, parameters.get(i));
+        if (zipCode != null && !zipCode.isEmpty()) {
+            sql.append(" AND zip_code LIKE ?");
+            parameters.add("%" + zipCode + "%");
+        }
+        if (clientName != null && !clientName.isEmpty()) {
+            sql.append(" AND client_name LIKE ?");
+            parameters.add("%" + clientName + "%");
+        }
+        if (invoiceName != null && !invoiceName.isEmpty()) {
+            sql.append(" AND invoice_name LIKE ?");
+            parameters.add("%" + invoiceName + "%");
+        }
+        if (date != null) {
+            sql.append(" AND DATE(delivery_date) = ?");
+            parameters.add(Date.valueOf(date));
         }
 
-        ResultSet rs = stmt.executeQuery();
+        try (Connection conn = ConnectToDatabase.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
 
-       while (rs.next()) {
-    Invoice invoice = new Invoice(
-        rs.getString("invoice_name"),
-        rs.getTimestamp("delivery_date"),
-        rs.getString("client_name"),
-        new ArrayList<>(), // No item details yet
-        rs.getString("zip_code")
-    );
-    results.add(invoice);
-}
+            for (int i = 0; i < parameters.size(); i++) {
+                stmt.setObject(i + 1, parameters.get(i));
+            }
 
+            ResultSet rs = stmt.executeQuery();
+
+           while (rs.next()) {
+                Invoice invoice = new Invoice(
+                    rs.getString("invoice_name"),
+                    rs.getTimestamp("delivery_date"),
+                    rs.getString("client_name"),
+                    new ArrayList<>(), // No item details yet
+                    rs.getString("zip_code")
+                );
+                results.add(invoice);
+            }
+
+        }
+
+        return results;
     }
-
-    return results;
-}
-
-   
-
-
-
-   
-    
     
     
 }
