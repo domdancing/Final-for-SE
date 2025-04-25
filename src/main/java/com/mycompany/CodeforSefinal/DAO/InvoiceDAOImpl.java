@@ -103,6 +103,7 @@ public class InvoiceDAOImpl implements InvoiceDAO{
 
     @Override
     // a sample not working yet
+    // this should call getallincoives to update them
     public void updateInvoice(Invoice invoice) throws SQLException {
          String sql = "UPDATE invoices SET invoice_name = ?, client_name = ?, date = ?, latitude = ?, longitude = ?, shipping_price = ?, total_price = ?, distance = ? WHERE invoice_id = ?";
 
@@ -121,53 +122,68 @@ public class InvoiceDAOImpl implements InvoiceDAO{
     }
     }
 
-    public List<Invoice> searchInvoices(String zipCode, String clientName, String invoiceName, LocalDate date) throws SQLException {
-        List<Invoice> results = new ArrayList<>();
+   
+public ArrayList<Invoice> searchInvoices(String invoiceName, String clientName, String zipCode, LocalDate date) {
+    ArrayList<Invoice> invoiceList = new ArrayList<>();
+    
+    try {
+        Connection connection = getConnection();
+        
+        // Build dynamic query
+        StringBuilder query = new StringBuilder("SELECT * FROM invoices WHERE 1=1");
+        List<Object> params = new ArrayList<>();
 
-        StringBuilder sql = new StringBuilder("SELECT * FROM invoices WHERE 1=1");
-        List<Object> parameters = new ArrayList<>();
-
-        if (zipCode != null && !zipCode.isEmpty()) {
-            sql.append(" AND zip_code LIKE ?");
-            parameters.add("%" + zipCode + "%");
+        if (invoiceName != null && !invoiceName.isEmpty()) {
+            query.append(" AND invoice_name LIKE ?");
+            params.add("%" + invoiceName + "%");
         }
         if (clientName != null && !clientName.isEmpty()) {
-            sql.append(" AND client_name LIKE ?");
-            parameters.add("%" + clientName + "%");
+            query.append(" AND customer_name LIKE ?");
+            params.add("%" + clientName + "%");
         }
-        if (invoiceName != null && !invoiceName.isEmpty()) {
-            sql.append(" AND invoice_name LIKE ?");
-            parameters.add("%" + invoiceName + "%");
+        if (zipCode != null && !zipCode.isEmpty()) {
+            query.append(" AND delivery_zipcode = ?");
+            params.add(zipCode);
         }
         if (date != null) {
-            sql.append(" AND DATE(delivery_date) = ?");
-            parameters.add(Date.valueOf(date));
+            query.append(" AND DATE(delivery_date) = ?");
+            params.add(Date.valueOf(date));  // convert LocalDate to SQL Date
         }
 
-        try (Connection conn = ConnectToDatabase.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+        PreparedStatement stmt = connection.prepareStatement(query.toString());
 
-            for (int i = 0; i < parameters.size(); i++) {
-                stmt.setObject(i + 1, parameters.get(i));
-            }
-
-            ResultSet rs = stmt.executeQuery();
-
-           while (rs.next()) {
-                Invoice invoice = new Invoice(
-                    rs.getString("invoice_name"),
-                    rs.getTimestamp("delivery_date"),
-                    rs.getString("client_name"),
-                    new ArrayList<>(), // No item details yet
-                    rs.getString("zip_code")
-                );
-                results.add(invoice);
-            }
-
+        // Fill in parameters
+        for (int i = 0; i < params.size(); i++) {
+            stmt.setObject(i + 1, params.get(i));
         }
 
-        return results;
+        ResultSet resultSet = stmt.executeQuery();
+
+        while (resultSet.next()) {
+            int invoiceId = resultSet.getInt("invoice_id");
+            String resultInvoiceName = resultSet.getString("invoice_name");
+            String resultZip = resultSet.getString("delivery_zipcode");
+            String resultClientName = resultSet.getString("customer_name");
+            Timestamp deliveryDate = resultSet.getTimestamp("delivery_date");
+
+            QuantityItemDAOImpl qidao = new QuantityItemDAOImpl();
+            ArrayList<QuantityItem> itemList = qidao.getQuantityItemsFromInvoiceId(invoiceId);
+
+            Invoice invoice = new Invoice(resultInvoiceName, deliveryDate, resultClientName, itemList, resultZip);
+            invoice.setInvoiceID(invoiceId);
+
+            invoiceList.add(invoice);
+        }
+
+        return invoiceList;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+
+    return new ArrayList<>();
+}
+
     
     
 }

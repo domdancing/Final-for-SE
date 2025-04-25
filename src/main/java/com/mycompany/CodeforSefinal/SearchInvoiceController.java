@@ -4,8 +4,11 @@
  */
 package com.mycompany.CodeforSefinal;
 
+import com.mycompany.CodeforSefinal.DAO.InvoiceDAOImpl;
 import com.mycompany.CodeforSefinal.Objects.Invoice;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,12 +41,23 @@ public class SearchInvoiceController implements Initializable {
         resultsTable.setItems(FXCollections.observableArrayList());
     }
 
-    @FXML
-    private void handleSearchInvoices() {
+    
         // your DAO search call and population logic here
-        
-    }
+        @FXML
+private void handleSearchInvoices() {
+    String invoiceName = invoiceNameField.getText().trim();
+    String clientName = clientNameField.getText().trim();
+    String zipCode = zipCodeField.getText().trim();
+    LocalDate date = datePicker.getValue(); // can be null
 
+    InvoiceDAOImpl dao = new InvoiceDAOImpl();
+    ArrayList<Invoice> invoices = dao.searchInvoices(invoiceName, clientName, zipCode, date);
+
+    ObservableList<Invoice> observableInvoices = FXCollections.observableArrayList(invoices);
+    resultsTable.setItems(observableInvoices);
+}
+
+       
     @FXML
     private void handleReturnToPrimary(javafx.event.ActionEvent event) throws Exception {
         javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("primary.fxml"));
