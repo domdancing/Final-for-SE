@@ -141,8 +141,14 @@ public ArrayList<Invoice> searchInvoices(String invoiceName, String clientName, 
             if (clientName != null && !clientName.isEmpty() && !invoice.getClientName().contains(clientName)) {
                 matches = false;
             }
-            if (zipCode != null && !zipCode.isEmpty() && !invoice.getZipCode().equals(zipCode)) {
-                matches = false;
+          
+            if (zipCode != null && !zipCode.isEmpty()) {
+    if (invoice.getZipCode() == null || !invoice.getZipCode().equals(zipCode)) {
+        matches = false;
+    }
+
+            
+            
             }
             if (date != null && !invoice.getDate().toLocalDateTime().equals(date)) {
                 matches = false;

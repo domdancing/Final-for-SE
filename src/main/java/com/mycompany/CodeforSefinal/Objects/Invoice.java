@@ -4,15 +4,9 @@
  */
 package com.mycompany.CodeforSefinal.Objects;
 
-
-import com.mycompany.CodeforSefinal.backend.OpenRouteServiceAPI;
-import com.mycompany.CodeforSefinal.backend.RouteParser;
-import com.mycompany.CodeforSefinal.backend.ZipCodeService;
-
+import com.mycompany.CodeforSefinal.backend.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-
-import com.mycompany.CodeforSefinal.backend.ZipCodeService;
 
 public class Invoice {
     private int invoiceID;
@@ -20,11 +14,10 @@ public class Invoice {
     private String invoiceName;
     private Timestamp date;
     private ArrayList<QuantityItem> items;
-    
-    private String zipCode;             // <-- new field for ZIP
+
+    private String zipCode;
     private double latitude;
     private double longitude;
-
     private double shippingPrice;
     private double totalPrice;
     private double distance;
@@ -32,19 +25,20 @@ public class Invoice {
     private static final String START_LOCATION = "-72.7945,42.1315"; // Warehouse (WSU)
     private static final double COST_PER_KM = 0.25;
 
-    // Updated constructor using ZIP
+    // Constructor used when loading from DB — NO API CALL HERE
     public Invoice(String invoiceName, Timestamp date, String clientName, ArrayList<QuantityItem> items, String zipCode) {
         this.invoiceName = invoiceName;
         this.date = date;
         this.clientName = clientName;
         this.items = items;
         this.zipCode = zipCode;
+    }
 
-        // Use ZipCodeService to get coordinates
+    // Optional: use this AFTER creating or editing ZIP
+    public void fetchCoordinatesAndCalculateTotals() {
         double[] coordinates = ZipCodeService.getCoordinatesFromZip(zipCode);
         this.latitude = coordinates[0];
         this.longitude = coordinates[1];
-
         this.distance = calculateDistance(latitude, longitude);
         this.shippingPrice = calculateShippingPrice();
         this.totalPrice = calculateTotalPrice();
@@ -54,11 +48,8 @@ public class Invoice {
         String destination = lon + "," + lat;
         try {
             String response = OpenRouteServiceAPI.getDistance(START_LOCATION, destination);
-        double rawDistance = RouteParser.extractDistanceInKm(response);
-
-        // Round to 2 decimal places
-        double roundedDistance = Math.round(rawDistance * 100.0) / 100.0;
-        return roundedDistance;
+            double rawDistance = RouteParser.extractDistanceInKm(response);
+            return Math.round(rawDistance * 100.0) / 100.0;
         } catch (Exception e) {
             System.out.println("Error calculating distance: " + e.getMessage());
             return 0;
@@ -77,7 +68,13 @@ public class Invoice {
         return itemTotal + shippingPrice;
     }
 
-    // Getters and Setters
+   
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+        // Don't fetch coordinates automatically anymore
+    }
+
     public int getInvoiceID() {
         return invoiceID;
     }
@@ -86,109 +83,84 @@ public class Invoice {
         this.invoiceID = invoiceID;
     }
 
-    public String getInvoiceName() {
-        return invoiceName;
+    public String getClientName() {
+        return clientName;
     }
 
     public void setClientName(String clientName) {
         this.clientName = clientName;
     }
 
+    public String getInvoiceName() {
+        return invoiceName;
+    }
+
     public void setInvoiceName(String invoiceName) {
         this.invoiceName = invoiceName;
+    }
+
+    public Timestamp getDate() {
+        return date;
     }
 
     public void setDate(Timestamp date) {
         this.date = date;
     }
 
-    public void setItems(ArrayList<QuantityItem> items) {
-        this.items = items;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public void setShippingPrice(double shippingPrice) {
-        this.shippingPrice = shippingPrice;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public void setDistance(double distance) {
-        this.distance = distance;
-    }
-    
-    
-    
-
-    public Timestamp getDate() {
-        return date;
-    }
-
-    public String getClientName() {
-        return clientName;
-    }
-
     public ArrayList<QuantityItem> getItems() {
         return items;
     }
 
-    public void addItem(QuantityItem item) {
-        items.add(item);
+    public void setItems(ArrayList<QuantityItem> items) {
+        this.items = items;
     }
 
     public double getLatitude() {
         return latitude;
     }
 
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
     public double getLongitude() {
         return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public double getShippingPrice() {
         return shippingPrice;
     }
 
+    public void setShippingPrice(double shippingPrice) {
+        this.shippingPrice = shippingPrice;
+    }
+
     public double getTotalPrice() {
         return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public double getDistance() {
         return distance;
     }
 
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
     public String getZipCode() {
         return zipCode;
     }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-
-        double[] coordinates = ZipCodeService.getCoordinatesFromZip(zipCode);
-        this.latitude = coordinates[0];
-        this.longitude = coordinates[1];
-
-        this.distance = calculateDistance(latitude, longitude);
-        this.shippingPrice = calculateShippingPrice();
-        this.totalPrice = calculateTotalPrice();
-    }
+   
+ 
 }
-
-
-
-
-
-
-
-
 
 
 
