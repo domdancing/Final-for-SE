@@ -150,9 +150,9 @@ public ArrayList<Invoice> searchInvoices(String invoiceName, String clientName, 
             
             
             }
-            if (date != null && !invoice.getDate().toLocalDateTime().equals(date)) {
-                matches = false;
-            }
+           if (date != null && !invoice.getDate().toLocalDateTime().toLocalDate().equals(date)) {
+    matches = false;
+}
 
             // If it matches all the criteria, add to the result list
             if (matches) {
