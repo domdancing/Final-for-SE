@@ -52,8 +52,7 @@ public class InvoiceViewController implements Initializable{
     @FXML private TableColumn<Invoice, Integer> IDFX;
     @FXML private TableColumn<Invoice, String> INameFX;
     @FXML private TableColumn<Invoice, String> CNameFX;
-    @FXML private TableColumn<Invoice, Double> LatFX;
-    @FXML private TableColumn<Invoice, Double> LongFX;
+    @FXML private TableColumn<Invoice, String> ZipCodeFX;
     @FXML private TableColumn<Invoice, Timestamp> DDateFX;
     
     // Test ArrayList - does nothing for now 
@@ -162,15 +161,14 @@ public class InvoiceViewController implements Initializable{
         IDFX.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("invoiceID"));
         INameFX.setCellValueFactory(new PropertyValueFactory<Invoice, String>("invoiceName"));
         CNameFX.setCellValueFactory(new PropertyValueFactory<Invoice, String>("clientName"));
-        LatFX.setCellValueFactory(new PropertyValueFactory<Invoice, Double>("latitude"));
-        LongFX.setCellValueFactory(new PropertyValueFactory<Invoice, Double>("longitude"));
         DDateFX.setCellValueFactory(new PropertyValueFactory<Invoice, Timestamp>("date"));
+        ZipCodeFX.setCellValueFactory(new PropertyValueFactory<Invoice, String>("zipCode"));
+
 
          // Set table to be editable
         INameFX.setCellFactory(TextFieldTableCell.forTableColumn());
         CNameFX.setCellFactory(TextFieldTableCell.forTableColumn());
-        LatFX.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
-        LongFX.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        ZipCodeFX.setCellFactory(TextFieldTableCell.forTableColumn());
 
         // Set the tableView to display these attributes
         invoiceViewTable.setItems(observableInvoices);

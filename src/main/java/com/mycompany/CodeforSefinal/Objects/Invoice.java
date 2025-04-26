@@ -74,6 +74,7 @@ public class Invoice {
         this.zipCode = zipCode;
         // Don't fetch coordinates automatically anymore
     }
+    
 
     public int getInvoiceID() {
         return invoiceID;

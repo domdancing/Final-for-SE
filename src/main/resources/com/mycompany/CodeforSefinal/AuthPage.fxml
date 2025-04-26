@@ -23,7 +23,23 @@
             <Font name="Eras Bold ITC" size="12.0" />
          </font>
       </TextField>
-      <Button layoutX="339.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleReturnToPrimary" prefHeight="30.0" prefWidth="123.0" text="Continue as Guest" />
-      <Button layoutX="539.0" layoutY="325.0" mnemonicParsing="false" onAction="#HandleLogin" prefHeight="30.0" prefWidth="123.0" text="Login" />
+      <Button layoutX="339.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleReturnToPrimary" prefHeight="30.0" prefWidth="138.0" text="Continue as Guest">
+         <font>
+            <Font name="Eras Bold ITC" size="12.0" />
+         </font></Button>
+      <Button layoutX="539.0" layoutY="325.0" mnemonicParsing="false" onAction="#HandleLogin" prefHeight="30.0" prefWidth="123.0" text="Login">
+         <font>
+            <Font name="Eras Bold ITC" size="15.0" />
+         </font></Button>
+      <Text fill="WHITE" layoutX="217.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" wrappingWidth="114.7861328125">
+         <font>
+            <Font name="Eras Bold ITC" size="19.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="217.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" wrappingWidth="114.7861328125">
+         <font>
+            <Font name="Eras Bold ITC" size="19.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

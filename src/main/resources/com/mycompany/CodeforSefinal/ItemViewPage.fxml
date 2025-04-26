@@ -10,15 +10,21 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.ItemViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #004879;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.ItemViewController">
    <children>
-      <VBox prefHeight="400.0" prefWidth="600.0">
+      <VBox alignment="CENTER" prefHeight="650.0" prefWidth="1000.0">
          <children>
             <HBox alignment="CENTER" prefHeight="40.0" prefWidth="600.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Items:">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="View Items:" textAlignment="CENTER" wrappingWidth="451.13671875">
                      <font>
-                        <Font size="27.0" />
+                        <Font name="Eras Bold ITC" size="38.0" />
                      </font>
                   </Text>
                </children>
@@ -28,29 +34,29 @@
                   <Insets top="15.0" />
                </padding>
                <children>
-                  <TableView fx:id="itemViewTable" prefHeight="231.0" prefWidth="587.0">
+                  <TableView fx:id="itemViewTable" prefHeight="231.0" prefWidth="522.0">
                     <columns>
-                      <TableColumn fx:id="IDFX" prefWidth="75.0" text="ID #" />
-                      <TableColumn fx:id="NameFX" prefWidth="150.0" text="Item Name" />
-                        <TableColumn fx:id="ItemPriceFX" prefWidth="100.0" text="Item Price" />
-                        <TableColumn fx:id="ItemQuantityFX" prefWidth="100.0" text="Item Quantity" />
+                      <TableColumn fx:id="IDFX" prefWidth="75.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="ID #" />
+                      <TableColumn fx:id="NameFX" prefWidth="150.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Item Name" />
+                        <TableColumn fx:id="ItemPriceFX" prefWidth="140.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Item Price" />
+                        <TableColumn fx:id="ItemQuantityFX" prefWidth="156.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Item Quantity" />
                     </columns>
                   </TableView>
                </children>
             </HBox>
-            <HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="600.0">
+            <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="524.0">
                <children>
-                  <Button fx:id="returnToMainScreen" mnemonicParsing="false" onAction="#handleReturnToInvoiceView" prefHeight="17.0" prefWidth="100.0" text="Return">
+                  <Button fx:id="returnToMainScreen" mnemonicParsing="false" onAction="#handleReturnToInvoiceView" prefHeight="31.0" prefWidth="131.0" text="Return">
                      <HBox.margin>
-                        <Insets right="15.0" />
+                        <Insets />
                      </HBox.margin>
+                     <font>
+                        <Font name="Eras Bold ITC" size="15.0" />
+                     </font>
                   </Button>
                </children>
             </HBox>
          </children>
-         <padding>
-            <Insets top="10.0" />
-         </padding>
       </VBox>
    </children>
 </AnchorPane>
