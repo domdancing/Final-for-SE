@@ -1,5 +1,6 @@
 package com.mycompany.CodeforSefinal;
 
+import com.mycompany.CodeforSefinal.Objects.AuthenticationSingleton;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -26,6 +27,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 // all the methods for the primary fxml buttons
@@ -36,6 +38,8 @@ public class PrimaryController implements Initializable{
     @FXML private Button testButton;
     @FXML private Button viewInvoices;
     @FXML private Button viewItemCreation;
+    @FXML private Button Alogin;
+    @FXML private Text AccountTextBox;
    
 
     private Stage stage;
@@ -44,10 +48,18 @@ public class PrimaryController implements Initializable{
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    
+        boolean loggedInTest = AuthenticationSingleton.getInstance().isIsAuthenticated();
+        if (loggedInTest){
+            AccountTextBox.setText("Account: Admin");
+            Alogin.setDisable(true);
+        }
+        else {
+            AccountTextBox.setText("Account: Guest");
+            Alogin.setDisable(false);
+        }
         
-       // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
     @FXML
     private void GotoInvoices (javafx.event.ActionEvent event) throws IOException {
        
@@ -96,6 +108,17 @@ public void gotoSearchInvoices(javafx.event.ActionEvent event) throws IOExceptio
     Scene scene = new Scene(root);
     stage.setScene(scene);
     stage.show();
+}
+
+    @FXML
+    private void adminLogin (javafx.event.ActionEvent event) throws IOException {
+        
+    Parent root = FXMLLoader.load(getClass().getResource("AuthPage.fxml"));
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    Scene scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
+
 }
 
 }
