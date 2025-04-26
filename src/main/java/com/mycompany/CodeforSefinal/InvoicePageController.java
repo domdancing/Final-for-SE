@@ -143,22 +143,28 @@ public class InvoicePageController implements Initializable {
     try {
         // Create invoice using ZIP-based constructor
         Invoice invoice = new Invoice(invoiceName, selectedDate, clientName, items, zipCode);
+        
+        // ⭐️ ⭐️ Important: fetch coordinates and totals HERE!
+        invoice.fetchCoordinatesAndCalculateTotals();
 
-        // Save to database
-        try {
-            InvoiceDAO invoiceDAO = DAOFactory.getInvoiceDAO();
-            invoiceDAO.saveInvoice(invoice);
-            showInfo("Success", "Invoice has been saved to the database.");
-        } catch (Exception e) {
-            showError("Error saving invoice: " + e.getMessage());
-        }
+    InvoiceDAO invoiceDAO = DAOFactory.getInvoiceDAO();
 
-        showInvoiceDetails(invoice);
-
-    } catch (Exception e) {
-        showError("Error creating invoice: " + e.getMessage());
+    // ⭐️ CHECK if the invoice name already exists
+    if (invoiceDAO.invoiceNameExists(invoiceName)) {
+        showError("Invoice name already exists. Please choose a different name.");
+        return; // <--- Important! STOP HERE if duplicate name!
     }
+
+    // Save to database
+    invoiceDAO.saveInvoice(invoice);
+    showInfo("Success", "Invoice has been saved to the database.");
+
+    showInvoiceDetails(invoice);
+
+} catch (Exception e) {
+    showError("Error creating invoice: " + e.getMessage());
 }
+    }
 
     
     

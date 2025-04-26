@@ -40,8 +40,8 @@ public class InvoiceDAOImpl implements InvoiceDAO{
             pstmt.setTimestamp(4, invoice.getDate());     // delivery_date
 
             pstmt.executeUpdate();
-            System.out.println("Invoice saved!");
-
+            
+/*
             int invoiceId = ConnectToDatabase.getLastInsertId();
             invoice.setInvoiceID(invoiceId);
 
@@ -50,6 +50,7 @@ public class InvoiceDAOImpl implements InvoiceDAO{
                 QuantityItemDAOImpl qidao = new QuantityItemDAOImpl();
                 qidao.saveQuantityItemWithInvoiceId(item, invoiceId);
             }
+*/
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -165,6 +166,22 @@ public ArrayList<Invoice> searchInvoices(String invoiceName, String clientName, 
     }
 
     return invoiceList;
+}
+
+   @Override
+public boolean invoiceNameExists(String invoiceName) {
+    String sql = "SELECT COUNT(*) FROM invoices WHERE invoice_name = ?";
+    try (Connection conn = ConnectToDatabase.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+        stmt.setString(1, invoiceName);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            return rs.getInt(1) > 0;
+        }
+    } catch (Exception e) {
+        System.out.println("Error checking invoice name: " + e.getMessage());
+    }
+    return false;
 }
 
 }

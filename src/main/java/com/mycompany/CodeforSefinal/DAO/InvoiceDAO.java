@@ -23,4 +23,6 @@ public interface InvoiceDAO {
     void updateInvoice(Invoice invoice) throws SQLException;
    List<Invoice> searchInvoices(String zipCode, String clientName, String invoiceName, LocalDate date) throws SQLException;
 
+    public boolean invoiceNameExists(String invoiceName);
+
 }
