@@ -12,15 +12,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.ItemCreationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #004879;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.ItemCreationController">
    <children>
-      <VBox layoutY="1.0" prefHeight="400.0" prefWidth="600.0">
+      <VBox alignment="CENTER" prefHeight="650.0" prefWidth="1000.0">
          <children>
             <HBox alignment="CENTER" prefHeight="40.0" prefWidth="600.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Create New Item:">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Create New Item:">
                      <font>
-                        <Font size="27.0" />
+                        <Font name="Eras Bold ITC" size="27.0" />
                      </font>
                   </Text>
                </children>
@@ -28,32 +28,30 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-            <VBox fillWidth="false" prefHeight="78.0" prefWidth="560.0">
+            <VBox alignment="CENTER" fillWidth="false" prefHeight="78.0" prefWidth="560.0">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" top="10.0" />
                </VBox.margin>
                <children>
-                  <TextField fx:id="createItemNameField" prefHeight="26.0" prefWidth="563.0" promptText="Item Name">
+                  <TextField fx:id="createItemNameField" prefHeight="26.0" prefWidth="334.0" promptText="Item Name" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="createItemPriceField" prefWidth="562.0" promptText="Item Price" />
+                  <TextField fx:id="createItemPriceField" prefHeight="25.0" prefWidth="334.0" promptText="Item Price" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" />
                </children>
             </VBox>
             <VBox prefHeight="43.0" prefWidth="600.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="600.0">
+                  <HBox alignment="CENTER" prefHeight="45.0" prefWidth="1000.0">
                      <children>
-                        <Button fx:id="createItemButton" mnemonicParsing="false" onAction="#handleCreatingItem" text="Create Item">
+                        <Button fx:id="createItemButton" mnemonicParsing="false" onAction="#handleCreatingItem" prefHeight="31.0" prefWidth="151.0" text="Create Item">
                            <HBox.margin>
-                              <Insets left="20.0" />
+                              <Insets left="25.0" right="15.0" />
                            </HBox.margin>
-                        </Button>
-                        <Button fx:id="returnFromCIButton" mnemonicParsing="false" onAction="#handleReturnToPrimaryFromICP" text="Return">
-                           <HBox.margin>
-                              <Insets left="20.0" />
-                           </HBox.margin>
+                           <font>
+                              <Font name="Eras Bold ITC" size="15.0" />
+                           </font>
                         </Button>
                      </children>
                      <opaqueInsets>
@@ -65,14 +63,17 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox alignment="CENTER" prefHeight="273.0" prefWidth="960.0">
                <children>
-                  <Label text="Current Item List:" />
-                  <TableView fx:id="createItemTable" prefHeight="200.0" prefWidth="200.0">
+                  <Label text="Current Item List:" textFill="WHITE">
+                     <font>
+                        <Font name="Eras Bold ITC" size="15.0" />
+                     </font></Label>
+                  <TableView fx:id="createItemTable" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="463.0">
                     <columns>
-                      <TableColumn fx:id="IDFX" prefWidth="83.20001220703125" text="Item ID" />
-                      <TableColumn fx:id="NameFX" prefWidth="340.800048828125" resizable="false" text="Item Name" />
-                        <TableColumn fx:id="PriceFX" prefWidth="135.99993896484375" text="Item Price" />
+                      <TableColumn fx:id="IDFX" prefWidth="164.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Item ID" />
+                      <TableColumn fx:id="NameFX" prefWidth="147.0" resizable="false" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Item Name" />
+                        <TableColumn fx:id="PriceFX" prefWidth="151.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Item Price" />
                     </columns>
                      <VBox.margin>
                         <Insets top="5.0" />
@@ -83,6 +84,14 @@
                   <Insets left="20.0" right="20.0" />
                </VBox.margin>
             </VBox>
+            <Button mnemonicParsing="false" onAction="#handleReturnToPrimaryFromICP" prefHeight="25.0" prefWidth="119.0" text="Return">
+               <VBox.margin>
+                  <Insets left="400.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Eras Bold ITC" size="15.0" />
+               </font>
+            </Button>
          </children>
       </VBox>
    </children>

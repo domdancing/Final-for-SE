@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,45 +10,54 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.InvoiceViewController">
+<AnchorPane prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #004879;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.InvoiceViewController">
     <children>
-        <VBox prefHeight="400.0" prefWidth="600.0" spacing="10">
+        <VBox alignment="CENTER" prefHeight="650.0" prefWidth="1000.0" spacing="25.0">
             <children>
-                <!-- Title -->
-                <HBox alignment="CENTER" prefHeight="40.0" prefWidth="600.0">
-                    <children>
-                        <Text text="Created Invoices:">
-                            <font>
-                                <Font size="27.0" />
-                            </font>
-                        </Text>
-                    </children>
-                </HBox>
-
-                <!-- Label and Table -->
-                <Label text="Existing Invoices:" />
-                <TableView fx:id="invoiceViewTable" editable="true" prefHeight="231.0" prefWidth="550.0">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="View Your Invoices:" textAlignment="CENTER" wrappingWidth="451.13671875">
+               <font>
+                  <Font name="Eras Bold ITC" size="38.0" />
+               </font>
+            </Text>
+                <TableView fx:id="invoiceViewTable" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="250.0" prefWidth="761.0">
                     <columns>
-                        <TableColumn fx:id="IDFX" prefWidth="75.0" text="ID #" />
-                        <TableColumn fx:id="INameFX" prefWidth="150.0" text="Invoice Name" />
-                        <TableColumn fx:id="CNameFX" prefWidth="150.0" text="Client Name" />
-                        <TableColumn fx:id="LatFX" prefWidth="100.0" text="Latitude" />
-                         <TableColumn fx:id="LongFX" prefWidth="100.0" text="Longitude" />
-                        <TableColumn fx:id="DDateFX" prefWidth="150.0" text="Date Created" />
+                        <TableColumn fx:id="IDFX" prefWidth="77.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="ID #" />
+                        <TableColumn fx:id="INameFX" prefWidth="178.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Invoice Name" />
+                        <TableColumn fx:id="CNameFX" prefWidth="177.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Client Name" />
+                         <TableColumn fx:id="ZipCodeFX" prefWidth="140.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Zip Code" />
+                        <TableColumn fx:id="DDateFX" prefWidth="185.0" style="-fx-font-family: 'Eras Bold ITC';; -fx-font-size: 15px;" text="Date Created" />
                       
                     </columns>
                 </TableView>
 
                 <!-- Buttons -->
-                <HBox alignment="CENTER_RIGHT" spacing="10" prefHeight="60.0" prefWidth="550.0">
+                <HBox alignment="TOP_RIGHT" prefHeight="60.0" prefWidth="550.0" spacing="10">
                     <padding>
                         <Insets top="10.0" />
                     </padding>
                     <children>
-                        <Button fx:id="deleteButton" onAction="#handleDeleteInvoice" prefHeight="25.0" prefWidth="124.0" text="Delete Invoice" />
-                        <Button fx:id="viewItems" onAction="#handleSwitchToItemView" prefHeight="25.0" prefWidth="100.0" text="View Items" />
-                        <Button fx:id="returnToMainScreen" onAction="#handleReturnToPrimaryFromInvoicesView" prefHeight="25.0" prefWidth="100.0" text="Return" />
+                        <Button fx:id="deleteButton" onAction="#handleDeleteInvoice" prefHeight="33.0" prefWidth="119.0" text="Delete Invoice">
+                     <HBox.margin>
+                        <Insets right="360.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Eras Bold ITC" size="13.0" />
+                     </font></Button>
+                        <Button fx:id="viewItems" onAction="#handleSwitchToItemView" prefHeight="33.0" prefWidth="129.0" text="View Items">
+                     <font>
+                        <Font name="Eras Bold ITC" size="14.0" />
+                     </font></Button>
+                        <Button fx:id="returnToMainScreen" onAction="#handleReturnToPrimaryFromInvoicesView" prefHeight="32.0" prefWidth="131.0" text="Return">
+                     <HBox.margin>
+                        <Insets right="120.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Eras Bold ITC" size="14.0" />
+                     </font></Button>
                     </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
                 </HBox>
             </children>
         </VBox>
