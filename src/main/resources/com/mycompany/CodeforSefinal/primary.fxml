@@ -1,38 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" style="-fx-background-color: #004879;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.PrimaryController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #004879;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.PrimaryController">
    <children>
-      <Text fill="#d22e1e" layoutX="227.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="We ship what you give us ">
+      <HBox alignment="BOTTOM_LEFT" prefHeight="101.0" prefWidth="1000.0" />
+      <VBox alignment="CENTER" layoutX="631.0" layoutY="177.0" prefHeight="333.0" prefWidth="302.0">
+         <children>
+            <Button fx:id="SearchInvoices" mnemonicParsing="false" onAction="#gotoSearchInvoices" prefHeight="33.0" prefWidth="229.0" style="-fx-background-color: #B0B0B0;" text="Search Invoices" textFill="#d22e1e">
+               <font>
+                  <Font name="Eras Bold ITC" size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="25.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="viewInvoices" mnemonicParsing="false" onAction="#ViewInvoices" prefHeight="33.0" prefWidth="229.0" style="-fx-background-color: #B0B0B0;" text="Edit Invoices">
+               <font>
+                  <Font name="Eras Bold ITC" size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="25.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="viewItemCreation" mnemonicParsing="false" onAction="#gotoItemCreation" prefHeight="33.0" prefWidth="229.0" style="-fx-background-color: #B0B0B0;" text="Create New Item">
+               <font>
+                  <Font name="Eras Bold ITC" size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="25.0" />
+               </VBox.margin>
+            </Button>
+             <Button fx:id="testButton" mnemonicParsing="false" onAction="#GotoInvoices" prefHeight="33.0" prefWidth="229.0" style="-fx-background-color: #B0B0B0;" text="Create New Invoice">
+               <font>
+                  <Font name="Eras Bold ITC" size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="Alogin" mnemonicParsing="false" onAction="#adminLogin" prefHeight="38.0" prefWidth="229.0" style="-fx-background-color: #B0B0B0;" text="Login as Administrator">
+               <font>
+                  <Font name="Eras Bold ITC" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+      <VBox alignment="CENTER" layoutY="13.0" prefHeight="114.0" prefWidth="1000.0">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sapphire Shipping Portal  ">
+               <font>
+                  <Font name="Eras Bold ITC" size="40.0" />
+               </font>
+            </Text>
+            <Text fill="#d22e1e" strokeType="OUTSIDE" strokeWidth="0.0" text="We ship what you give us ">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
+      <Text fx:id="AccountTextBox" fill="WHITE" layoutX="821.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account: Guest ">
          <font>
-            <Font size="17.0" />
+            <Font name="Eras Bold ITC" size="19.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="63.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sapphire Shipping Portal  ">
-         <font>
-            <Font name="Eras Bold ITC" size="40.0" />
-         </font>
-      </Text>
-       <Button fx:id="testButton" layoutX="391.0" layoutY="305.0" mnemonicParsing="false" onAction="#GotoInvoices" prefHeight="33.0" prefWidth="200.0" style="-fx-background-color: #B0B0B0;" text="Create New Invoice">
-         <font>
-            <Font name="Eras Bold ITC" size="16.0" />
-         </font></Button>
-      <Button fx:id="viewInvoices" layoutX="391.0" layoutY="259.0" mnemonicParsing="false" onAction="#ViewInvoices" prefHeight="33.0" prefWidth="200.0" style="-fx-background-color: #B0B0B0;" text="Edit Invoices">
-         <font>
-            <Font name="Eras Bold ITC" size="16.0" />
-         </font></Button>
-      <Button fx:id="viewItemCreation" layoutX="391.0" layoutY="353.0" mnemonicParsing="false" onAction="#gotoItemCreation" prefHeight="33.0" prefWidth="200.0" style="-fx-background-color: #B0B0B0;" text="Create New Item">
-         <font>
-            <Font name="Eras Bold ITC" size="16.0" />
-         </font></Button>
-      <Button fx:id="SearchInvoices" layoutX="391.0" layoutY="211.0" mnemonicParsing="false" onAction="#gotoSearchInvoices" prefHeight="33.0" prefWidth="200.0" style="-fx-background-color: #B0B0B0;" text="Search Invoices" textFill="#d22e1e">
-         <font>
-            <Font name="Eras Bold ITC" size="16.0" />
-         </font></Button>
 
    </children>
 </AnchorPane>

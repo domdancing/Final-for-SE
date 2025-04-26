@@ -5,6 +5,7 @@ import com.mycompany.CodeforSefinal.Objects.Invoice;
 import com.mycompany.CodeforSefinal.factor.DAOFactory;
 import com.mycompany.CodeforSefinal.DAO.InvoiceDAO;
 import com.mycompany.CodeforSefinal.DAO.InvoiceDAOImpl;
+import com.mycompany.CodeforSefinal.Objects.AuthenticationSingleton;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -134,6 +135,11 @@ public class InvoiceViewController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        
+        // Check if you are a admin, if you are logged in as a admin will grant admin privileges 
+        boolean loggedInTest = AuthenticationSingleton.getInstance().isIsAuthenticated();
+        invoiceViewTable.setEditable(loggedInTest);
+        
         //Fake back-end filler data
         ArrayList<QuantityItem> testItemArray = new ArrayList<QuantityItem>();
         
@@ -161,7 +167,6 @@ public class InvoiceViewController implements Initializable{
         DDateFX.setCellValueFactory(new PropertyValueFactory<Invoice, Timestamp>("date"));
 
          // Set table to be editable
-        invoiceViewTable.isEditable();
         INameFX.setCellFactory(TextFieldTableCell.forTableColumn());
         CNameFX.setCellFactory(TextFieldTableCell.forTableColumn());
         LatFX.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
