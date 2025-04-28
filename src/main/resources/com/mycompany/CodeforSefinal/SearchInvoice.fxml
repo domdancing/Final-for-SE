@@ -57,6 +57,7 @@
                 </columns>
             </TableView>
         </VBox>
+        <Button fx:id="viewItemsButton" text="View Items" onAction="#handleViewItems"/>
       <Text fill="WHITE" layoutX="280.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search All Invoices " textAlignment="CENTER" wrappingWidth="451.13671875">
          <font>
             <Font name="Eras Bold ITC" size="38.0" />

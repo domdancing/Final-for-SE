@@ -34,11 +34,11 @@ public class ConnectToDatabase {
         try (Connection conn = getConnection()) {
             String sql = "SELECT LAST_INSERT_ID() AS last_id";
             PreparedStatement pstmt = conn.prepareStatement(sql);
-
             ResultSet result = pstmt.executeQuery();
             result.next();
+            int lastId = result.getInt("last_id");
 
-            return result.getInt("last_id");
+            return lastId;
 
         } catch (SQLException e) {
             e.printStackTrace();
