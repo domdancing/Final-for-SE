@@ -37,12 +37,16 @@ public class SearchInvoiceController implements Initializable {
     @FXML private TableColumn<Invoice, String> colZipCode;
     @FXML private TableColumn<Invoice, String> colDate;
     
+       
+    
     @FXML
 private Button viewItemsButton;
   
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+       
+        
         colInvoiceName.setCellValueFactory(new PropertyValueFactory<>("invoiceName"));
         colClientName.setCellValueFactory(new PropertyValueFactory<>("clientName"));
         colZipCode.setCellValueFactory(new PropertyValueFactory<>("zipCode"));
@@ -78,7 +82,7 @@ private void handleSearchInvoices() {
     
     @FXML
          private void handleViewItems(ActionEvent event) {
-    Invoice selectedInvoice = invoiceViewTable.getSelectionModel().getSelectedItem();
+    Invoice selectedInvoice = resultsTable.getSelectionModel().getSelectedItem();
 
     if (selectedInvoice == null) {
         showError("Please select an invoice to view its items.");
@@ -86,10 +90,14 @@ private void handleSearchInvoices() {
     }
 
     try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("InvoiceItemsPage.fxml"));
-        Parent root = loader.load();
+        URL fxmlLocation = getClass().getResource("/InvoiceItemsPage.fxml");
+System.out.println("FXML Location: " + fxmlLocation);
 
-        // Pass the invoice ID to the next controller
+       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/mycompany/CodeforSefinal/InvoiceItemsPage.fxml"));
+Parent root = loader.load();
+// this is giving null but I need a break
+
+        // Pass the invoice ID to the next controller 
         InvoiceItemsController controller = loader.getController();
         controller.setInvoiceId(selectedInvoice.getInvoiceID());
 
