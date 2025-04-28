@@ -41,8 +41,12 @@ public class InvoiceDAOImpl implements InvoiceDAO{
 
             pstmt.executeUpdate();
             
-/*
-            int invoiceId = ConnectToDatabase.getLastInsertId();
+            //Get last invoice Id
+            String lastIdSql = "SELECT LAST_INSERT_ID() AS last_id";
+            PreparedStatement lastIdPstmt = conn.prepareStatement(lastIdSql);
+            ResultSet lastIdResult = lastIdPstmt.executeQuery();
+            lastIdResult.next();
+            int invoiceId = lastIdResult.getInt("last_id");
             invoice.setInvoiceID(invoiceId);
 
             for (int i = 0; i < invoice.getItems().size(); i++) {
@@ -50,7 +54,6 @@ public class InvoiceDAOImpl implements InvoiceDAO{
                 QuantityItemDAOImpl qidao = new QuantityItemDAOImpl();
                 qidao.saveQuantityItemWithInvoiceId(item, invoiceId);
             }
-*/
 
         } catch (SQLException e) {
             e.printStackTrace();
