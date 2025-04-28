@@ -53,6 +53,14 @@
                   <Insets top="25.0" />
                </VBox.margin>
             </Button>
+            <Button fx:id="FAQ" mnemonicParsing="false" onAction="#faqButton" prefHeight="38.0" prefWidth="229.0" style="-fx-background-color: #B0B0B0;" text="FAQ">
+               <font>
+                  <Font name="Eras Bold ITC" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+            </Button>
          </children>
          <opaqueInsets>
             <Insets />
