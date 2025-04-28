@@ -61,5 +61,14 @@
                 </HBox>
             </children>
         </VBox>
+      <HBox alignment="CENTER_LEFT" layoutX="117.0" layoutY="442.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="266.0" style="-fx-border-color: transparent; -fx-border-style: none;">
+         <children>
+            <Text fx:id="databaseInfo" fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Database: Nothing To Do." wrappingWidth="267.28125">
+               <font>
+                  <Font name="Eras Bold ITC" size="15.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
     </children>
 </AnchorPane>

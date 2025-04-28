@@ -5,17 +5,28 @@ import com.mycompany.CodeforSefinal.Objects.Invoice;
 import com.mycompany.CodeforSefinal.factor.DAOFactory;
 import com.mycompany.CodeforSefinal.DAO.InvoiceDAO;
 import com.mycompany.CodeforSefinal.DAO.InvoiceDAOImpl;
+import com.mycompany.CodeforSefinal.DAO.QuantityItemDAOImpl;
 import com.mycompany.CodeforSefinal.Objects.AuthenticationSingleton;
+import static com.mycompany.CodeforSefinal.backend.ConnectToDatabase.getConnection;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,10 +42,12 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
@@ -54,6 +67,7 @@ public class InvoiceViewController implements Initializable{
     @FXML private TableColumn<Invoice, String> CNameFX;
     @FXML private TableColumn<Invoice, String> ZipCodeFX;
     @FXML private TableColumn<Invoice, Timestamp> DDateFX;
+    @FXML private Text databaseInfo;
     
     // Test ArrayList - does nothing for now 
     private ArrayList<Invoice> invoices = new ArrayList<>();
@@ -173,14 +187,166 @@ public class InvoiceViewController implements Initializable{
         INameFX.setCellFactory(TextFieldTableCell.forTableColumn());
         CNameFX.setCellFactory(TextFieldTableCell.forTableColumn());
         ZipCodeFX.setCellFactory(TextFieldTableCell.forTableColumn());
-
+        
         // Set the tableView to display these attributes
         invoiceViewTable.setItems(observableInvoices);
         
+        //Write Data Back Into DB After Cell Update 
+        INameFX.setOnEditCommit(new EventHandler<CellEditEvent<Invoice, String>>() {
+        @Override
+        public void handle(CellEditEvent<Invoice, String> event) {
+            Invoice changedInvoice = event.getRowValue();
+            changedInvoice.setInvoiceName(event.getNewValue());
+            System.out.println("The Cell Was Changed To: " + event.getNewValue());
+
+            Task<Void> task = new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                    // 1. Write "Database: Writing Changes..."
+                    Platform.runLater(() -> {
+                        databaseInfo.setText("Database: Writing Changes...");
+                    });
+                    Thread.sleep(1000);
+
+                    // 2. Write "Preparing to Update..."
+                    Platform.runLater(() -> databaseInfo.setText("Database: Preparing to Update..."));
+                    Thread.sleep(1000);
+
+                    // 3. Update Database
+                    try (Connection conn = getConnection()) {
+                        String sql = "UPDATE invoices SET invoice_name = ? WHERE invoice_id = ?";
+                        PreparedStatement pstmt = conn.prepareStatement(sql);
+                        pstmt.setString(1, event.getNewValue());
+                        pstmt.setInt(2, changedInvoice.getInvoiceID());
+                        pstmt.executeUpdate();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(InvoiceViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    // 4. Reading database
+                    Platform.runLater(() -> {
+                        databaseInfo.setText("Database: Reading Database...");
+                    });
+                    Thread.sleep(1000);
+
+                    // 5. Refresh table
+                    Platform.runLater(() -> event.getTableView().refresh());
+
+                    // 6. Done
+                    Platform.runLater(() -> databaseInfo.setText("Database: Nothing To Do."));
+
+                    return null;
+                }
+            };
+
+        new Thread(task).start();
     }
-    
-   
+});
+        CNameFX.setOnEditCommit(new EventHandler<CellEditEvent<Invoice, String>>() {
+        @Override
+        public void handle(CellEditEvent<Invoice, String> event) {
+            Invoice changedInvoice = event.getRowValue();
+            changedInvoice.setClientName(event.getNewValue());
+            System.out.println("The Cell Was Changed To: " + event.getNewValue());
+
+            Task<Void> task = new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                    // 1. Write "Database: Writing Changes..."
+                    Platform.runLater(() -> {
+                        databaseInfo.setText("Database: Writing Changes...");
+                    });
+                    Thread.sleep(1000);
+
+                    // 2. Write "Preparing to Update..."
+                    Platform.runLater(() -> databaseInfo.setText("Database: Preparing to Update..."));
+                    Thread.sleep(1000);
+
+                    // 3. Update Database
+                    try (Connection conn = getConnection()) {
+                        String sql = "UPDATE invoices SET customer_name = ? WHERE invoice_id = ?";
+                        PreparedStatement pstmt = conn.prepareStatement(sql);
+                        pstmt.setString(1, event.getNewValue());
+                        pstmt.setInt(2, changedInvoice.getInvoiceID());
+                        pstmt.executeUpdate();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(InvoiceViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    // 4. Reading database
+                    Platform.runLater(() -> {
+                        databaseInfo.setText("Database: Reading Database...");
+                    });
+                    Thread.sleep(1000);
+
+                    // 5. Refresh table
+                    Platform.runLater(() -> event.getTableView().refresh());
+
+                    // 6. Done
+                    Platform.runLater(() -> databaseInfo.setText("Database: Nothing To Do."));
+
+                    return null;
+                }
+            };
+
+        new Thread(task).start();
     }
+});
+        ZipCodeFX.setOnEditCommit(new EventHandler<CellEditEvent<Invoice, String>>() {
+        @Override
+        public void handle(CellEditEvent<Invoice, String> event) {
+            Invoice changedInvoice = event.getRowValue();
+            changedInvoice.setZipCode(event.getNewValue());
+            System.out.println("The Cell Was Changed To: " + event.getNewValue());
+
+            Task<Void> task = new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                    // 1. Write "Database: Writing Changes..."
+                    Platform.runLater(() -> {
+                        databaseInfo.setText("Database: Writing Changes...");
+                    });
+                    Thread.sleep(1000);
+
+                    // 2. Write "Preparing to Update..."
+                    Platform.runLater(() -> databaseInfo.setText("Database: Preparing to Update..."));
+                    Thread.sleep(1000);
+
+                    // 3. Update Database
+                    try (Connection conn = getConnection()) {
+                        String sql = "UPDATE invoices SET zip_code = ? WHERE invoice_id = ?";
+                        PreparedStatement pstmt = conn.prepareStatement(sql);
+                        pstmt.setString(1, event.getNewValue());
+                        pstmt.setInt(2, changedInvoice.getInvoiceID());
+                        pstmt.executeUpdate();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(InvoiceViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    // 4. Reading database
+                    Platform.runLater(() -> {
+                        databaseInfo.setText("Database: Reading Database...");
+                    });
+                    Thread.sleep(1000);
+
+                    // 5. Refresh table
+                    Platform.runLater(() -> event.getTableView().refresh());
+
+                    // 6. Done
+                    Platform.runLater(() -> databaseInfo.setText("Database: Nothing To Do."));
+
+                    return null;
+                }
+            };
+
+        new Thread(task).start();
+    }
+});
+                
+                }
+            }
+                
+                
     
     /*
 
