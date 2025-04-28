@@ -62,10 +62,22 @@
             <Font name="Eras Bold ITC" size="38.0" />
          </font>
       </Text>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@SaphShippingLogo.png" />
-         </image>
-      </ImageView>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@SaphShippingLogo.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@SaphShippingLogo.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="600.0" />
+               </HBox.margin>
+            </ImageView>
+         </children>
+      </HBox>
     </children>
 </AnchorPane>

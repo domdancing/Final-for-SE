@@ -19,6 +19,14 @@
                   <Image url="@SaphShippingLogo.png" />
                </image>
             </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@SaphShippingLogo.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="600.0" />
+               </HBox.margin>
+            </ImageView>
          </children></HBox>
       <VBox alignment="CENTER" layoutX="631.0" layoutY="177.0" prefHeight="333.0" prefWidth="302.0">
          <children>
@@ -77,6 +85,11 @@
       </VBox>
       <VBox alignment="CENTER" layoutY="13.0" prefHeight="114.0" prefWidth="1000.0">
          <children>
+            <Text fx:id="AccountTextBox" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Account: Guest ">
+               <font>
+                  <Font name="Eras Bold ITC" size="19.0" />
+               </font>
+            </Text>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sapphire Shipping Portal  ">
                <font>
                   <Font name="Eras Bold ITC" size="40.0" />
@@ -89,11 +102,6 @@
             </Text>
          </children>
       </VBox>
-      <Text fx:id="AccountTextBox" fill="WHITE" layoutX="821.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account: Guest ">
-         <font>
-            <Font name="Eras Bold ITC" size="19.0" />
-         </font>
-      </Text>
 
    </children>
 </AnchorPane>
