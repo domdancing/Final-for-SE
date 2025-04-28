@@ -44,11 +44,12 @@ public class QuantityItemDAOImpl implements QuantityItemDAO {
 
     @Override
     public void saveQuantityItemWithInvoiceId(QuantityItem quantityItem, int invoiceId) throws SQLException {
-        try (Connection conn = ConnectToDatabase.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(INSERT_ITEM_SQL)) {
-            stmt.setInt(1, quantityItem.getItemId());
-            stmt.setString(2, quantityItem.getName());
-            stmt.setDouble(3, quantityItem.getPrice());
+        try (Connection conn = ConnectToDatabase.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(INSERT_ITEM_SQL);
+            System.out.println("Invoice ID: "+invoiceId);
+            stmt.setInt(1, invoiceId);
+            stmt.setInt(2, quantityItem.getItemId());
+            stmt.setDouble(3, quantityItem.getQuantity());
             stmt.executeUpdate();
         }
     }
