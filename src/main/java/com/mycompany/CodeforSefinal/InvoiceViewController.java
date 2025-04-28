@@ -139,22 +139,26 @@ public class InvoiceViewController implements Initializable{
         boolean loggedInTest = AuthenticationSingleton.getInstance().isIsAuthenticated();
         invoiceViewTable.setEditable(loggedInTest);
         
-        //Fake back-end filler data
+        //Grab list of current invoices from DB
+        InvoiceDAOImpl invoicePull = new InvoiceDAOImpl(); 
+        ArrayList<Invoice>  currentInvoices =  invoicePull.getAllInvoices();
+        
+        // The arraylist must be turned into a obervablelist to be observed by the viewTable
+        ObservableList<Invoice> observableInvoices = FXCollections.observableArrayList(currentInvoices);
+        
+        // Test ArrayList
         ArrayList<QuantityItem> testItemArray = new ArrayList<QuantityItem>();
         
         // Creates a sample time test object for test data 
         Timestamp timestampTest = Timestamp.from(Instant.now());
         
-        var invoice1 = new Invoice("New Tools", timestampTest, "Ryan", testItemArray,"01075");
-        var invoice2 = new Invoice("New Printer", timestampTest, "Ryan", testItemArray, "01040");
-        var invoice3 = new Invoice("New RJ-45 Ports", timestampTest, "Ryan", testItemArray, "01260");
-        ArrayList<Invoice> testArray = new ArrayList<Invoice>();
-        testArray.add(invoice1);
-        testArray.add(invoice2);
-        testArray.add(invoice3);
-        
-        // The arraylist must be turned into a obervablelist to be observed by the viewTable
-        ObservableList<Invoice> observableInvoices = FXCollections.observableArrayList(testArray);
+//        var invoice1 = new Invoice("New Tools", timestampTest, "Ryan", testItemArray,"01075");
+//        var invoice2 = new Invoice("New Printer", timestampTest, "Ryan", testItemArray, "01040");
+//        var invoice3 = new Invoice("New RJ-45 Ports", timestampTest, "Ryan", testItemArray, "01260");
+//        ArrayList<Invoice> testArray = new ArrayList<Invoice>();
+//        testArray.add(invoice1);
+//        testArray.add(invoice2);
+//        testArray.add(invoice3);
         
         // Checks all the getter methods inside of the Invoice and searches for the attribute in the quotes
         // If it finds it, it will call its getter method found inside the invoice class, if there is no getter then the program will fail
