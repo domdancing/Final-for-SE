@@ -5,8 +5,12 @@ import com.mycompany.CodeforSefinal.factor.DAOFactory;
 
 import com.mycompany.CodeforSefinal.DAO.InvoiceDAO;
 import com.mycompany.CodeforSefinal.DAO.InvoiceDAOImpl;
+import com.mycompany.CodeforSefinal.DAO.ReferenceItemDAO;
+import com.mycompany.CodeforSefinal.DAO.ReferenceItemDAOImpl;
+import com.mycompany.CodeforSefinal.Objects.Item;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -56,6 +60,7 @@ public class ItemCreationController implements Initializable
     private Stage stage;
     private Scene scene;
     private Parent root;
+    private ReferenceItemDAO referenceItemDAO;
     private ArrayList<ReferenceItem> listofItems;
 
     // CONSTRUCTOR
@@ -63,14 +68,14 @@ public class ItemCreationController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
-        ReferenceItem item1 = new ReferenceItem(1, "Washing Machine", 200.0);
-        ReferenceItem item2 = new ReferenceItem(2, "Toaster Oven", 100.0);
-        ReferenceItem item3 = new ReferenceItem(3, "Microwave", 150.0);
-        ArrayList<ReferenceItem> testArray = new ArrayList<ReferenceItem>();
-        testArray.add(item1);
-        testArray.add(item2);
-        testArray.add(item3);
-        listofItems = testArray;
+         referenceItemDAO = new ReferenceItemDAOImpl(); // ✅ connect to the DB access object
+        
+        // Set up the table columns
+        IDFX.setCellValueFactory(new PropertyValueFactory<>("itemId"));
+        NameFX.setCellValueFactory(new PropertyValueFactory<>("name"));
+        PriceFX.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        // Load all existing items from the database
         updateItemsTable();
     }
     
@@ -79,7 +84,7 @@ public class ItemCreationController implements Initializable
     @FXML
     private void handleReturnToPrimaryFromICP(ActionEvent event) throws IOException 
     {
-        System.out.println("Button Clicked");
+       
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
         root = loader.load();
@@ -96,13 +101,21 @@ public class ItemCreationController implements Initializable
     @FXML
     private void updateItemsTable()
     {
-        ObservableList<ReferenceItem> observableItems = FXCollections.observableArrayList(listofItems);
+       try {
+        List<Item> items = referenceItemDAO.getAllItems();
+        List<ReferenceItem> referenceItems = new ArrayList<>();
+
+        for (Item item : items) {
+            if (item instanceof ReferenceItem) {
+                referenceItems.add((ReferenceItem) item);
+            }
+        }
         
-        IDFX.setCellValueFactory(new PropertyValueFactory<ReferenceItem, Integer>("itemId"));
-        NameFX.setCellValueFactory(new PropertyValueFactory<ReferenceItem, String>("name"));
-        PriceFX.setCellValueFactory(new PropertyValueFactory<ReferenceItem, Double>("price"));
-        
+        ObservableList<ReferenceItem> observableItems = FXCollections.observableArrayList(referenceItems);
         createItemTable.setItems(observableItems);
+    } catch (SQLException e) {
+        showError("Failed to load items: " + e.getMessage());
+    }
     }
             
     
@@ -111,29 +124,40 @@ public class ItemCreationController implements Initializable
     @FXML
     private void handleCreatingItem(ActionEvent event) throws IOException
     {
-        String itemName = createItemNameField.getText();
-        String strItemPrice = createItemPriceField.getText();
-        Double itemPrice = Double.parseDouble(strItemPrice);
-        
-        int itemID = (1 + listofItems.size());
-        
-       // This implementation is not meant to be a permanent measure. This is only until a proper method
-        // of locating the next ItemID from the database can be ascertained and sent to this class.
+       String itemName = createItemNameField.getText().trim();
+        String strItemPrice = createItemPriceField.getText().trim();
 
-        if (itemName.isEmpty() || strItemPrice.isEmpty())
-        {
+        if (itemName.isEmpty() || strItemPrice.isEmpty()) {
             showError("Please fill out all fields.");
             return;
         }
         
-        ReferenceItem newItem = new ReferenceItem(itemID, itemName, itemPrice);
-        listofItems.add(newItem);
+        double itemPrice;
+        try {
+            itemPrice = Double.parseDouble(strItemPrice);
+        } catch (NumberFormatException e) {
+            showError("Invalid price entered.");
+            return;
+        }
+
+        try {
+             ReferenceItemDAO referenceItemDAO = new ReferenceItemDAOImpl();
+
+        // Generate a new ID (you could improve this later)
+        int newItemId = referenceItemDAO.getNextAvailableId();  // You'll add this method!
+
+        ReferenceItem newItem = new ReferenceItem(newItemId, itemName, itemPrice);
+
+        referenceItemDAO.saveItem(newItem);  // 🛠️ Save to the database
         showInfo("Addition Complete", "Successfully added: " + itemName);
-        updateItemsTable();
+
+        updateItemsTable();  // ✅ Reload table from the database
+    } catch (Exception e) {
+        showError("Error creating item: " + e.getMessage());
     }
-    
-    // Took these from InvoicePageController to assist in debugging.
-    
+        
+    }
+   
     @FXML
     private void showError(String message) 
     {

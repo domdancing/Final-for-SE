@@ -10,6 +10,7 @@ package com.mycompany.CodeforSefinal.DAO;
  */
 import com.mycompany.CodeforSefinal.backend.ConnectToDatabase;
 import com.mycompany.CodeforSefinal.Objects.Item;
+import com.mycompany.CodeforSefinal.Objects.ReferenceItem;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class ReferenceItemDAOImpl implements ReferenceItemDAO {
 
     @Override
     public void saveItem(Item item) throws SQLException {
-        String sql = "INSERT INTO items (item_id, name, price) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO items (item_id, item_name, item_price) VALUES (?, ?, ?)";
         try (Connection conn = ConnectToDatabase.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -43,12 +44,34 @@ public class ReferenceItemDAOImpl implements ReferenceItemDAO {
 
             while (rs.next()) {
                 int id = rs.getInt("item_id");
-                String name = rs.getString("name");
-                double price = rs.getDouble("price");
-                itemList.add(new Item(id, name, price) {});
+                String name = rs.getString("item_name");
+                double price = rs.getDouble("item_price");
+               //Create a ReferenceItem instead of an Item
+                ReferenceItem referenceItem = new ReferenceItem(id, name, price);
+                itemList.add(referenceItem);
             }
         }
 
         return itemList;
     }
+    
+    /**
+     *
+     * @return
+     * @throws SQLException
+     */
+    @Override
+    public int getNextAvailableId() throws SQLException {
+    String sql = "SELECT MAX(item_id) FROM items";
+    try (Connection conn = ConnectToDatabase.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql);
+         ResultSet rs = stmt.executeQuery()) {
+        
+        if (rs.next()) {
+            return rs.getInt(1) + 1;
+        } else {
+            return 1;  // First item
+        }
+    }
+}
 }

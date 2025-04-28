@@ -16,6 +16,8 @@ public interface ReferenceItemDAO {
     void saveItem(Item item) throws SQLException;
     
     List<Item> getAllItems() throws SQLException;
+
+    public int getNextAvailableId() throws SQLException;
 }
 // make a DAO for each item type 
 //
