@@ -11,8 +11,11 @@ import com.mycompany.CodeforSefinal.factor.DAOFactory;
 
 import com.mycompany.CodeforSefinal.DAO.InvoiceDAO;
 import com.mycompany.CodeforSefinal.DAO.InvoiceDAOImpl;
+import com.mycompany.CodeforSefinal.DAO.ReferenceItemDAO;
+import com.mycompany.CodeforSefinal.DAO.ReferenceItemDAOImpl;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -235,15 +238,22 @@ public class InvoicePageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        ReferenceItem item1 = new ReferenceItem(1, "Washing Machine", 200.0);
-        ReferenceItem item2 = new ReferenceItem(2, "Toaster Oven", 100.0);
-        ReferenceItem item3 = new ReferenceItem(3, "Microwave", 150.0);
-        ArrayList<ReferenceItem> testArray = new ArrayList<ReferenceItem>();
-        testArray.add(item1);
-        testArray.add(item2);
-        testArray.add(item3);
-        
-        setItemMenuList(testArray);
+      try {
+        ReferenceItemDAO itemDAO = new ReferenceItemDAOImpl();
+        List<Item> dbItems = itemDAO.getAllItems();
+
+        // Convert List<Item> into ArrayList<ReferenceItem> safely
+        ArrayList<ReferenceItem> referenceItems = new ArrayList<>();
+        for (Item item : dbItems) {
+            if (item instanceof ReferenceItem) {
+                referenceItems.add((ReferenceItem) item);
+            }
+        }
+
+        setItemMenuList(referenceItems);
+
+    } catch (SQLException e) {
+        showError("Failed to load items: " + e.getMessage());
+    }
     }
 }
