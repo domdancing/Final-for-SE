@@ -120,6 +120,16 @@ public void gotoSearchInvoices(javafx.event.ActionEvent event) throws IOExceptio
     stage.show();
 
 }
+    
+    @FXML
+    private void faqButton(javafx.event.ActionEvent event) throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("FAQ.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
 }
 

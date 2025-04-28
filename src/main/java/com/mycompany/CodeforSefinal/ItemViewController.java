@@ -74,8 +74,19 @@ public class ItemViewController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        /*ArrayList<QuantityItem> quantityItemsFromDB = DAOFactory.getItemDAO().getAllItems();
+        
+        ObservableList<QuantityItem> observableItems = FXCollections.observableArrayList(quantityItemsFromDB);
+        
+        IDFX.setCellValueFactory(new PropertyValueFactory<QuantityItem, Long>("itemId"));
+        NameFX.setCellValueFactory(new PropertyValueFactory<QuantityItem, String>("name"));
+        ItemPriceFX.setCellValueFactory(new PropertyValueFactory<QuantityItem, Double>("price"));
+        ItemQuantityFX.setCellValueFactory(new PropertyValueFactory<QuantityItem, Integer>("quantity"));
+
+        itemViewTable.setItems(observableItems);*/
+        
         //Fake back-end filler data
-              
+        
         QuantityItem item1 = new QuantityItem(1, "Washing Machine", 200.0, 2);
         QuantityItem item2 = new QuantityItem(2, "Toaster Oven", 100.0, 1);
         QuantityItem item3 = new QuantityItem(3, "Microwave", 150.0, 4);
