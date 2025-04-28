@@ -6,6 +6,8 @@ package com.mycompany.CodeforSefinal;
 
 import com.mycompany.CodeforSefinal.DAO.InvoiceDAOImpl;
 import com.mycompany.CodeforSefinal.Objects.Invoice;
+import com.mycompany.CodeforSefinal.InvoiceViewController.*;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,7 +17,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class SearchInvoiceController implements Initializable {
 
@@ -29,6 +36,9 @@ public class SearchInvoiceController implements Initializable {
     @FXML private TableColumn<Invoice, String> colClientName;
     @FXML private TableColumn<Invoice, String> colZipCode;
     @FXML private TableColumn<Invoice, String> colDate;
+    
+    @FXML
+private Button viewItemsButton;
   
 
     @Override
@@ -65,4 +75,48 @@ private void handleSearchInvoices() {
         stage.setScene(new javafx.scene.Scene(root));
         stage.show();
     }
+    
+    @FXML
+         private void handleViewItems(ActionEvent event) {
+    Invoice selectedInvoice = invoiceViewTable.getSelectionModel().getSelectedItem();
+
+    if (selectedInvoice == null) {
+        showError("Please select an invoice to view its items.");
+        return;
+    }
+
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("InvoiceItemsPage.fxml"));
+        Parent root = loader.load();
+
+        // Pass the invoice ID to the next controller
+        InvoiceItemsController controller = loader.getController();
+        controller.setInvoiceId(selectedInvoice.getInvoiceID());
+
+        Stage stage = new Stage();
+        stage.setTitle("Invoice Items");
+        stage.setScene(new Scene(root));
+        stage.show();
+
+    } catch (IOException e) {
+        showError("Failed to open invoice items page: " + e.getMessage());
+    }
+         }
+    
+    
+    
+  
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    
+    
+    
+    
+    
+    
+    
 }
