@@ -39,7 +39,7 @@
                       <TableColumn fx:id="IDFX" prefWidth="75.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="ID #" />
                       <TableColumn fx:id="NameFX" prefWidth="150.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Item Name" />
                         <TableColumn fx:id="ItemPriceFX" prefWidth="140.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Item Price" />
-                        <TableColumn fx:id="ItemQuantityFX" prefWidth="156.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Item Quantity" />
+                        
                     </columns>
                   </TableView>
                </children>

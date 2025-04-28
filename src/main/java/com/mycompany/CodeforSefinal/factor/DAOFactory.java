@@ -6,6 +6,8 @@ package com.mycompany.CodeforSefinal.factor;
 
 import com.mycompany.CodeforSefinal.DAO.InvoiceDAO;
 import com.mycompany.CodeforSefinal.DAO.InvoiceDAOImpl;
+import com.mycompany.CodeforSefinal.DAO.QuantityItemDAO;
+import com.mycompany.CodeforSefinal.DAO.QuantityItemDAOImpl;
 import com.mycompany.CodeforSefinal.DAO.ReferenceItemDAO;
 import com.mycompany.CodeforSefinal.DAO.ReferenceItemDAOImpl;
 
@@ -17,6 +19,7 @@ public class DAOFactory {
 
     private static final InvoiceDAO invoiceDAO = new InvoiceDAOImpl();
     private static final ReferenceItemDAO itemDAO = new ReferenceItemDAOImpl();
+    private static final QuantityItemDAO QitemDAO = new QuantityItemDAOImpl();
 
     // Factory method for InvoiceDAO
     public static InvoiceDAO getInvoiceDAO() {
@@ -27,4 +30,11 @@ public class DAOFactory {
     public static ReferenceItemDAO getItemDAO() {
         return itemDAO;
     }
+    
+    public static QuantityItemDAO getQuantityItemDAO() {
+        return new QuantityItemDAOImpl();
+    }
+    
+    
+    
 }
