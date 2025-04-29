@@ -19,6 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -81,35 +82,26 @@ private void handleSearchInvoices() {
     }
     
     @FXML
-         private void handleViewItems(ActionEvent event) {
-    Invoice selectedInvoice = resultsTable.getSelectionModel().getSelectedItem();
+    private void handleViewItems(ActionEvent event) throws IOException {
+        Invoice selectedInvoice = resultsTable.getSelectionModel().getSelectedItem();
 
-    if (selectedInvoice == null) {
-        showError("Please select an invoice to view its items.");
-        return;
+        if (selectedInvoice == null) {
+            showError("Please select an invoice to view its items.");
+            return;
+        }
+
+        // Load the new scene (InvoicePage.fxml)
+        Parent invoicePage = FXMLLoader.load(getClass().getResource("InvoiceItemsPage.fxml"));
+        
+        // Get the current stage (the window where the button was clicked)
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        
+        // Set the new scene to the stage
+        Scene scene = new Scene(invoicePage);
+        currentStage.setScene(scene);
+        // Show the new scene (second screen)
+        currentStage.show();
     }
-
-    try {
-        URL fxmlLocation = getClass().getResource("/InvoiceItemsPage.fxml");
-System.out.println("FXML Location: " + fxmlLocation);
-
-       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/mycompany/CodeforSefinal/InvoiceItemsPage.fxml"));
-Parent root = loader.load();
-// this is giving null but I need a break
-
-        // Pass the invoice ID to the next controller 
-        InvoiceItemsController controller = loader.getController();
-        controller.setInvoiceId(selectedInvoice.getInvoiceID());
-
-        Stage stage = new Stage();
-        stage.setTitle("Invoice Items");
-        stage.setScene(new Scene(root));
-        stage.show();
-
-    } catch (IOException e) {
-        showError("Failed to open invoice items page: " + e.getMessage());
-    }
-         }
     
     
     
