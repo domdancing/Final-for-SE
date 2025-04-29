@@ -37,6 +37,11 @@ public class SearchInvoiceController implements Initializable {
     @FXML private TableColumn<Invoice, String> colClientName;
     @FXML private TableColumn<Invoice, String> colZipCode;
     @FXML private TableColumn<Invoice, String> colDate;
+     // Needed imports for JavaFX
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+    
     
        
     
@@ -90,8 +95,10 @@ private void handleSearchInvoices() {
             return;
         }
 
-        // Load the new scene (InvoicePage.fxml)
-        Parent invoicePage = FXMLLoader.load(getClass().getResource("InvoiceItemsPage.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("InvoiceItemsPage.fxml"));
+    Parent invoicePage = loader.load();
+    InvoiceItemsController controller = loader.getController();
+    controller.setInvoiceId(selectedInvoice.getInvoiceID()); // ✅ This fixes the issue
         
         // Get the current stage (the window where the button was clicked)
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -113,8 +120,7 @@ private void handleSearchInvoices() {
         alert.showAndWait();
     }
     
-    
-    
+   
     
     
     
