@@ -56,8 +56,15 @@
                    
                 </columns>
             </TableView>
+            <!-- Bottom-right aligned View Items button -->
+            <HBox alignment="CENTER_RIGHT" prefWidth="611.0">
+                <Button fx:id="viewItemsButton" text="View Items" onAction="#handleViewItems">
+                    <font><Font name="Eras Bold ITC" size="13.0" /></font>
+                </Button>
+            </HBox>
         </VBox>
-        <Button fx:id="viewItemsButton" text="View Items" onAction="#handleViewItems"/>
+        
+       
       <Text fill="WHITE" layoutX="280.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search All Invoices " textAlignment="CENTER" wrappingWidth="451.13671875">
          <font>
             <Font name="Eras Bold ITC" size="38.0" />

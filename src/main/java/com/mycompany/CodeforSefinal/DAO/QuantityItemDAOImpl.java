@@ -54,4 +54,82 @@ public class QuantityItemDAOImpl implements QuantityItemDAO {
         }
     }
 
+    
+    public ArrayList<QuantityItem> getAllQuantityItems() {
+    ArrayList<QuantityItem> quantityItems = new ArrayList<>();
+    
+    try {
+        Connection conn = ConnectToDatabase.getConnection();
+        String sql = "SELECT item_id, item_name, item_price, item_quantity FROM invoice_items"; // Adjust table/column names if needed
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        while (rs.next()) {
+            int itemId = rs.getInt("item_id");
+            String itemName = rs.getString("item_name");
+            double itemPrice = rs.getDouble("item_price");
+            int itemQuantity = rs.getInt("item_quantity");
+            
+            QuantityItem qItem = new QuantityItem(itemId, itemName, itemPrice, itemQuantity);
+            quantityItems.add(qItem);
+        }
+        
+        rs.close();
+        stmt.close();
+        conn.close();
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    
+    return quantityItems;
+}
+    
+   // tied to make a join table  
+    // its not working but here is what I made 
+    
+    /*
+   public ArrayList<QuantityItem> getAllQuantityItemsWithReference() {
+    ArrayList<QuantityItem> quantityItems = new ArrayList<>();
+    
+    try {
+        Connection conn = ConnectToDatabase.getConnection();
+        String sql = """
+            SELECT q.item_id, r.name, r.price, q.quantity
+            FROM quantity_items q
+            JOIN reference_items r ON q.item_id = r.item_id
+        """;
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        while (rs.next()) {
+            int itemId = rs.getInt("item_id");
+            String itemName = rs.getString("name");
+            double itemPrice = rs.getDouble("price");
+            int quantity = rs.getInt("quantity");
+            
+            QuantityItem qItem = new QuantityItem(itemId, itemName, itemPrice, quantity);
+            quantityItems.add(qItem);
+        }
+        
+        rs.close();
+        stmt.close();
+        conn.close();
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    
+    return quantityItems;
+}
+ 
+    */
+
+    @Override
+    public ArrayList<QuantityItem> getAllQuantityItemsWithReference() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    
+    
 }

@@ -1,14 +1,24 @@
 package com.mycompany.CodeforSefinal;
 
+import com.mycompany.CodeforSefinal.DAO.QuantityItemDAOImpl;
+import com.mycompany.CodeforSefinal.DAO.ReferenceItemDAO;
+import com.mycompany.CodeforSefinal.DAO.ReferenceItemDAOImpl;
 import com.mycompany.CodeforSefinal.Objects.QuantityItem;
 import com.mycompany.CodeforSefinal.Objects.Invoice;
+import com.mycompany.CodeforSefinal.Objects.Item;
+import com.mycompany.CodeforSefinal.Objects.ReferenceItem;
+import com.mycompany.CodeforSefinal.factor.DAOFactory;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,6 +35,7 @@ import javafx.scene.control.TextField;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -39,11 +50,12 @@ public class ItemViewController implements Initializable{
     
     // Implementing all JavaFX ids so that they can be utilized in the code 
     @FXML private Button returnButton;
-    @FXML private TableView<QuantityItem> itemViewTable;
-    @FXML private TableColumn<QuantityItem, Long> IDFX;
-    @FXML private TableColumn<QuantityItem, String> NameFX;
-    @FXML private TableColumn<QuantityItem, Double> ItemPriceFX;
-    @FXML private TableColumn<QuantityItem, Integer> ItemQuantityFX;
+     @FXML private TableView<ReferenceItem> itemViewTable;
+    @FXML private TableColumn<ReferenceItem, Integer> IDFX;
+    @FXML private TableColumn<ReferenceItem, String> NameFX;
+    @FXML private TableColumn<ReferenceItem, Double> ItemPriceFX;
+    //@FXML private TableColumn<QuantityItem, Integer> ItemQuantityFX;
+    //<TableColumn fx:id="ItemQuantityFX" prefWidth="156.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Item Quantity" />
     
     // Test ArrayList - does nothing for now 
     private ArrayList<Invoice> invoiceItems = new ArrayList<>();
@@ -52,6 +64,7 @@ public class ItemViewController implements Initializable{
     private Stage stage;
     private Scene scene;
     private Parent root;
+    private ReferenceItemDAO referenceItemDAO;
     
     // FXML Connected method, uses ActionEvent to detect when the button "return" is pressed, when it is pressed it will call the method. 
     @FXML
@@ -73,42 +86,46 @@ public class ItemViewController implements Initializable{
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+   referenceItemDAO = new ReferenceItemDAOImpl(); // ✅ Connect to DAO
         
-        /*ArrayList<QuantityItem> quantityItemsFromDB = DAOFactory.getItemDAO().getAllItems();
-        
-        ObservableList<QuantityItem> observableItems = FXCollections.observableArrayList(quantityItemsFromDB);
-        
-        IDFX.setCellValueFactory(new PropertyValueFactory<QuantityItem, Long>("itemId"));
-        NameFX.setCellValueFactory(new PropertyValueFactory<QuantityItem, String>("name"));
-        ItemPriceFX.setCellValueFactory(new PropertyValueFactory<QuantityItem, Double>("price"));
-        ItemQuantityFX.setCellValueFactory(new PropertyValueFactory<QuantityItem, Integer>("quantity"));
+        // Set up table columns
+        IDFX.setCellValueFactory(new PropertyValueFactory<>("itemId"));
+        NameFX.setCellValueFactory(new PropertyValueFactory<>("name"));
+        ItemPriceFX.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-        itemViewTable.setItems(observableItems);*/
-        
-        //Fake back-end filler data
-        
-        QuantityItem item1 = new QuantityItem(1, "Washing Machine", 200.0, 2);
-        QuantityItem item2 = new QuantityItem(2, "Toaster Oven", 100.0, 1);
-        QuantityItem item3 = new QuantityItem(3, "Microwave", 150.0, 4);
-        ArrayList<QuantityItem> testArray = new ArrayList<QuantityItem>();
-        testArray.add(item1);
-        testArray.add(item2);
-        testArray.add(item3);
-        
-        // The arraylist must be turned into a obervablelist to be observed by the viewTable
-        ObservableList<QuantityItem> observableItems = FXCollections.observableArrayList(testArray);
-        
-        // Checks all the getter methods inside of the Invoice and searches for the attribute in the quotes
-        // If it finds it, it will call its getter method found inside the invoice class, if there is no getter then the program will fail
-        IDFX.setCellValueFactory(new PropertyValueFactory<QuantityItem, Long>("itemId"));
-        NameFX.setCellValueFactory(new PropertyValueFactory<QuantityItem, String>("name"));
-        ItemPriceFX.setCellValueFactory(new PropertyValueFactory<QuantityItem, Double>("price"));
-        ItemQuantityFX.setCellValueFactory(new PropertyValueFactory<QuantityItem, Integer>("quantity"));
-
-        // Set the tableView to display these attributes
-        itemViewTable.setItems(observableItems);
-        
+        // Load items into table
+        updateItemsTable();
     }
+
+    @FXML
+    private void updateItemsTable() {
+        try {
+            List<Item> items = referenceItemDAO.getAllItems();
+            List<ReferenceItem> referenceItems = new ArrayList<>();
+
+            for (Item item : items) {
+                if (item instanceof ReferenceItem) {
+                    referenceItems.add((ReferenceItem) item);
+                }
+            }
+
+            ObservableList<ReferenceItem> observableItems = FXCollections.observableArrayList(referenceItems);
+            itemViewTable.setItems(observableItems);
+
+        } catch (SQLException e) {
+            showError("Failed to load items: " + e.getMessage());
+        }
+    }
+
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+        
+    
     
    
     }

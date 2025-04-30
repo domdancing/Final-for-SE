@@ -19,6 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -36,6 +37,13 @@ public class SearchInvoiceController implements Initializable {
     @FXML private TableColumn<Invoice, String> colClientName;
     @FXML private TableColumn<Invoice, String> colZipCode;
     @FXML private TableColumn<Invoice, String> colDate;
+     // Needed imports for JavaFX
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+    
+    
+       
     
     @FXML
 private Button viewItemsButton;
@@ -43,6 +51,8 @@ private Button viewItemsButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+       
+        
         colInvoiceName.setCellValueFactory(new PropertyValueFactory<>("invoiceName"));
         colClientName.setCellValueFactory(new PropertyValueFactory<>("clientName"));
         colZipCode.setCellValueFactory(new PropertyValueFactory<>("zipCode"));
@@ -77,31 +87,28 @@ private void handleSearchInvoices() {
     }
     
     @FXML
-         private void handleViewItems(ActionEvent event) {
-    Invoice selectedInvoice = invoiceViewTable.getSelectionModel().getSelectedItem();
+    private void handleViewItems(ActionEvent event) throws IOException {
+        Invoice selectedInvoice = resultsTable.getSelectionModel().getSelectedItem();
 
-    if (selectedInvoice == null) {
-        showError("Please select an invoice to view its items.");
-        return;
+        if (selectedInvoice == null) {
+            showError("Please select an invoice to view its items.");
+            return;
+        }
+
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("InvoiceItemsPage.fxml"));
+    Parent invoicePage = loader.load();
+    InvoiceItemsController controller = loader.getController();
+    controller.setInvoiceId(selectedInvoice.getInvoiceID()); // ✅ This fixes the issue
+        
+        // Get the current stage (the window where the button was clicked)
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        
+        // Set the new scene to the stage
+        Scene scene = new Scene(invoicePage);
+        currentStage.setScene(scene);
+        // Show the new scene (second screen)
+        currentStage.show();
     }
-
-    try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("InvoiceItemsPage.fxml"));
-        Parent root = loader.load();
-
-        // Pass the invoice ID to the next controller
-        InvoiceItemsController controller = loader.getController();
-        controller.setInvoiceId(selectedInvoice.getInvoiceID());
-
-        Stage stage = new Stage();
-        stage.setTitle("Invoice Items");
-        stage.setScene(new Scene(root));
-        stage.show();
-
-    } catch (IOException e) {
-        showError("Failed to open invoice items page: " + e.getMessage());
-    }
-         }
     
     
     
@@ -113,8 +120,7 @@ private void handleSearchInvoices() {
         alert.showAndWait();
     }
     
-    
-    
+   
     
     
     

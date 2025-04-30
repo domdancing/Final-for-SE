@@ -16,5 +16,7 @@ import java.util.List;
 public interface QuantityItemDAO {
     ArrayList<QuantityItem> getQuantityItemsFromInvoiceId(int invoiceId) throws SQLException;
     void saveQuantityItemWithInvoiceId(QuantityItem quantityItem, int invoiceId) throws SQLException;
+
+    public ArrayList<QuantityItem> getAllQuantityItemsWithReference();
     
 }
