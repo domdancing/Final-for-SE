@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox xmlns:fx="http://javafx.com/javafx" fx:controller="com.mycompany.CodeforSefinal.InvoiceItemsController"
-      spacing="10"
-      alignment="CENTER"
-      prefWidth="600"
-      prefHeight="450"
-      style="-fx-padding: 20;">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" spacing="10" style="-fx-background-color: #004879;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.mycompany.CodeforSefinal.InvoiceItemsController">
+   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Invoice Items:">
+      <font>
+         <Font name="Eras Bold ITC" size="36.0" />
+      </font>
+      <VBox.margin>
+         <Insets bottom="20.0" />
+      </VBox.margin>
+   </Text>
     
-    <TableView fx:id="itemsTable" prefHeight="400">
+    <TableView fx:id="itemsTable" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="352.0" prefWidth="603.0">
         <columns>
-            <TableColumn fx:id="itemIdColumn" text="Item ID" prefWidth="100"/>
-            <TableColumn fx:id="itemNameColumn" text="Item Name" prefWidth="200"/>
-            <TableColumn fx:id="itemPriceColumn" text="Price" prefWidth="150"/>
-            <TableColumn fx:id="itemQuantityColumn" text="Quantity" prefWidth="150"/>
+            <TableColumn fx:id="itemIdColumn" prefWidth="100" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Item ID" />
+            <TableColumn fx:id="itemNameColumn" prefWidth="200" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Item Name" />
+            <TableColumn fx:id="itemPriceColumn" prefWidth="150" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Price" />
+            <TableColumn fx:id="itemQuantityColumn" prefWidth="150" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Quantity" />
         </columns>
     </TableView>
 
     <!-- Bottom aligned Return button -->
-    <HBox alignment="BOTTOM_RIGHT">
-        <Button fx:id="returnButton" text="Return" onAction="#handleReturnToLastpage" />
+    <HBox alignment="BOTTOM_RIGHT" prefHeight="47.0" prefWidth="1000.0">
+        <Button fx:id="returnButton" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handleReturnToLastpage" prefHeight="17.0" prefWidth="118.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Return">
+         <HBox.margin>
+            <Insets right="80.0" />
+         </HBox.margin></Button>
     </HBox>
 </VBox>
