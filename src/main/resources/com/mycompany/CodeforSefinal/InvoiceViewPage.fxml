@@ -16,17 +16,17 @@
     <children>
         <VBox alignment="CENTER" prefHeight="650.0" prefWidth="1000.0" spacing="25.0">
             <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="View Your Invoices:" textAlignment="CENTER" wrappingWidth="451.13671875">
-               <font>
-                  <Font name="Eras Bold ITC" size="38.0" />
-               </font>
-            </Text>
+                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="View Your Invoices:" textAlignment="CENTER" wrappingWidth="451.13671875">
+                    <font>
+                        <Font name="Eras Bold ITC" size="38.0" />
+                    </font>
+                </Text>
                 <TableView fx:id="invoiceViewTable" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="250.0" prefWidth="761.0">
                     <columns>
                         <TableColumn fx:id="IDFX" prefWidth="77.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="ID #" />
                         <TableColumn fx:id="INameFX" prefWidth="178.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Invoice Name" />
                         <TableColumn fx:id="CNameFX" prefWidth="177.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Client Name" />
-                         <TableColumn fx:id="ZipCodeFX" prefWidth="140.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Zip Code" />
+                        <TableColumn fx:id="ZipCodeFX" prefWidth="140.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Zip Code" />
                         <TableColumn fx:id="DDateFX" prefWidth="185.0" style="-fx-font-family: 'Eras Bold ITC';; -fx-font-size: 15px;" text="Date Created" />
                       
                     </columns>
@@ -39,53 +39,58 @@
                     </padding>
                     <children>
                         <Button fx:id="deleteButton" onAction="#handleDeleteInvoice" prefHeight="33.0" prefWidth="119.0" text="Delete Invoice">
-                     <HBox.margin>
-                        <Insets right="360.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="Eras Bold ITC" size="13.0" />
-                     </font></Button>
+                            <HBox.margin>
+                                <Insets right="360.0" />
+                            </HBox.margin>
+                            <font>
+                                <Font name="Eras Bold ITC" size="13.0" />
+                            </font>
+                        </Button>
                         <Button fx:id="viewItems" onAction="#handleSwitchToItemView" prefHeight="33.0" prefWidth="129.0" text="View Items">
-                     <font>
-                        <Font name="Eras Bold ITC" size="14.0" />
-                     </font></Button>
+                            <font>
+                                <Font name="Eras Bold ITC" size="14.0" />
+                            </font>
+                        </Button>
                         <Button fx:id="returnToMainScreen" onAction="#handleReturnToPrimaryFromInvoicesView" prefHeight="32.0" prefWidth="131.0" text="Return">
-                     <HBox.margin>
-                        <Insets right="120.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="Eras Bold ITC" size="14.0" />
-                     </font></Button>
+                            <HBox.margin>
+                                <Insets right="120.0" />
+                            </HBox.margin>
+                            <font>
+                                <Font name="Eras Bold ITC" size="14.0" />
+                            </font>
+                        </Button>
                     </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
                 </HBox>
             </children>
         </VBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@SaphShippingLogo.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@SaphShippingLogo.png" />
-               </image>
-               <HBox.margin>
-                  <Insets left="600.0" />
-               </HBox.margin>
-            </ImageView>
-      <!--<HBox alignment="CENTER_LEFT" layoutX="117.0" layoutY="442.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="266.0" style="-fx-border-color: transparent; -fx-border-style: none;">
-         <children>
-            <Text fx:id="databaseInfo" fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Database: Nothing To Do." wrappingWidth="267.28125">
-               <font>
-                  <Font name="Eras Bold ITC" size="15.0" />
-               </font>
-            </Text>-->
-         </children>
-      </HBox>
+        <HBox prefHeight="100.0" prefWidth="200.0">
+            <children>
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@SaphShippingLogo.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@SaphShippingLogo.png" />
+                    </image>
+                    <HBox.margin>
+                        <Insets left="600.0" />
+                    </HBox.margin>
+                </ImageView>
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" layoutX="117.0" layoutY="442.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="266.0" style="-fx-border-color: transparent; -fx-border-style: none;">
+            <children>
+                <Text fx:id="databaseInfo" fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Database: Nothing To Do." wrappingWidth="267.28125">
+                    <font>
+                        <Font name="Eras Bold ITC" size="15.0" />
+                    </font>
+                </Text>
+            </children>
+        </HBox>
     </children>
 </AnchorPane>
