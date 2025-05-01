@@ -3,10 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.CodeforSefinal.DAO;
+import com.mycompany.CodeforSefinal.InvoiceViewController;
 import com.mycompany.CodeforSefinal.backend.ConnectToDatabase;
 import static com.mycompany.CodeforSefinal.backend.ConnectToDatabase.getConnection;
 import com.mycompany.CodeforSefinal.Objects.Invoice;
 import com.mycompany.CodeforSefinal.Objects.QuantityItem;
+import static com.mycompany.CodeforSefinal.backend.ConnectToDatabase.getConnection;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -18,6 +20,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -102,8 +106,20 @@ public class InvoiceDAOImpl implements InvoiceDAO{
     
 
     @Override
-    public void deleteInvoicebyID(int invoiceID)throws SQLException {
-        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void deleteInvoicebyID(int invoiceID) throws SQLException {
+        String sqlDeleteItems = "DELETE FROM invoice_items WHERE invoice_id = ?";
+        try (Connection connection = ConnectToDatabase.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(sqlDeleteItems)){
+            pstmt.setInt(1, invoiceID);
+            pstmt.executeUpdate();
+        }
+        
+        String sqlDeleteInvoice = "DELETE FROM invoices WHERE invoice_id = ?";
+        try (Connection connection = ConnectToDatabase.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(sqlDeleteInvoice)){
+            pstmt.setInt(1, invoiceID);
+            pstmt.executeUpdate();
+        }
     }
 
     @Override
