@@ -108,31 +108,26 @@ public class InvoiceViewController implements Initializable{
         stage.show(); 
     }
 
-@FXML
+    @FXML
     private void handleDeleteInvoice(ActionEvent event) throws IOException {
         Invoice selectedInvoice = invoiceViewTable.getSelectionModel().getSelectedItem();
 
-        if(selectedInvoice == null){
+        if (selectedInvoice == null) {
             System.out.println("Please select an invoice to delete");
             return;
-        }
-        else {
-             // ✅ Correct: create DAO instance and call the method
-             
-    // ✅ Use the DAO Factory
-    InvoiceDAO invoiceDAO = DAOFactory.getInvoiceDAO();
+        } else {
+            // ✅ Correct: create DAO instance and call the method
 
-    try {
-        invoiceDAO.deleteInvoicebyID(selectedInvoice.getInvoiceID());
-        invoiceViewTable.getItems().remove(selectedInvoice);
-        System.out.println("Invoice deleted successfully.");
-    } catch (Exception e) {
-        System.out.println("Failed to delete invoice: " + e.getMessage());
-        e.printStackTrace();
-    }
-            //ConnectToDatabase.deleteInvoicebyID(selectedInvoice.getInvoiceID());
+            // ✅ Use the DAO Factory
+            InvoiceDAO invoiceDAO = DAOFactory.getInvoiceDAO();
 
-            invoiceViewTable.getItems().remove(selectedInvoice);
+            try {
+                invoiceViewTable.getItems().remove(selectedInvoice);
+                invoiceDAO.deleteInvoicebyID(selectedInvoice.getInvoiceID());
+                System.out.println("Invoice deleted successfully.");
+            } catch (Exception e) {
+                System.out.println("Failed to delete invoice: " + e.getMessage());
+            }
         }
     }
 
