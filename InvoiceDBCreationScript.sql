@@ -14,8 +14,7 @@ CREATE TABLE items(
 CREATE TABLE invoices (
 	invoice_id int AUTO_INCREMENT PRIMARY KEY,
     invoice_name varchar(100) NOT NULL UNIQUE,
-    delivery_latitude double NOT NULL,	#Assuming for now that we always ship from the same location, if this changes we can make a default value for start_lat/start_long
-    delivery_longitude double NOT NULL,
+    zip_code varchar(15) UNSIGNED,
     customer_name varchar(100) NOT NULL,
     delivery_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
