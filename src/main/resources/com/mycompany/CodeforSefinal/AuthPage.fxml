@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #004879;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.AuthPageController">
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #004879;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.AuthPageController">
    <children>
       <Text fill="WHITE" layoutX="434.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log In:">
          <font>
@@ -45,6 +45,11 @@
             <Font name="Eras Bold ITC" size="19.0" />
          </font>
       </Text>
+      <Button layoutX="431.0" layoutY="371.0" mnemonicParsing="false" onAction="#faqButton" prefHeight="30.0" prefWidth="138.0" text="FAQ">
+         <font>
+            <Font name="Eras Bold ITC" size="12.0" />
+         </font>
+      </Button>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">

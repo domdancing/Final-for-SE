@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" spacing="10" style="-fx-background-color: #004879;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.mycompany.CodeforSefinal.InvoiceItemsController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" spacing="10" style="-fx-background-color: #004879;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.InvoiceItemsController">
    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Invoice Items:">
       <font>
          <Font name="Eras Bold ITC" size="36.0" />
@@ -29,10 +29,11 @@
     </TableView>
 
     <!-- Bottom aligned Return button -->
-    <HBox alignment="BOTTOM_RIGHT" prefHeight="47.0" prefWidth="1000.0">
+    <HBox alignment="BOTTOM_CENTER" prefHeight="47.0" prefWidth="1000.0" spacing="400.0">
+      <Button maxHeight="-Infinity" maxWidth="-Infinity" onAction="#faqButton" prefHeight="17.0" prefWidth="118.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="FAQ" />
         <Button fx:id="returnButton" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handleReturnToLastpage" prefHeight="17.0" prefWidth="118.0" style="-fx-font-family: 'Eras Bold ITC'; -fx-font-size: 15px;" text="Return">
          <HBox.margin>
-            <Insets right="80.0" />
+            <Insets />
          </HBox.margin></Button>
     </HBox>
 </VBox>
