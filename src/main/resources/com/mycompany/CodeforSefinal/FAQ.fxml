@@ -2,18 +2,26 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #004879;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.FAQController">
     <children>
-        <VBox alignment="CENTER" prefHeight="650.0" prefWidth="1000.0" spacing="25.0">
+        <VBox alignment="CENTER" fillWidth="false" prefHeight="650.0" prefWidth="1000.0" spacing="25.0">
             <children>
-                <Button fx:id="returnToMainScreen" onAction="#returnToPrimary" prefHeight="32.0" prefWidth="131.0" text="Return">
+                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Frequently Asked Questions:" textAlignment="CENTER" wrappingWidth="451.13671875">
+                    <font>
+                        <Font name="Eras Bold ITC" size="38.0" />
+                    </font>
+                </Text>
+            <TextArea fx:id="FAQtxt" editable="false" prefHeight="400.0" prefWidth="550.0" />
+                <Button fx:id="returnButton" onAction="#returnToPrimary" prefHeight="32.0" prefWidth="131.0" text="Return">
                     <HBox.margin>
                         <Insets right="120.0" />
                     </HBox.margin>
