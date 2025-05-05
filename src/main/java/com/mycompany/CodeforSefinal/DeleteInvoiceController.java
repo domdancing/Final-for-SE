@@ -105,4 +105,14 @@ public class DeleteInvoiceController implements Initializable{
 
         invoiceViewTable.setItems(observableInvoices);
     }
+    
+        @FXML
+    private void faqButton(javafx.event.ActionEvent event) throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("FAQ.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }
