@@ -42,5 +42,4 @@ You're doing that right now, actually. Isn't science wonderful?
 "MY PROBLEM ISN'T LISTED HERE!"
 Don't worry! Simply communicate with us using one of these methods of communication. We are happy to be of assistance.
 
-Phone: 413-555-0198
-[ DISCLAIMER: This number is not currently in service. Before putting this program into use, please insert the desired number by replacing the above value in the .txt document with your contact number. It is also advised you delete this disclaimer prior to beginning service. ]
+[ <insert communication lines here> ]
