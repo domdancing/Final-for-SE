@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #004879;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.ItemCreationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #004879;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.CodeforSefinal.ItemCreationController">
    <children>
       <VBox alignment="CENTER" prefHeight="650.0" prefWidth="1000.0">
          <children>
@@ -86,14 +86,23 @@
                   <Insets left="20.0" right="20.0" />
                </VBox.margin>
             </VBox>
-            <Button mnemonicParsing="false" onAction="#handleReturnToPrimaryFromICP" prefHeight="25.0" prefWidth="119.0" text="Return">
-               <VBox.margin>
-                  <Insets left="400.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Eras Bold ITC" size="15.0" />
-               </font>
-            </Button>
+            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="250.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#faqButton" prefHeight="32.0" prefWidth="127.0" text="FAQ">
+                     <font>
+                        <Font name="Eras Bold ITC" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#handleReturnToPrimaryFromICP" prefHeight="32.0" prefWidth="127.0" text="Return">
+                     <font>
+                        <Font name="Eras Bold ITC" size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </VBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
