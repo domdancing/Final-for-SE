@@ -29,7 +29,7 @@ public class FAQController implements Initializable {
     private Scene scene;
     private Parent root;
     
-    private String fileName = "Frequently Asked Questions.txt/";
+    private String fileName = "src/main/resources/com/mycompany/CodeforSefinal/Frequently Asked Questions.txt";
     
     // FXML Connected method, uses ActionEvent to detect when the button "return" is pressed, when it is pressed it will call the method. 
     @FXML
