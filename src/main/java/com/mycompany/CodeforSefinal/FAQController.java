@@ -1,8 +1,10 @@
 package com.mycompany.CodeforSefinal;
 
+import com.mycompany.CodeforSefinal.Objects.FAQText;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -48,7 +50,9 @@ public class FAQController implements Initializable {
     }
     
     public ArrayList<String> openFile() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader((fileName)));
+        
+        BufferedReader reader = new BufferedReader(new StringReader(FAQText.faqText));
+        //BufferedReader reader = new BufferedReader(new FileReader((fileName)));
         String line;
         ArrayList<String> content = new ArrayList<>();
         while((line = reader.readLine()) != null){

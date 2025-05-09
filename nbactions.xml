@@ -15,6 +15,7 @@
                 <exec.appArgs></exec.appArgs>
                 <exec.mainClass>com.mycompany.CodeforSefinal.App</exec.mainClass>
                 <exec.executable>java</exec.executable>
+                <exec.vmArgs>--module-path "C:\Users\ebwhi\OneDrive\Documents\JavaExternalLibraries\javafx-sdk-24.0.1\lib" --add-modules javafx.controls,javafx.fxml</exec.vmArgs>
             </properties>
         </action>
         <action>
@@ -27,7 +28,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:3.0.0:exec</goal>
             </goals>
             <properties>
-       <exec.vmArgs>--module-path "C:\Users\natha\Downloads\javafx-sdk-24.0.1\lib" --add-modules javafx.controls,javafx.fxml -agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address}</exec.vmArgs>
+       <exec.vmArgs>--module-path "C:\Users\ebwhi\OneDrive\Documents\JavaExternalLibraries\javafx-sdk-24.0.1\lib" --add-modules javafx.controls,javafx.fxml -agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address}</exec.vmArgs>
 
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.appArgs></exec.appArgs>
@@ -47,7 +48,7 @@
             </goals>
             <properties>
 
-                <exec.vmArgs>--module-path "C:\Users\natha\Downloads\javafx-sdk-24.0.1\lib" --add-modules javafx.controls,javafx.fxml</exec.vmArgs>
+                <exec.vmArgs>--module-path "C:\Users\ebwhi\OneDrive\Documents\JavaExternalLibraries\javafx-sdk-24.0.1\lib" --add-modules javafx.controls,javafx.fxml</exec.vmArgs>
 
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.mainClass>${packageClassName}</exec.mainClass>
